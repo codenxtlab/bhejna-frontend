@@ -27,6 +27,7 @@
 			}} 
 			class="space-y-4"
 		>
+			<input type="hidden" name="isSignUp" value={isSignUp ? 'true' : 'false'} />
 			<div>
 				<label for="email" class="block text-sm font-medium text-slate-300 mb-1">Email Address</label>
 				<input
