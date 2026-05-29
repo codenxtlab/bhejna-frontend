@@ -7,16 +7,15 @@ It provides a contract-first API for sending messages, tracking delivery status,
 
  * OpenAPI spec version: 1.0.0
  */
-import type { MessageType } from './messageType';
-import type { SendMessageRequestPayload } from './sendMessageRequestPayload';
+import type { SendMessageRequestTemplate } from './sendMessageRequestTemplate';
+import type { SendMessageRequestText } from './sendMessageRequestText';
+import type { SendMessageRequestType } from './sendMessageRequestType';
 
 export interface SendMessageRequest {
-  /**
-     * E.164 formatted phone number (e.g., +1234567890)
-     * @pattern ^\+?\d{7,15}$
-     */
-  recipient: string;
-  message_type: MessageType;
-  /** Meta-compatible message payload */
-  payload: SendMessageRequestPayload;
+  to: string;
+  from_business_phone: string;
+  idempotency_key: string;
+  type: SendMessageRequestType;
+  text?: SendMessageRequestText;
+  template?: SendMessageRequestTemplate;
 }

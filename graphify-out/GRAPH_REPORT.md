@@ -1,12 +1,12 @@
-# Graph Report - /home/rakshitbhai/bhejna-frontend  (2026-05-10)
+# Graph Report - /home/rakshitbhai/bhejna-frontend  (2026-05-26)
 
 ## Corpus Check
-- 60 files · ~37,194 words
+- 74 files · ~41,601 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 136 nodes · 170 edges · 53 communities detected
-- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 10 edges (avg confidence: 0.8)
+- 165 nodes · 213 edges · 60 communities detected
+- Extraction: 86% EXTRACTED · 14% INFERRED · 0% AMBIGUOUS · INFERRED: 29 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
@@ -63,18 +63,25 @@
 - [[_COMMUNITY_Community 50|Community 50]]
 - [[_COMMUNITY_Community 51|Community 51]]
 - [[_COMMUNITY_Community 52|Community 52]]
+- [[_COMMUNITY_Community 53|Community 53]]
+- [[_COMMUNITY_Community 54|Community 54]]
+- [[_COMMUNITY_Community 55|Community 55]]
+- [[_COMMUNITY_Community 56|Community 56]]
+- [[_COMMUNITY_Community 57|Community 57]]
+- [[_COMMUNITY_Community 58|Community 58]]
+- [[_COMMUNITY_Community 59|Community 59]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `toLocale()` - 12 edges
 2. `localizeUrl()` - 11 edges
-3. `paraglideMiddleware()` - 10 edges
-4. `getStrategyForUrl()` - 9 edges
-5. `resolveLocaleWithStrategies()` - 9 edges
-6. `getLocale()` - 8 edges
-7. `extractLocaleFromRequestWithStrategies()` - 8 edges
-8. `extractLocaleFromRequestAsync()` - 8 edges
-9. `deLocalizeUrl()` - 8 edges
-10. `shouldRedirect()` - 8 edges
+3. `paraglideMiddleware()` - 11 edges
+4. `resolveLocaleWithStrategies()` - 10 edges
+5. `getStrategyForUrl()` - 9 edges
+6. `extractLocaleFromRequestWithStrategies()` - 9 edges
+7. `extractLocaleFromRequestAsync()` - 9 edges
+8. `GET()` - 9 edges
+9. `getLocale()` - 8 edges
+10. `deLocalizeUrl()` - 8 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `isCustomStrategy()` --calls--> `test()`  [INFERRED]
@@ -91,40 +98,40 @@
 ## Communities
 
 ### Community 0 - "Community 0"
-Cohesion: 0.17
-Nodes (15): defineCustomClientStrategy(), defineCustomServerStrategy(), extractLocaleFromRequestAsync(), findMatchingRouteStrategy(), getLocale(), getLocaleForUrl(), getStrategyForUrl(), isCustomStrategy() (+7 more)
+Cohesion: 0.14
+Nodes (27): assertIsLocale(), defaultUrlPatternExtractLocale(), defineCustomClientStrategy(), defineCustomServerStrategy(), extractLocaleFromCookie(), extractLocaleFromHeader(), extractLocaleFromNavigator(), extractLocaleFromRequest() (+19 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.29
-Nodes (12): assertIsLocale(), defaultUrlPatternExtractLocale(), extractLocaleFromCookie(), extractLocaleFromHeader(), extractLocaleFromNavigator(), extractLocaleFromRequest(), extractLocaleFromRequestWithStrategies(), extractLocaleFromUrl() (+4 more)
+Cohesion: 0.24
+Nodes (13): forceGenerateWebhookType(), getForceGenerateWebhookTypeUrl(), getGetV1MetaWebhookUrl(), getPauseTenantUrl(), getPostV1MetaWebhookUrl(), getSendMessageUrl(), getSyncTenantUrl(), getV1MetaWebhook() (+5 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.23
-Nodes (11): reroute(), aggregateGroups(), deLocalizeHref(), deLocalizeUrl(), deLocalizeUrlDefaultPattern(), fillMissingUrlParts(), fillPattern(), generateStaticLocalizedUrls() (+3 more)
+Cohesion: 0.21
+Nodes (12): reroute(), aggregateGroups(), deLocalizeHref(), deLocalizeUrl(), deLocalizeUrlDefaultPattern(), fillMissingUrlParts(), fillPattern(), generateStaticLocalizedUrls() (+4 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.25
-Nodes (5): number(), plural(), relativetime(), getSupabase(), POST()
+Cohesion: 0.24
+Nodes (8): handleParaglide(), handleSupabase(), overwriteServerAsyncLocalStorage(), cloneRequestWithFallback(), createMockAsyncLocalStorage(), createSupabaseServerClient(), paraglideMiddleware(), resolveMiddlewareUrl()
 
 ### Community 4 - "Community 4"
-Cohesion: 0.31
-Nodes (6): handleParaglide(), overwriteServerAsyncLocalStorage(), cloneRequestWithFallback(), createMockAsyncLocalStorage(), paraglideMiddleware(), resolveMiddlewareUrl()
+Cohesion: 0.24
+Nodes (5): number(), plural(), relativetime(), getSupabase(), POST()
 
 ### Community 5 - "Community 5"
-Cohesion: 0.5
-Nodes (2): getHighlighter(), highlight()
+Cohesion: 0.39
+Nodes (5): compileOpenAPI(), validateMarkdownReferences(), walkDir(), load(), syncOpenAPI()
 
 ### Community 6 - "Community 6"
-Cohesion: 0.67
-Nodes (2): compileOpenAPI(), syncOpenAPI()
+Cohesion: 0.33
+Nodes (2): getHighlighter(), highlight()
 
 ### Community 7 - "Community 7"
-Cohesion: 0.67
-Nodes (1): load()
+Cohesion: 0.5
+Nodes (2): createSupabaseBrowserClient(), load()
 
 ### Community 8 - "Community 8"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (1): test()
 
 ### Community 9 - "Community 9"
 Cohesion: 1.0
@@ -168,7 +175,7 @@ Nodes (0):
 
 ### Community 19 - "Community 19"
 Cohesion: 1.0
-Nodes (1): test()
+Nodes (0): 
 
 ### Community 20 - "Community 20"
 Cohesion: 1.0
@@ -302,106 +309,150 @@ Nodes (0):
 Cohesion: 1.0
 Nodes (0): 
 
+### Community 53 - "Community 53"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 54 - "Community 54"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 55 - "Community 55"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 56 - "Community 56"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 57 - "Community 57"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 58 - "Community 58"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 59 - "Community 59"
+Cohesion: 1.0
+Nodes (0): 
+
 ## Knowledge Gaps
-- **Thin community `Community 8`** (2 nodes): `hello_world()`, `en.js`
+- **Thin community `Community 8`** (2 nodes): `test_shiki.js`, `test()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 9`** (2 nodes): `hello_world()`, `es.js`
+- **Thin community `Community 9`** (2 nodes): `hello_world()`, `en.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 10`** (2 nodes): `hello_world()`, `de.js`
+- **Thin community `Community 10`** (2 nodes): `hello_world()`, `es.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 11`** (2 nodes): `hello_world()`, `ch.js`
+- **Thin community `Community 11`** (2 nodes): `hello_world()`, `de.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 12`** (2 nodes): `toggleSearch()`, `DocsLayout.svelte`
+- **Thin community `Community 12`** (2 nodes): `hello_world()`, `ch.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 13`** (2 nodes): `Search.svelte`, `handleKeydown()`
+- **Thin community `Community 13`** (2 nodes): `toc.ts`, `extractToc()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 14`** (2 nodes): `SchemaTable.svelte`, `getTypeLabel()`
+- **Thin community `Community 14`** (2 nodes): `openapi-vite.ts`, `openapiCompilerPlugin()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 15`** (2 nodes): `toc.ts`, `extractToc()`
+- **Thin community `Community 15`** (2 nodes): `+layout.server.ts`, `load()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 16`** (2 nodes): `openapi-vite.ts`, `openapiCompilerPlugin()`
+- **Thin community `Community 16`** (1 nodes): `svelte.config.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 17`** (2 nodes): `+layout.server.ts`, `load()`
+- **Thin community `Community 17`** (1 nodes): `vite.config.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 18`** (2 nodes): `+page.server.ts`, `load()`
+- **Thin community `Community 18`** (1 nodes): `eslint.config.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 19`** (2 nodes): `test_shiki.js`, `test()`
+- **Thin community `Community 19`** (1 nodes): `orval.config.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 20`** (1 nodes): `vite.config.ts`
+- **Thin community `Community 20`** (1 nodes): `app.d.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 21`** (1 nodes): `eslint.config.js`
+- **Thin community `Community 21`** (1 nodes): `index.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 22`** (1 nodes): `app.d.ts`
+- **Thin community `Community 22`** (1 nodes): `messages.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 23`** (1 nodes): `index.ts`
+- **Thin community `Community 23`** (1 nodes): `_index.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 24`** (1 nodes): `supabase.ts`
+- **Thin community `Community 24`** (1 nodes): `openapi.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 25`** (1 nodes): `messages.js`
+- **Thin community `Community 25`** (1 nodes): `zod.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 26`** (1 nodes): `_index.js`
+- **Thin community `Community 26`** (1 nodes): `messageType.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 27`** (1 nodes): `Sidebar.svelte`
+- **Thin community `Community 27`** (1 nodes): `sendMessageRequestPayload.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 28`** (1 nodes): `CodeBlock.svelte`
+- **Thin community `Community 28`** (1 nodes): `sendMessageRequest.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 29`** (1 nodes): `Callout.svelte`
+- **Thin community `Community 29`** (1 nodes): `sendMessageResponseStatus.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 30`** (1 nodes): `ApiEndpoint.svelte`
+- **Thin community `Community 30`** (1 nodes): `sendMessageResponse.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 31`** (1 nodes): `CodeGroup.svelte`
+- **Thin community `Community 31`** (1 nodes): `tenant.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 32`** (1 nodes): `index.ts`
+- **Thin community `Community 32`** (1 nodes): `successResponseData.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 33`** (1 nodes): `Heading.svelte`
+- **Thin community `Community 33`** (1 nodes): `successResponse.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 34`** (1 nodes): `Pre.svelte`
+- **Thin community `Community 34`** (1 nodes): `errorResponseError.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 35`** (1 nodes): `Blockquote.svelte`
+- **Thin community `Community 35`** (1 nodes): `errorResponse.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 36`** (1 nodes): `Table.svelte`
+- **Thin community `Community 36`** (1 nodes): `webhookPayloadEntryItemChangesItemValueMetadata.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 37`** (1 nodes): `index.ts`
+- **Thin community `Community 37`** (1 nodes): `webhookPayloadEntryItemChangesItemValueStatusesItemStatus.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 38`** (1 nodes): `List.svelte`
+- **Thin community `Community 38`** (1 nodes): `webhookPayloadEntryItemChangesItemValueStatusesItemErrorsItem.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 39`** (1 nodes): `H1.svelte`
+- **Thin community `Community 39`** (1 nodes): `webhookPayloadEntryItemChangesItemValueStatusesItem.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 40`** (1 nodes): `H2.svelte`
+- **Thin community `Community 40`** (1 nodes): `webhookPayloadEntryItemChangesItemValueMessagesItemText.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 41`** (1 nodes): `H3.svelte`
+- **Thin community `Community 41`** (1 nodes): `webhookPayloadEntryItemChangesItemValueMessagesItem.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 42`** (1 nodes): `Ul.svelte`
+- **Thin community `Community 42`** (1 nodes): `webhookPayloadEntryItemChangesItemValue.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 43`** (1 nodes): `Ol.svelte`
+- **Thin community `Community 43`** (1 nodes): `webhookPayloadEntryItemChangesItem.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 44`** (1 nodes): `openapi.ts`
+- **Thin community `Community 44`** (1 nodes): `webhookPayloadEntryItem.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 45`** (1 nodes): `+layout.svelte`
+- **Thin community `Community 45`** (1 nodes): `webhookPayload.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 46`** (1 nodes): `+page.svelte`
+- **Thin community `Community 46`** (1 nodes): `sendMessage202.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 47`** (1 nodes): `+page.svelte`
+- **Thin community `Community 47`** (1 nodes): `syncTenantBody.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 48`** (1 nodes): `+page.server.ts`
+- **Thin community `Community 48`** (1 nodes): `index.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 49`** (1 nodes): `+page.svelte`
+- **Thin community `Community 49`** (1 nodes): `getV1MetaWebhookParams.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 50`** (1 nodes): `+page.svelte`
+- **Thin community `Community 50`** (1 nodes): `tenantWhatsappStatus.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 51`** (1 nodes): `+layout.svelte`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 52`** (1 nodes): `inject-imports.py`
+- **Thin community `Community 52`** (1 nodes): `+page.svelte`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 53`** (1 nodes): `+page.svelte`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 54`** (1 nodes): `+page.server.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 55`** (1 nodes): `+page.svelte`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 56`** (1 nodes): `+page.svelte`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 57`** (1 nodes): `+page.svelte`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 58`** (1 nodes): `+page.svelte`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 59`** (1 nodes): `inject-imports.py`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `paraglideMiddleware()` connect `Community 4` to `Community 0`, `Community 2`?**
-  _High betweenness centrality (0.041) - this node is a cross-community bridge._
-- **Why does `deLocalizeUrl()` connect `Community 2` to `Community 0`, `Community 4`?**
-  _High betweenness centrality (0.022) - this node is a cross-community bridge._
-- **Why does `isCustomStrategy()` connect `Community 0` to `Community 1`, `Community 19`?**
-  _High betweenness centrality (0.013) - this node is a cross-community bridge._
-- **Are the 6 inferred relationships involving `paraglideMiddleware()` (e.g. with `handleParaglide()` and `overwriteServerAsyncLocalStorage()`) actually correct?**
-  _`paraglideMiddleware()` has 6 INFERRED edges - model-reasoned connections that need verification._
+- **Why does `GET()` connect `Community 0` to `Community 1`, `Community 3`, `Community 4`?**
+  _High betweenness centrality (0.129) - this node is a cross-community bridge._
+- **Why does `paraglideMiddleware()` connect `Community 3` to `Community 0`, `Community 2`?**
+  _High betweenness centrality (0.071) - this node is a cross-community bridge._
+- **Why does `customFetch()` connect `Community 1` to `Community 0`?**
+  _High betweenness centrality (0.069) - this node is a cross-community bridge._
+- **Are the 7 inferred relationships involving `paraglideMiddleware()` (e.g. with `handleParaglide()` and `overwriteServerAsyncLocalStorage()`) actually correct?**
+  _`paraglideMiddleware()` has 7 INFERRED edges - model-reasoned connections that need verification._
+- **Should `Community 0` be split into smaller, more focused modules?**
+  _Cohesion score 0.14 - nodes in this community are weakly interconnected._

@@ -10,7 +10,7 @@ info:
     url: https://codenxtlab.tech
 
 servers:
-  - url: https://api.bhejna.codenxtlab.tech
+  - url: https://bhejna-api.codenxtlab.tech
     description: Production Server
 
 tags:

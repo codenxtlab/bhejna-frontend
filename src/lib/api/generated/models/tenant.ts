@@ -7,12 +7,14 @@ It provides a contract-first API for sending messages, tracking delivery status,
 
  * OpenAPI spec version: 1.0.0
  */
+import type { TenantWhatsappStatus } from './tenantWhatsappStatus';
 
 export interface Tenant {
   id: string;
-  waba_id: string;
-  phone_number_id: string;
+  waba_id?: string;
+  phone_number_id?: string;
   api_key?: string;
+  whatsapp_status?: TenantWhatsappStatus;
   messaging_limit?: number;
   quality_rating?: string;
   is_paused?: boolean;

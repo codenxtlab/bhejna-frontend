@@ -15,7 +15,7 @@ export const spec = {
   },
   "servers": [
     {
-      "url": "https://api.bhejna.codenxtlab.tech",
+      "url": "https://bhejna-api.codenxtlab.tech",
       "description": "Production Server"
     }
   ],

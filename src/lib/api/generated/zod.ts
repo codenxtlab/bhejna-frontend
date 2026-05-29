@@ -24,39 +24,32 @@ export const GetV1MetaWebhookQueryParams = zod.object({
  * @summary Meta Webhook Payload Receiver
  */
 export const PostV1MetaWebhookBody = zod.object({
-  "object": zod.string(),
-  "entry": zod.array(zod.object({
-  "id": zod.string().describe('WhatsApp Business Account ID'),
-  "changes": zod.array(zod.object({
-  "field": zod.string(),
-  "value": zod.object({
-  "messaging_product": zod.string().optional(),
-  "metadata": zod.object({
-  "display_phone_number": zod.string().optional(),
-  "phone_number_id": zod.string().optional()
+  "bhejna_event_id": zod.uuid(),
+  "event_type": zod.string(),
+  "channel": zod.string(),
+  "received_at": zod.iso.datetime({"offset":true}),
+  "business_phone_number": zod.string(),
+  "sender": zod.object({
+  "whatsapp_identifier": zod.string(),
+  "bsuid": zod.string(),
+  "phone_number": zod.string().nullish(),
+  "is_phone_masked": zod.boolean(),
+  "display_name": zod.string()
 }).optional(),
-  "statuses": zod.array(zod.object({
-  "id": zod.string().optional(),
-  "status": zod.enum(['sent', 'delivered', 'read', 'failed', 'deleted']).optional(),
-  "timestamp": zod.string().optional(),
-  "recipient_id": zod.string().optional(),
-  "errors": zod.array(zod.object({
-  "code": zod.number().optional(),
-  "title": zod.string().optional()
-})).optional()
-})).optional(),
-  "messages": zod.array(zod.object({
-  "from": zod.string().optional(),
-  "id": zod.string().optional(),
-  "timestamp": zod.string().optional(),
-  "type": zod.string().optional(),
-  "text": zod.object({
-  "body": zod.string().optional()
+  "message": zod.object({
+  "meta_message_id": zod.string(),
+  "type": zod.string(),
+  "body": zod.string(),
+  "button_payload": zod.string().nullish(),
+  "reply_to_meta_message_id": zod.string().nullish()
+}).optional(),
+  "status_update": zod.object({
+  "meta_message_id": zod.string(),
+  "status": zod.enum(['sent', 'delivered', 'read', 'failed']),
+  "recipient_bsuid": zod.string(),
+  "conversation_id": zod.string().nullish(),
+  "pricing_category": zod.string().nullish()
 }).optional()
-})).optional()
-})
-}))
-}))
 })
 
 
@@ -64,39 +57,32 @@ export const PostV1MetaWebhookBody = zod.object({
  * Internal shadow endpoint to force generation of WebhookPayload type.
  */
 export const ForceGenerateWebhookTypeResponse = zod.object({
-  "object": zod.string(),
-  "entry": zod.array(zod.object({
-  "id": zod.string().describe('WhatsApp Business Account ID'),
-  "changes": zod.array(zod.object({
-  "field": zod.string(),
-  "value": zod.object({
-  "messaging_product": zod.string().optional(),
-  "metadata": zod.object({
-  "display_phone_number": zod.string().optional(),
-  "phone_number_id": zod.string().optional()
+  "bhejna_event_id": zod.uuid(),
+  "event_type": zod.string(),
+  "channel": zod.string(),
+  "received_at": zod.iso.datetime({"offset":true}),
+  "business_phone_number": zod.string(),
+  "sender": zod.object({
+  "whatsapp_identifier": zod.string(),
+  "bsuid": zod.string(),
+  "phone_number": zod.string().nullish(),
+  "is_phone_masked": zod.boolean(),
+  "display_name": zod.string()
 }).optional(),
-  "statuses": zod.array(zod.object({
-  "id": zod.string().optional(),
-  "status": zod.enum(['sent', 'delivered', 'read', 'failed', 'deleted']).optional(),
-  "timestamp": zod.string().optional(),
-  "recipient_id": zod.string().optional(),
-  "errors": zod.array(zod.object({
-  "code": zod.number().optional(),
-  "title": zod.string().optional()
-})).optional()
-})).optional(),
-  "messages": zod.array(zod.object({
-  "from": zod.string().optional(),
-  "id": zod.string().optional(),
-  "timestamp": zod.string().optional(),
-  "type": zod.string().optional(),
-  "text": zod.object({
-  "body": zod.string().optional()
+  "message": zod.object({
+  "meta_message_id": zod.string(),
+  "type": zod.string(),
+  "body": zod.string(),
+  "button_payload": zod.string().nullish(),
+  "reply_to_meta_message_id": zod.string().nullish()
+}).optional(),
+  "status_update": zod.object({
+  "meta_message_id": zod.string(),
+  "status": zod.enum(['sent', 'delivered', 'read', 'failed']),
+  "recipient_bsuid": zod.string(),
+  "conversation_id": zod.string().nullish(),
+  "pricing_category": zod.string().nullish()
 }).optional()
-})).optional()
-})
-}))
-}))
 })
 
 
@@ -108,15 +94,34 @@ export const SendMessageHeader = zod.object({
   "Idempotency-Key": zod.string().optional().describe('Unique key to prevent duplicate message processing')
 })
 
-export const sendMessageBodyRecipientRegExp = new RegExp('^\\+?\\d{7,15}$');
-
-
 export const SendMessageBody = zod.object({
-  "recipient": zod.string().regex(sendMessageBodyRecipientRegExp).describe('E.164 formatted phone number (e.g., +1234567890)'),
-  "message_type": zod.enum(['text', 'template', 'image', 'document', 'audio', 'video', 'sticker', 'location', 'contacts', 'interactive']).describe('Allowed WhatsApp message types'),
-  "payload": zod.looseObject({
-
-}).describe('Meta-compatible message payload')
+  "to": zod.string(),
+  "from_business_phone": zod.string(),
+  "idempotency_key": zod.string(),
+  "type": zod.enum(['text', 'template']),
+  "text": zod.object({
+  "body": zod.string()
+}).optional(),
+  "template": zod.object({
+  "template_code": zod.string(),
+  "language": zod.string(),
+  "components": zod.array(zod.object({
+  "type": zod.enum(['header', 'body', 'button']),
+  "parameters": zod.array(zod.object({
+  "type": zod.enum(['text', 'currency', 'date_time', 'image', 'document', 'video']),
+  "text": zod.string().optional(),
+  "image": zod.object({
+  "link": zod.string()
+}).optional(),
+  "document": zod.object({
+  "link": zod.string()
+}).optional(),
+  "video": zod.object({
+  "link": zod.string()
+}).optional()
+})).optional()
+})).optional()
+}).optional()
 })
 
 
@@ -124,11 +129,15 @@ export const SendMessageBody = zod.object({
  * Internal endpoint to provision or update tenant configuration.
  * @summary Sync or provision a tenant
  */
+export const syncTenantBodyOneWhatsappStatusDefault = `UNCONNECTED`;
+export const syncTenantBodyTwoRecordWhatsappStatusDefault = `UNCONNECTED`;
+
 export const SyncTenantBody = zod.union([zod.object({
   "id": zod.string(),
-  "waba_id": zod.string(),
-  "phone_number_id": zod.string(),
+  "waba_id": zod.string().optional(),
+  "phone_number_id": zod.string().optional(),
   "api_key": zod.string().optional(),
+  "whatsapp_status": zod.enum(['UNCONNECTED', 'PENDING_ONBOARDING', 'ACTIVE']).default(syncTenantBodyOneWhatsappStatusDefault),
   "messaging_limit": zod.number().optional(),
   "quality_rating": zod.string().optional(),
   "is_paused": zod.boolean().optional(),
@@ -138,9 +147,10 @@ export const SyncTenantBody = zod.union([zod.object({
 }),zod.object({
   "record": zod.object({
   "id": zod.string(),
-  "waba_id": zod.string(),
-  "phone_number_id": zod.string(),
+  "waba_id": zod.string().optional(),
+  "phone_number_id": zod.string().optional(),
   "api_key": zod.string().optional(),
+  "whatsapp_status": zod.enum(['UNCONNECTED', 'PENDING_ONBOARDING', 'ACTIVE']).default(syncTenantBodyTwoRecordWhatsappStatusDefault),
   "messaging_limit": zod.number().optional(),
   "quality_rating": zod.string().optional(),
   "is_paused": zod.boolean().optional(),

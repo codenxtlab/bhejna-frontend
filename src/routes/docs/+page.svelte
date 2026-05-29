@@ -103,7 +103,7 @@
 						<span class="text-xs font-semibold text-slate-300">Send Message</span>
 					</div>
 					<button 
-						onclick={() => copyToClipboard('curl -X POST "https://api.bhejna.codenxtlab.tech/v1/messages" \\\n  -H "Authorization: Bearer YOUR_API_KEY" \\\n  -H "Content-Type: application/json" \\\n  -d \'{\n    "recipient": "+1234567890",\n    "message_type": "template",\n    "payload": {\n      "template": {\n        "name": "hello_world",\n        "language": {\n          "code": "en_US"\n        }\n      }\n    }\n  }\'', 'curl')}
+						onclick={() => copyToClipboard('curl -X POST "https://bhejna-api.codenxtlab.tech/v1/messages" \\\n  -H "Authorization: Bearer YOUR_API_KEY" \\\n  -H "Content-Type: application/json" \\\n  -d \'{\n    "recipient": "+1234567890",\n    "message_type": "template",\n    "payload": {\n      "template": {\n        "name": "hello_world",\n        "language": {\n          "code": "en_US"\n        }\n      }\n    }\n  }\'', 'curl')}
 						class="p-2 text-slate-500 hover:text-white transition-colors rounded-lg"
 					>
 						{#if copiedId === 'curl'}
@@ -113,7 +113,7 @@
 						{/if}
 					</button>
 				</div>
-				<pre class="p-6 overflow-x-auto"><code class="text-sm font-mono text-slate-300">curl -X POST "https://api.bhejna.codenxtlab.tech/v1/messages" \
+				<pre class="p-6 overflow-x-auto"><code class="text-sm font-mono text-slate-300">curl -X POST "https://bhejna-api.codenxtlab.tech/v1/messages" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '&lcub;

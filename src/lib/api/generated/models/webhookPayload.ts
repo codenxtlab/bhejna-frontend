@@ -7,9 +7,17 @@ It provides a contract-first API for sending messages, tracking delivery status,
 
  * OpenAPI spec version: 1.0.0
  */
-import type { WebhookPayloadEntryItem } from './webhookPayloadEntryItem';
+import type { WebhookPayloadMessage } from './webhookPayloadMessage';
+import type { WebhookPayloadSender } from './webhookPayloadSender';
+import type { WebhookPayloadStatusUpdate } from './webhookPayloadStatusUpdate';
 
 export interface WebhookPayload {
-  object: string;
-  entry: WebhookPayloadEntryItem[];
+  bhejna_event_id: string;
+  event_type: string;
+  channel: string;
+  received_at: string;
+  business_phone_number: string;
+  sender?: WebhookPayloadSender;
+  message?: WebhookPayloadMessage;
+  status_update?: WebhookPayloadStatusUpdate;
 }

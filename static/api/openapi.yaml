@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
   title: Bhejna API
   description: >
@@ -13,7 +13,7 @@ info:
 servers:
   - url: https://sandbox.bhejna.codenxtlab.tech
     description: Sandbox Server
-  - url: https://api.bhejna.codenxtlab.tech
+  - url: https://bhejna-api.codenxtlab.tech
     description: Production Server
 tags:
   - name: Messages
@@ -50,22 +50,94 @@ components:
     SendMessageRequest:
       type: object
       required:
-        - recipient
-        - message_type
-        - payload
+        - from_business_phone
+        - idempotency_key
+        - type
       properties:
-        recipient:
+        to_bsuid:
           type: string
-          description: E.164 formatted phone number (e.g., +1234567890)
-          pattern: ^\+?\d{7,15}$
-          example: '+1234567890'
-        message_type:
-          $ref: '#/components/schemas/MessageType'
-        payload:
+          nullable: true
+        to_phone:
+          type: string
+          nullable: true
+        from_business_phone:
+          type: string
+        idempotency_key:
+          type: string
+        type:
+          type: string
+          enum:
+            - text
+            - template
+        text:
           type: object
-          description: Meta-compatible message payload
-          example:
-            body: Hello, this is a test message from Bhejna!
+          required:
+            - body
+          properties:
+            body:
+              type: string
+        template:
+          type: object
+          required:
+            - template_code
+            - language
+          properties:
+            template_code:
+              type: string
+            language:
+              type: string
+            components:
+              type: array
+              items:
+                type: object
+                required:
+                  - type
+                properties:
+                  type:
+                    type: string
+                    enum:
+                      - header
+                      - body
+                      - button
+                  parameters:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - type
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                            - text
+                            - currency
+                            - date_time
+                            - image
+                            - document
+                            - video
+                        text:
+                          type: string
+                        image:
+                          type: object
+                          required:
+                            - link
+                          properties:
+                            link:
+                              type: string
+                        document:
+                          type: object
+                          required:
+                            - link
+                          properties:
+                            link:
+                              type: string
+                        video:
+                          type: object
+                          required:
+                            - link
+                          properties:
+                            link:
+                              type: string
     SendMessageResponse:
       type: object
       required:
@@ -83,8 +155,6 @@ components:
       type: object
       required:
         - id
-        - waba_id
-        - phone_number_id
       properties:
         id:
           type: string
@@ -94,6 +164,13 @@ components:
           type: string
         api_key:
           type: string
+        whatsapp_status:
+          type: string
+          enum:
+            - UNCONNECTED
+            - PENDING_ONBOARDING
+            - ACTIVE
+          default: UNCONNECTED
         messaging_limit:
           type: integer
         quality_rating:
@@ -150,94 +227,126 @@ components:
     WebhookPayload:
       type: object
       required:
-        - object
-        - entry
+        - bhejna_event_id
+        - event_type
+        - channel
+        - received_at
+        - business_phone_number
       properties:
-        object:
+        bhejna_event_id:
           type: string
-          example: whatsapp_business_account
-        entry:
-          type: array
-          items:
-            type: object
-            required:
-              - id
-              - changes
-            properties:
-              id:
-                type: string
-                description: WhatsApp Business Account ID
-              changes:
-                type: array
-                items:
-                  type: object
-                  required:
-                    - field
-                    - value
-                  properties:
-                    field:
-                      type: string
-                      example: messages
-                    value:
-                      type: object
-                      properties:
-                        messaging_product:
-                          type: string
-                          example: whatsapp
-                        metadata:
-                          type: object
-                          properties:
-                            display_phone_number:
-                              type: string
-                            phone_number_id:
-                              type: string
-                        statuses:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              id:
-                                type: string
-                              status:
-                                type: string
-                                enum:
-                                  - sent
-                                  - delivered
-                                  - read
-                                  - failed
-                                  - deleted
-                              timestamp:
-                                type: string
-                              recipient_id:
-                                type: string
-                              errors:
-                                type: array
-                                items:
-                                  type: object
-                                  properties:
-                                    code:
-                                      type: integer
-                                    title:
-                                      type: string
-                        messages:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              from:
-                                type: string
-                              id:
-                                type: string
-                              timestamp:
-                                type: string
-                              type:
-                                type: string
-                              text:
-                                type: object
-                                properties:
-                                  body:
-                                    type: string
+          format: uuid
+        event_type:
+          type: string
+        channel:
+          type: string
+        received_at:
+          type: string
+          format: date-time
+        business_phone_number:
+          type: string
+        sender:
+          type: object
+          required:
+            - bsuid
+            - display_name
+          properties:
+            bsuid:
+              type: string
+            phone_number:
+              type: string
+              nullable: true
+            display_name:
+              type: string
+        message:
+          type: object
+          required:
+            - meta_message_id
+            - type
+            - body
+          properties:
+            meta_message_id:
+              type: string
+            type:
+              type: string
+            body:
+              type: string
+            button_payload:
+              type: string
+              nullable: true
+            reply_to_meta_message_id:
+              type: string
+              nullable: true
+        status_update:
+          type: object
+          required:
+            - meta_message_id
+            - status
+            - recipient_bsuid
+          properties:
+            meta_message_id:
+              type: string
+            status:
+              type: string
+              enum:
+                - sent
+                - delivered
+                - read
+                - failed
+            recipient_bsuid:
+              type: string
+            conversation_id:
+              type: string
+              nullable: true
+            pricing_category:
+              type: string
+              nullable: true
 paths:
+  /v1/meta/webhook:
+    get:
+      operationId: GetV1MetaWebhook
+      tags:
+        - Webhooks
+      summary: Meta Webhook Verification
+      parameters:
+        - in: query
+          name: hub.mode
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: hub.challenge
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: hub.verify_token
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+    post:
+      operationId: PostV1MetaWebhook
+      tags:
+        - Webhooks
+      summary: Meta Webhook Payload Receiver
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookPayload'
+      responses:
+        '200':
+          description: OK
   /v1/messages:
     post:
       operationId: sendMessage

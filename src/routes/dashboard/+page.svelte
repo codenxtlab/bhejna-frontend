@@ -8,13 +8,16 @@
 	let loading = $state(false);
 	let provisioning = $state(false);
 	let userEmail = $derived(data.user?.email || '');
+	let whatsappStatus = $derived(data.tenant?.whatsapp_status || 'UNCONNECTED');
 	let waba_id = $state('');
 	let phone_number_id = $state('');
 	let apiKey = $state('');
 	let error = $state('');
 
 	// API Playground state
-	let recipientPhone = $state('');
+	let recipientTarget = $state('');
+	let testMessageBody = $state('');
+	let playgroundMode = $state<'template' | 'text'>('template');
 	let testing = $state(false);
 	let updatingWebhook = $state(false);
 	let testResult = $state('');
@@ -66,22 +69,31 @@
 		navigator.clipboard.writeText(apiKey);
 	}
 
-	async function handleTestMessage(e: SubmitEvent) {
-		e.preventDefault();
+	async function handleTestMessage(msgType: 'text' | 'template') {
 		testing = true;
 		testResult = '';
 		testError = '';
-		if (!recipientPhone) {
-			testError = 'Recipient phone is required for sending messages.';
+		if (!recipientTarget) {
+			testError = 'Recipient target is required for sending messages.';
 			testing = false;
 			return;
 		}
 
 		try {
+			const reqBody: any = {
+				recipient_target: recipientTarget,
+				type: msgType
+			};
+			if (msgType === 'text') {
+				reqBody.text_body = testMessageBody || "This is a live test from the Bhejna uniform gateway!";
+			} else if (msgType === 'template') {
+				reqBody.template_code = "hello_world";
+			}
+
 			const res = await fetch('/api/test-message', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ recipient_phone: recipientPhone })
+				body: JSON.stringify(reqBody)
 			});
 
 			const resData = await res.json();
@@ -142,25 +154,81 @@
 							<h2 class="text-sm font-semibold text-slate-200">WhatsApp Connection</h2>
 						</div>
 						<div class="p-6">
-							{#if data.tenant}
-								<div class="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-lg">
-									<div class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div>
-									<div class="flex flex-col">
-										<span class="text-sm font-medium text-emerald-400">Connected to WhatsApp API</span>
-										<span class="text-xs font-mono text-slate-500 mt-1">WABA ID: {data.tenant.waba_id}</span>
+							{#if whatsappStatus === 'ACTIVE'}
+								<div class="flex items-start gap-4 rounded-lg bg-emerald-950/30 border border-emerald-800/60 p-4 text-emerald-400">
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-none stroke-current stroke-2 shrink-0 mt-0.5" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+									</svg>
+									<div>
+										<p class="font-semibold text-sm text-emerald-200">Gateway Active & Operational</p>
+										<p class="text-xs text-emerald-500/90 mt-1 leading-relaxed">
+											Your WABA ID (<span class="font-mono text-emerald-400">{data.tenant?.waba_id}</span>) and Phone Number ID are hot-hydrated for zero-latency webhook multiplexing.
+										</p>
 									</div>
+								</div>
+							{:else if whatsappStatus === 'PENDING_ONBOARDING'}
+								<div class="rounded-lg bg-amber-950/30 border border-amber-800/60 p-4 text-amber-400 mb-5">
+									<div class="flex items-start gap-4">
+										<div class="h-2 w-2 rounded-full bg-amber-500 animate-pulse shrink-0 mt-2"></div>
+										<div>
+											<p class="font-semibold text-sm text-amber-200">Awaiting Meta Verification</p>
+											<p class="text-xs text-amber-500/90 mt-1 leading-relaxed">
+												Your setup is pending confirmation from Meta's asynchronous systems. Click track below to monitor activation.
+											</p>
+										</div>
+									</div>
+								</div>
+								
+								<div class="space-y-3">
+									<a 
+										href="/onboarding-success" 
+										class="inline-flex w-full justify-center items-center rounded-lg bg-amber-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-amber-500 shadow-md shadow-amber-950/40"
+									>
+										Track Real-time Sync Progress
+									</a>
+									
+									<form method="POST" action="?/cancelOnboarding" use:enhance class="w-full">
+										<button 
+											type="submit"
+											class="inline-flex w-full justify-center items-center rounded-lg border border-red-500/20 hover:border-red-500/40 bg-red-950/10 hover:bg-red-950/20 px-4 py-2.5 text-sm font-medium text-red-400 transition cursor-pointer"
+										>
+											Reset & Start Over
+										</button>
+									</form>
 								</div>
 							{:else}
 								<div class="space-y-6">
 									<div class="bg-blue-500/5 border border-white/[0.05] p-4 rounded-lg">
 										<h3 class="text-sm font-medium text-blue-400 mb-1">Embedded Signup (Recommended)</h3>
 										<p class="text-xs text-slate-400 mb-4">The fastest way to connect your WhatsApp Business Account via Meta's official onboarding.</p>
-										<a href="/dashboard/connect" class="inline-flex items-center justify-center bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold px-4 py-2 rounded-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] transition-all active:scale-[0.98]">
-											<svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-												<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.393 0 12.03c0 2.12.551 4.189 1.595 6.048L0 24l6.105-1.602a11.83 11.83 0 005.937 1.598h.005c6.637 0 12.032-5.395 12.035-12.032a11.762 11.762 0 00-3.528-8.508z"/>
-											</svg>
-											Connect WhatsApp Account
-										</a>
+										<form 
+											method="POST" 
+											action="?/initializeOnboarding" 
+											use:enhance={() => {
+												loading = true;
+												return async ({ result }) => {
+													loading = false;
+													const res = result as any;
+													const onboardingUrl = res.data?.onboardingUrl;
+													if (res.type === 'success' && onboardingUrl) {
+														// Open Meta onboarding portal in a new tab securely
+														window.open(onboardingUrl, '_blank');
+														// Navigate current workspace view to success tracker
+														goto('/onboarding-success');
+													}
+												};
+											}}
+										>
+											<button 
+												type="submit"
+												class="inline-flex w-full justify-center items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-blue-500 shadow-md shadow-blue-950/30 cursor-pointer"
+											>
+												<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+													<path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+												</svg>
+												Connect WhatsApp Workspace
+											</button>
+										</form>
 									</div>
 
 									<div class="relative py-2">
@@ -238,6 +306,28 @@
 									</p>
 								</div>
 							{/if}
+
+							<details class="group mt-8 border-t border-slate-900 pt-6">
+								<summary class="flex items-center justify-between cursor-pointer list-none text-xs font-semibold text-slate-500 hover:text-slate-400 select-none">
+									<span>Advanced Diagnostics & Recovery</span>
+									<span class="transition-transform group-open:rotate-180 text-[10px]">▼</span>
+								</summary>
+								
+								<div class="mt-4 rounded-xl border border-dashed border-amber-950/40 bg-amber-950/5 p-4">
+									<p class="text-[11px] leading-relaxed text-amber-500/90 font-medium mb-3">
+										<strong>Integration Rescue Hatch:</strong> If your incoming messages or status checkmarks are not delivering after setting up your custom production IDs, your Meta App stream registration may have encountered a network timeout. Triggering a sync force-updates your credentials cache across data planes.
+									</p>
+									
+									<form method="POST" action="?/retryWabaSubscription" use:enhance>
+										<button 
+											type="submit"
+											class="inline-flex rounded-md bg-amber-600/10 border border-amber-500/20 px-3 py-1.5 text-xs font-medium text-amber-400 transition hover:bg-amber-600/20 active:scale-[0.98] cursor-pointer"
+										>
+											Sync Event Stream Allocation
+										</button>
+									</form>
+								</div>
+							</details>
 						</div>
 					</div>
 
@@ -282,10 +372,10 @@
 								</button>
 							</form>
 
-							{#if form?.success && form.message.includes('Webhook saved')}
+							{#if form?.success && form?.message?.includes('Webhook saved')}
 								<div class="mt-4 p-3 bg-emerald-900/20 border border-emerald-900/50 rounded-lg text-emerald-400 text-xs flex items-center">
 									<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-									{form.message}
+									{form?.message}
 								</div>
 							{/if}
 
@@ -336,29 +426,92 @@
 						<div class="p-6">
 							<p class="text-xs text-slate-400 mb-6 leading-relaxed">Send a test message to ensure your integration is active. Requests are proxied via Bhejna infrastructure.</p>
 
-							<form onsubmit={handleTestMessage} class="space-y-5">
+							<form onsubmit={(e) => e.preventDefault()} class="space-y-5">
 								<div>
-									<label for="recipient_phone" class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Recipient Phone</label>
+									<label for="recipient_target" class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Recipient Target</label>
 									<input
 										type="text"
-										id="recipient_phone"
-										bind:value={recipientPhone}
-										placeholder="e.g. 15551234567"
+										id="recipient_target"
+										bind:value={recipientTarget}
+										placeholder="Phone or BSUID (e.g. 15551234567)"
 										class="w-full bg-[#0B1120] border border-white/[0.05] text-slate-200 text-sm rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-inner font-mono"
 									/>
 								</div>
-								<button
-									type="submit"
-									disabled={testing}
-									class="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-semibold py-2.5 rounded-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center"
-								>
-									{#if testing}
-										<svg class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-										Sending...
+								
+								<div class="space-y-3">
+									<div class="flex bg-[#0B1120] p-1 rounded-lg border border-white/[0.05] mb-5">
+										<button 
+											type="button"
+											onclick={() => playgroundMode = 'template'}
+											class="flex-1 py-1.5 text-xs font-semibold uppercase tracking-wider text-center rounded-md transition-all cursor-pointer {playgroundMode === 'template' ? 'bg-[#2563EB] text-white shadow' : 'text-slate-400 hover:text-slate-200'}"
+										>
+											Template
+										</button>
+										<button 
+											type="button"
+											onclick={() => playgroundMode = 'text'}
+											class="flex-1 py-1.5 text-xs font-semibold uppercase tracking-wider text-center rounded-md transition-all cursor-pointer {playgroundMode === 'text' ? 'bg-[#2563EB] text-white shadow' : 'text-slate-400 hover:text-slate-200'}"
+										>
+											Free-Form Text
+										</button>
+									</div>
+
+									{#if playgroundMode === 'template'}
+										<div class="bg-blue-500/5 border border-blue-500/10 rounded-lg p-3.5 mb-5">
+											<div class="flex items-center justify-between text-xs mb-1.5">
+												<span class="font-medium text-blue-400">Selected Template</span>
+												<span class="px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-300 font-mono text-[10px]">hello_world</span>
+											</div>
+											<p class="text-[11px] text-slate-400 leading-relaxed">Meta's pre-approved standard onboarding greeting template in US English. No custom parameters required.</p>
+										</div>
+
+										<button
+											type="button"
+											onclick={() => handleTestMessage('template')}
+											disabled={testing}
+											class="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-semibold py-2.5 rounded-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center cursor-pointer"
+										>
+											{#if testing}
+												<svg class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+												Sending Template...
+											{:else}
+												Send 'hello_world' Template
+											{/if}
+										</button>
 									{:else}
-										Send 'hello_world' Template
+										<div class="space-y-4 mb-5">
+											<div>
+												<div class="flex justify-between items-center mb-2">
+													<label for="message_body" class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Message Body</label>
+													<span class="text-[10px] font-mono {testMessageBody.length > 1000 ? 'text-red-400' : 'text-slate-500'}">
+														{testMessageBody.length} / 1000 chars
+													</span>
+												</div>
+												<textarea
+													id="message_body"
+													bind:value={testMessageBody}
+													placeholder="Write your custom test message here..."
+													rows="4"
+													class="w-full bg-[#0B1120] border border-white/[0.05] text-slate-200 text-sm rounded-lg px-4 py-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-inner resize-none leading-relaxed"
+												></textarea>
+											</div>
+										</div>
+
+										<button
+											type="button"
+											onclick={() => handleTestMessage('text')}
+											disabled={testing || !testMessageBody.trim()}
+											class="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-semibold py-2.5 rounded-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center cursor-pointer"
+										>
+											{#if testing}
+												<svg class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+												Sending Custom Text...
+											{:else}
+												Send Custom Text Message
+											{/if}
+										</button>
 									{/if}
-								</button>
+								</div>
 							</form>
 
 							{#if testError}

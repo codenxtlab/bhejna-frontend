@@ -1,15 +1,19 @@
 import { json } from '@sveltejs/kit';
 import type { RequestEvent } from '@sveltejs/kit';
-// Import the newly generated Orval function!
 import { sendMessage } from '$lib/api/generated/client'; 
 import { SendMessageBody } from '$lib/api/generated/zod';
+import crypto from 'crypto';
 
 export const POST = async ({ request, locals }: RequestEvent): Promise<Response> => {
     try {
-        const { recipient_phone } = await request.json();
+        const payload = await request.json();
 
-        if (!recipient_phone) {
-            return json({ message: 'Missing recipient_phone' }, { status: 400 });
+        if (!payload.recipient_target) {
+            return json({ message: 'Missing recipient_target' }, { status: 400 });
+        }
+
+        if (payload.type !== 'text' && payload.type !== 'template') {
+            return json({ message: 'Invalid payload type. Must be "text" or "template".' }, { status: 400 });
         }
 
         // 1. Enterprise Auth Guard
@@ -29,28 +33,35 @@ export const POST = async ({ request, locals }: RequestEvent): Promise<Response>
             return json({ message: 'Tenant configuration not found' }, { status: 404 });
         }
 
-        // 3. Proxy request using the Orval-generated client
-        const cleanPhone = recipient_phone.replace(/^\+|^00/, '');
-
-        // Orval exposes standard fetch options as the second argument, 
-        // perfect for injecting our dynamic Bearer token!
-        const payload = {
-            recipient: cleanPhone,
-            message_type: "template",
-            payload: {
-                template: {
-                    name: "hello_world",
-                    language: {
-                        code: "en_US"
-                    }
-                }
-            }
+        // 3. Map client-side message envelope footprint to Go Backend dynamic spec
+        const cleanTarget = payload.recipient_target.replace(/^\+|^00/, '') || "";
+        const flatPayload: any = {
+            to: cleanTarget,
+            from_business_phone: tenant.phone_number_id || "",
+            idempotency_key: "playground_" + crypto.randomUUID(),
+            type: payload.type,
         };
 
-        const parsedPayload = SendMessageBody.parse(payload);
+        if (payload.type === "template") {
+            flatPayload.template = {
+                template_code: payload.template_code || "hello_world",
+                language: payload.language || "en_US",
+                components: []
+            };
+            flatPayload.text = undefined;
+        } else if (payload.type === "text") {
+            flatPayload.text = {
+                body: payload.text_body || "Hello from Bhejna Uniform Target!"
+            };
+            flatPayload.template = undefined;
+        }
 
+        // 4. Validate through Zod schema
+        const parsedPayload = SendMessageBody.parse(flatPayload);
+
+        // 5. Proxy request using the Orval-generated client
         const response = await sendMessage(
-            parsedPayload as any, // Cast to any to align with Orval generated type if needed, but it should be fully compatible
+            parsedPayload as any,
             {
                 headers: {
                     Authorization: `Bearer ${tenant.api_key}`
@@ -61,6 +72,6 @@ export const POST = async ({ request, locals }: RequestEvent): Promise<Response>
         return json(response);
     } catch (error: any) {
         console.error('Test message proxy error:', error);
-        return json({ message: 'Internal Server Error' }, { status: 500 });
+        return json({ message: error.message || 'Internal Server Error' }, { status: 500 });
     }
 };

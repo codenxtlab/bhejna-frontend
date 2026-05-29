@@ -33,7 +33,8 @@ async function syncOpenAPI() {
 
 	try {
 		// 3. Read the backend spec
-		const rawContent = fs.readFileSync(backendSpecPath, 'utf8');
+		let rawContent = fs.readFileSync(backendSpecPath, 'utf8');
+		rawContent = rawContent.replace('openapi: 3.0.3', 'openapi: 3.1.0');
 		const spec = yaml.load(rawContent) as any;
 
 		// 4. Save raw spec for internal generation
@@ -46,7 +47,7 @@ async function syncOpenAPI() {
 
 		// A. Ensure Sandbox server is first
 		const sandboxUrl = 'https://sandbox.bhejna.codenxtlab.tech';
-		const prodUrl = 'https://api.bhejna.codenxtlab.tech';
+		const prodUrl = 'https://bhejna-api.codenxtlab.tech';
 		
 		publicSpec.servers = [
 			{ url: sandboxUrl, description: 'Sandbox Server' },

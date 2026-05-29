@@ -16,7 +16,7 @@
 		"format": "prettier --write .",
 		"sync:openapi": "tsx scripts/sync-openapi.ts",
 		"generate:api": "tsx src/lib/utils/openapi-compiler.ts",
-		"api:fetch": "mkdir -p src/lib/api && curl -o src/lib/api/openapi.yaml https://raw.githubusercontent.com/codenxtlab/bhejna/main/internal/api/spec/openapi.yaml && sed -i 's/openapi: 3.0.3/openapi: 3.1.0/' src/lib/api/openapi.yaml",
+		"api:fetch": "mkdir -p src/lib/api && cp ../bhejna/internal/api/spec/openapi.yaml src/lib/api/openapi.yaml && sed -i 's/openapi: 3.0.3/openapi: 3.1.0/' src/lib/api/openapi.yaml",
 		"api:generate": "orval --config orval.config.ts",
 		"api:sync": "npm run api:fetch && npm run api:generate"
 	},

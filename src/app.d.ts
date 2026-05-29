@@ -14,10 +14,7 @@ declare global {
         }
     }
 
-    interface Window {
-        fbAsyncInit: () => void;
-        FB: any;
-    }
+    interface Window {}
 }
 
 export {};
