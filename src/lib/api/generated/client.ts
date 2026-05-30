@@ -10,8 +10,8 @@ It provides a contract-first API for sending messages, tracking delivery status,
 import type {
   ErrorResponse,
   GetV1MetaWebhookParams,
-  SendMessage202,
   SendMessageRequest,
+  SendMessageResponse,
   SyncTenantBody,
   WebhookPayload
 } from './models';
@@ -142,7 +142,7 @@ export const forceGenerateWebhookType = async ( options?: RequestInit): Promise<
 
 
 export type sendMessageResponse202 = {
-  data: SendMessage202
+  data: SendMessageResponse
   status: 202
 }
 

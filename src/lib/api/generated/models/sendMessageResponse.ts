@@ -7,9 +7,8 @@ It provides a contract-first API for sending messages, tracking delivery status,
 
  * OpenAPI spec version: 1.0.0
  */
-import type { SendMessageResponseStatus } from './sendMessageResponseStatus';
 
 export interface SendMessageResponse {
   job_id: string;
-  status: SendMessageResponseStatus;
+  status: string;
 }

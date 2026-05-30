@@ -99,8 +99,10 @@
 			const resData = await res.json();
 			if (!res.ok) throw new Error(resData.message || 'Failed to send test message');
 
-			// Return the Go backend's response (Job ID) to the frontend
-			testResult = `Message Queued: ${resData.id || resData.job_id || 'Success'}`;
+			// Extract from enqueued response envelope
+			const jobId = resData.data?.job_id || resData.job_id || resData.id || 'Success';
+			const status = resData.data?.status || resData.status || 'queued';
+			testResult = `Message Enqueued! Job ID: ${jobId} (Status: ${status})`;
 		} catch (err: any) {
 			testError = err.message;
 		} finally {

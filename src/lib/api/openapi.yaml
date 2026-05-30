@@ -124,10 +124,10 @@ components:
       properties:
         job_id:
           type: string
-          example: "01ARZ3NDEKTSV4RRFFQ69G5FAV"
+          example: "01KSTKRFDJ721R8XRE1HAXJT2Y"
         status:
           type: string
-          enum: [queued]
+          example: "queued"
 
     Tenant:
       type: object
@@ -365,16 +365,11 @@ paths:
               $ref: '#/components/schemas/SendMessageRequest'
       responses:
         '202':
-          description: Message accepted and queued
+          description: Message accepted and enqueued for asynchronous transmission
           content:
             application/json:
               schema:
-                allOf:
-                  - $ref: '#/components/schemas/SuccessResponse'
-                  - type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/SendMessageResponse'
+                $ref: '#/components/schemas/SendMessageResponse'
         '400':
           description: Invalid request
           content:
