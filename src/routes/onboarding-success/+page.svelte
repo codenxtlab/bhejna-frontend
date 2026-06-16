@@ -1,67 +1,133 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
 	import { goto } from '$app/navigation';
-	import { Sparkles, Loader2, CheckCircle2 } from 'lucide-svelte';
+	import { Sparkles, CheckCircle2 } from 'lucide-svelte';
 
-	// Svelte 5 reactive Runes states fields declarations
-	let syncState = $state<'UNCONNECTED' | 'PENDING_ONBOARDING' | 'ACTIVE'>('PENDING_ONBOARDING');
+	// Svelte 5 Runes States
+	let status = $state<'PENDING_ONBOARDING' | 'ACTIVE' | 'UNCONNECTED'>('PENDING_ONBOARDING');
+	let polling = $state(true);
+	let elapsed = $state(0);
+	let showRescue = $state(false);
 	let connectivityFault = $state('');
-	let dots = $state('...');
-	let showResetHatch = $state(false);
-	
-	let evaluationInterval: any;
-	let dotsIntervalId: any;
-	let resetHatchTimeoutId: any;
 
-	const pullRegistrationStatus = async () => {
-		try {
-			const fetchRequest = await fetch('/api/tenant/status');
-			if (!fetchRequest.ok) throw new Error('Network proxy tracking drop');
-			
-			const schemaData = await fetchRequest.json();
-			syncState = schemaData.whatsapp_status;
-		} catch (err: any) {
-			connectivityFault = err.message || 'State verification connection drop';
+	// Derived stepIndex (0=creating, 1=waiting for Meta, 2=activating, 3=done)
+	const stepIndex = $derived(
+		status === 'ACTIVE' ? 3 :
+		status === 'UNCONNECTED' ? 0 :
+		elapsed < 5 ? 0 :
+		elapsed < 15 ? 1 : 2
+	);
+
+	// Derived animated dots (...) derived off elapsed
+	const dots = $derived('.'.repeat((elapsed % 3) + 1));
+
+	const steps = [
+		{ label: 'Creating configuration' },
+		{ label: 'Waiting for Meta profile handshake' },
+		{ label: 'Activating event streams' },
+		{ label: 'Workspace active' }
+	];
+
+	let activeController: AbortController | null = null;
+	let timerId: any = null;
+
+	async function doPoll() {
+		if (!polling || status === 'ACTIVE' || elapsed >= 300) return;
+
+		// Abort in-flight request
+		if (activeController) {
+			activeController.abort();
 		}
-	};
+		activeController = new AbortController();
 
-	onMount(() => {
-		pullRegistrationStatus();
-		// Setup standard tracking polling loops ticks every 3000ms
-		evaluationInterval = setInterval(pullRegistrationStatus, 3000);
+		try {
+			const res = await fetch('/api/tenant/status', {
+				signal: activeController.signal
+			});
+			if (!res.ok) throw new Error('Status check failed');
+			const data = await res.json();
+			status = data.whatsapp_status;
+			connectivityFault = '';
+		} catch (err: any) {
+			if (err.name !== 'AbortError') {
+				connectivityFault = err.message || 'State verification connection drop';
+			}
+		} finally {
+			if (status !== 'ACTIVE' && polling && elapsed < 300) {
+				// Interval backoff: 3s for first 30s, 8s thereafter
+				const delay = elapsed <= 30 ? 3000 : 8000;
+				timerId = setTimeout(doPoll, delay);
+			}
+		}
+	}
 
-		// Animate loading dots (...) for a premium native feel
-		dotsIntervalId = setInterval(() => {
-			if (dots === '...') dots = '.';
-			else if (dots === '.') dots = '..';
-			else if (dots === '..') dots = '...';
-		}, 600);
+	function handleVisibilityChange() {
+		if (document.visibilityState === 'visible') {
+			if (status !== 'ACTIVE' && elapsed < 300) {
+				polling = true;
+				if (timerId) clearTimeout(timerId);
+				doPoll();
+			}
+		} else {
+			polling = false;
+			if (timerId) {
+				clearTimeout(timerId);
+				timerId = null;
+			}
+			if (activeController) {
+				activeController.abort();
+				activeController = null;
+			}
+		}
+	}
 
-		// Set a 15-second timeout to display the escape hatch link
-		resetHatchTimeoutId = setTimeout(() => {
-			showResetHatch = true;
-		}, 15000);
-	});
-
-	onDestroy(() => {
-		if (evaluationInterval) clearInterval(evaluationInterval);
-		if (dotsIntervalId) clearInterval(dotsIntervalId);
-		if (resetHatchTimeoutId) clearTimeout(resetHatchTimeoutId);
-	});
-
-	// Svelte 5 $effect rune intercepts state transitions reactively
+	// 1-second interval to tick elapsed time
 	$effect(() => {
-		if (syncState === 'ACTIVE') {
-			if (evaluationInterval) clearInterval(evaluationInterval);
-			if (dotsIntervalId) clearInterval(dotsIntervalId);
-			if (resetHatchTimeoutId) clearTimeout(resetHatchTimeoutId);
-			
-			// Allow success animations to finish playing smoothly
-			const timer = setTimeout(() => {
+		if (polling && status !== 'ACTIVE' && elapsed < 300) {
+			const interval = setInterval(() => {
+				elapsed += 1;
+				if (elapsed >= 15) {
+					showRescue = true;
+				}
+				if (elapsed >= 300) {
+					polling = false;
+				}
+			}, 1000);
+			return () => clearInterval(interval);
+		}
+	});
+
+	// Visibilitychange listener and initial poll trigger
+	$effect(() => {
+		if (typeof document === 'undefined') return;
+
+		if (document.visibilityState === 'visible') {
+			polling = true;
+			doPoll();
+		} else {
+			polling = false;
+		}
+
+		document.addEventListener('visibilitychange', handleVisibilityChange);
+
+		return () => {
+			document.removeEventListener('visibilitychange', handleVisibilityChange);
+			if (timerId) clearTimeout(timerId);
+			if (activeController) activeController.abort();
+		};
+	});
+
+	// Auto-redirect effect when status turns ACTIVE
+	$effect(() => {
+		if (status === 'ACTIVE') {
+			polling = false;
+			if (timerId) clearTimeout(timerId);
+			if (activeController) activeController.abort();
+
+			const redirectTimer = setTimeout(() => {
 				goto('/dashboard');
 			}, 1500);
 
-			return () => clearTimeout(timer);
+			return () => clearTimeout(redirectTimer);
 		}
 	});
 </script>
@@ -75,12 +141,13 @@
 	<div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none"></div>
 	<div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-amber-600/10 rounded-full blur-[140px] pointer-events-none"></div>
 
-	<div class="w-full max-w-md border border-slate-800/80 bg-slate-900/40 backdrop-blur-2xl rounded-2xl p-8 shadow-2xl relative z-10 text-center space-y-8">
+	<div class="w-full max-w-md border border-slate-800/80 bg-slate-900/40 backdrop-blur-2xl rounded-2xl p-8 shadow-2xl relative z-10 text-center space-y-8 animate-in fade-in duration-300">
 		
 		<!-- Icon & State Display -->
 		<div class="flex justify-center">
-			{#if syncState === 'ACTIVE'}
-				<div class="h-16 w-16 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center mb-1 scale-105 transition-transform duration-300">
+			{#if status === 'ACTIVE'}
+				<!-- Green Checkmark Scale-in Success View -->
+				<div class="h-16 w-16 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center mb-1 scale-105 transition-transform duration-500 ease-out animate-in zoom-in-50">
 					<CheckCircle2 size={32} class="animate-bounce" />
 				</div>
 			{:else}
@@ -93,12 +160,12 @@
 
 		<!-- Headers -->
 		<div class="space-y-3">
-			{#if syncState === 'ACTIVE'}
+			{#if status === 'ACTIVE'}
 				<h2 class="text-xl font-bold text-white tracking-tight flex items-center justify-center gap-2">
-					Configuration Locked! <Sparkles class="text-yellow-400 animate-pulse" size={20} />
+					Connected! <Sparkles class="text-yellow-400 animate-pulse" size={20} />
 				</h2>
 				<p class="text-sm text-slate-400 leading-relaxed px-4">
-					Meta ingestion pipeline verified. Opening control cluster panels...
+					Meta ingestion pipeline verified. Redirecting to your dashboard...
 				</p>
 			{:else}
 				<h2 class="text-xl font-bold text-white tracking-tight">
@@ -110,8 +177,8 @@
 			{/if}
 		</div>
 
-		<!-- Visual Step Guide -->
-		{#if syncState !== 'ACTIVE'}
+		<!-- Visual Step Guide (only when not active) -->
+		{#if status !== 'ACTIVE'}
 			<div class="bg-blue-950/20 border border-blue-800/30 p-4 rounded-xl text-left space-y-2 animate-in fade-in duration-500">
 				<span class="text-[9px] uppercase tracking-widest font-black text-blue-400">Onboarding Steps</span>
 				<ol class="text-[11px] text-slate-400 list-decimal list-inside space-y-1 leading-relaxed">
@@ -123,29 +190,45 @@
 		{/if}
 
 		<!-- Modern Onboarding Progress Tracker Card -->
-		<div class="w-full space-y-3 border-t border-slate-800/80 pt-5 text-left">
-			<div class="flex items-center gap-3 text-xs">
-				<div class="h-4 w-4 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center font-bold">✓</div>
-				<span class="text-slate-300 font-medium">Meta Profile Authentication Verified</span>
-			</div>
-			
-			<div class="flex items-center gap-3 text-xs">
-				<div class="h-4 w-4 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center font-bold">✓</div>
-				<span class="text-slate-300 font-medium">WABA Client Workspace Handshake Received</span>
-			</div>
+		{#if status !== 'ACTIVE'}
+			<div class="w-full space-y-6 border-t border-slate-800/80 pt-6 text-left">
+				{#each steps as step, i}
+					<div class="flex items-start gap-4 relative">
+						<!-- Left column: Icon and Connector Line -->
+						<div class="flex flex-col items-center shrink-0 w-5 relative">
+							<!-- Step Dot / Checkmark -->
+							{#if i < stepIndex}
+								<!-- Blue check mark (completed step) -->
+								<div class="h-5 w-5 rounded-full bg-blue-500/20 border border-blue-500/50 flex items-center justify-center text-blue-400 font-bold text-xs relative z-10">
+									✓
+								</div>
+							{:else if i === stepIndex}
+								<!-- Animated blue pulse dot (current step) -->
+								<div class="h-5 w-5 rounded-full bg-blue-950 border border-blue-500 flex items-center justify-center relative z-10">
+									<span class="h-3 w-3 rounded-full bg-blue-500/50 animate-ping absolute"></span>
+									<span class="h-2 w-2 rounded-full bg-blue-500 relative"></span>
+								</div>
+							{:else}
+								<!-- Dim slate circle (pending step) -->
+								<div class="h-5 w-5 rounded-full bg-slate-900 border border-slate-800/80 relative z-10"></div>
+							{/if}
 
-			<div class="flex items-center gap-3 text-xs">
-				{#if syncState === 'ACTIVE'}
-					<div class="h-4 w-4 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center font-bold">✓</div>
-					<span class="text-slate-300 font-medium">Approved Phone Ingress Active</span>
-				{:else}
-					<div class="h-4 w-4 border border-slate-700 rounded-full flex items-center justify-center">
-						<div class="h-1.5 w-1.5 bg-blue-500 rounded-full animate-ping"></div>
+							<!-- Connector line to next step -->
+							{#if i < steps.length - 1}
+								<div class="absolute top-5 bottom-[-24px] w-0.5 bg-slate-800"></div>
+							{/if}
+						</div>
+
+						<!-- Right column: Text Label -->
+						<div class="pt-0.5 flex flex-col">
+							<span class="text-xs font-semibold {i <= stepIndex ? 'text-slate-200' : 'text-slate-500'}">
+								{step.label}{i === stepIndex ? dots : ''}
+							</span>
+						</div>
 					</div>
-					<span class="text-slate-400 animate-pulse font-medium">Intercepting Approved Phone Ingress Webhook...</span>
-				{/if}
+				{/each}
 			</div>
-		</div>
+		{/if}
 
 		{#if connectivityFault}
 			<div class="mt-5 w-full rounded-lg bg-rose-950/20 border border-rose-900/50 p-3 text-xs text-rose-400 font-medium font-mono">
@@ -153,13 +236,35 @@
 			</div>
 		{/if}
 
-		{#if showResetHatch}
+		<!-- Polling Timeout Manual Fallback -->
+		{#if !polling && status !== 'ACTIVE'}
+			<div class="mt-4 p-4 rounded-xl bg-slate-800/80 border border-slate-700/60 text-slate-400 text-xs text-left animate-in fade-in duration-300">
+				<p class="font-semibold text-slate-200 mb-2">Sync Taking Longer Than Expected</p>
+				<p class="mb-3 leading-relaxed">
+					We haven't received confirmation from Meta yet. If you have finished the setup in the other tab, check status manually below:
+				</p>
+				<button
+					onclick={() => {
+						elapsed = 0;
+						polling = true;
+						showRescue = false;
+						doPoll();
+					}}
+					class="w-full inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 font-semibold text-white transition hover:bg-blue-500 active:scale-[0.98] shadow-md shadow-blue-950/30"
+				>
+					Check Status Now
+				</button>
+			</div>
+		{/if}
+
+		<!-- Rescue Escape Hatch (after 15s) -->
+		{#if showRescue && status !== 'ACTIVE'}
 			<div class="pt-2 animate-in fade-in slide-in-from-bottom-2 duration-500">
 				<a 
 					href="/dashboard" 
 					class="text-xs text-slate-500 hover:text-slate-300 transition-colors underline underline-offset-4 font-medium"
 				>
-					← Back to dashboard to restart setup
+					Taking longer than expected? Return to dashboard
 				</a>
 			</div>
 		{/if}
