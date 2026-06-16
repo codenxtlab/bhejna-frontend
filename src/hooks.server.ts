@@ -7,6 +7,15 @@ import { paraglideMiddleware } from '$lib/paraglide/server';
 import { getTextDirection } from '$lib/paraglide/runtime';
 
 const handleSupabase: Handle = async ({ event, resolve }) => {
+	// 0. Safeguard: Check that the required configuration env vars are present
+	if (!env.PUBLIC_SUPABASE_URL || !env.PUBLIC_SUPABASE_PUBLISHABLE_KEY) {
+		console.error("CRITICAL CONFIGURATION ERROR: PUBLIC_SUPABASE_URL or PUBLIC_SUPABASE_PUBLISHABLE_KEY is not defined in the environment variables.");
+		return new Response(
+			"Configuration Error: PUBLIC_SUPABASE_URL and PUBLIC_SUPABASE_PUBLISHABLE_KEY environment variables are required. Please configure them in the Cloudflare Pages Dashboard settings.",
+			{ status: 500 }
+		);
+	}
+
 	// 1. Initialize Supabase Server Client
 	event.locals.supabase = createServerClient(env.PUBLIC_SUPABASE_URL, env.PUBLIC_SUPABASE_PUBLISHABLE_KEY, {
 		cookies: {
