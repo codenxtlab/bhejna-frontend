@@ -3,10 +3,13 @@
 	import { goto } from '$app/navigation';
 	import { enhance } from '$app/forms';
 
+	import { env } from '$env/dynamic/public';
+
 	let { data, form } = $props();
 
 	let loading = $state(false);
 	let provisioning = $state(false);
+	let metaOnboardUrl = $derived(`https://business.facebook.com/messaging/whatsapp/onboard/?app_id=${env.PUBLIC_META_APP_ID || '1594349876023947'}&config_id=${env.PUBLIC_META_CONFIG_ID || '1298428131650108'}`);
 	let userEmail = $derived(data.user?.email || '');
 	let whatsappStatus = $derived(data.tenant?.whatsapp_status || 'UNCONNECTED');
 	let waba_id = $state('');
@@ -130,7 +133,24 @@
 		}
 	}
 
-
+	async function handleOnboardingClick() {
+		loading = true;
+		try {
+			const response = await fetch('?/initializeOnboarding', {
+				method: 'POST',
+				body: new FormData()
+			});
+			if (response.ok) {
+				goto('/onboarding-success');
+			} else {
+				console.error('Onboarding init action failed');
+			}
+		} catch (err) {
+			console.error('Failed to initialize onboarding:', err);
+		} finally {
+			loading = false;
+		}
+	}
 </script>
 
 <div class="min-h-screen bg-slate-900 text-white font-sans">
@@ -223,39 +243,18 @@
 									<div class="bg-blue-500/5 border border-white/[0.05] p-4 rounded-lg">
 										<h3 class="text-sm font-medium text-blue-400 mb-1">Embedded Signup (Recommended)</h3>
 										<p class="text-xs text-slate-400 mb-4">The fastest way to connect your WhatsApp Business Account via Meta's official onboarding.</p>
-										<form 
-											method="POST" 
-											action="?/initializeOnboarding" 
-											use:enhance={() => {
-												loading = true;
-												// Open a blank tab synchronously to satisfy the browser's user-gesture requirement
-												const metaWin = window.open('about:blank', '_blank');
-												return async ({ result }) => {
-													loading = false;
-													const res = result as any;
-													const onboardingUrl = res.data?.onboardingUrl;
-													if (res.type === 'success' && onboardingUrl && metaWin) {
-														// Redirect the blank tab to the Meta onboarding URL
-														metaWin.location.href = onboardingUrl;
-														// Navigate current workspace view to success tracker
-														goto('/onboarding-success');
-													} else {
-														// Action failed or cancelled — close the blank tab
-														metaWin?.close();
-													}
-												};
-											}}
+										<a 
+											href={metaOnboardUrl} 
+											target="_blank" 
+											rel="noopener noreferrer" 
+											onclick={handleOnboardingClick}
+											class="inline-flex w-full justify-center items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-blue-500 shadow-md shadow-blue-950/30 cursor-pointer"
 										>
-											<button 
-												type="submit"
-												class="inline-flex w-full justify-center items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-blue-500 shadow-md shadow-blue-950/30 cursor-pointer"
-											>
-												<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
-													<path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-												</svg>
-												Connect WhatsApp Workspace
-											</button>
-										</form>
+											<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+											</svg>
+											Connect WhatsApp Workspace
+										</a>
 									</div>
 
 									<div class="relative py-2">
