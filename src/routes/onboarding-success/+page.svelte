@@ -80,9 +80,9 @@
 		}
 	}
 
-	// 1-second interval to tick elapsed time
+	// 1-second interval to tick elapsed time (visibility-gated)
 	$effect(() => {
-		if (polling && status !== 'ACTIVE' && elapsed < 300) {
+		if (polling && status !== 'ACTIVE' && elapsed < 300 && (typeof document === 'undefined' || document.visibilityState === 'visible')) {
 			const interval = setInterval(() => {
 				elapsed += 1;
 				if (elapsed >= 15) {
@@ -147,7 +147,7 @@
 		<div class="flex justify-center">
 			{#if status === 'ACTIVE'}
 				<!-- Green Checkmark Scale-in Success View -->
-				<div class="h-16 w-16 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center mb-1 scale-105 transition-transform duration-500 ease-out animate-in zoom-in-50">
+				<div class="h-16 w-16 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center mb-1 scale-105 animate-zoom-in">
 					<CheckCircle2 size={32} class="animate-bounce" />
 				</div>
 			{:else}
@@ -282,5 +282,19 @@
 <style>
 	:global(body) {
 		background-color: #020617;
+	}
+
+	@keyframes zoomIn {
+		from {
+			transform: scale(0.5);
+			opacity: 0;
+		}
+		to {
+			transform: scale(1.05);
+			opacity: 1;
+		}
+	}
+	.animate-zoom-in {
+		animation: zoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 	}
 </style>
