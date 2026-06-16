@@ -9,6 +9,9 @@ export const customFetch = async <T>(
 	options: RequestInit
 ): Promise<T> => {
 	const baseUrl = (env.BHEJNA_GO_BACKEND_URL || '').replace(/\/$/, '');
+	if (!baseUrl) {
+		throw new Error('BHEJNA_GO_BACKEND_URL is not set');
+	}
 	const fullUrl = url.startsWith('http') ? url : `${baseUrl}${url}`;
 
 	const response = await fetch(fullUrl, options);
