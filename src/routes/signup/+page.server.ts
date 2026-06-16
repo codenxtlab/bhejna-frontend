@@ -10,24 +10,32 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions: Actions = {
-	login: async ({ request, locals: { supabase } }) => {
+	signup: async ({ request, url, locals: { supabase } }) => {
 		const formData = await request.formData();
 		const email = formData.get('email')?.toString();
 		const password = formData.get('password')?.toString();
+		const confirmPassword = formData.get('confirmPassword')?.toString();
 
-		if (!email || !password) {
-			return fail(400, { error: 'Email and password are required' });
+		if (!email || !password || !confirmPassword) {
+			return fail(400, { error: 'Email, password, and confirm password are required' });
 		}
 
-		const { error } = await supabase.auth.signInWithPassword({
+		if (password !== confirmPassword) {
+			return fail(400, { error: 'Passwords do not match' });
+		}
+
+		const { error } = await supabase.auth.signUp({
 			email,
-			password
+			password,
+			options: {
+				emailRedirectTo: `${url.origin}/auth/callback`
+			}
 		});
 
 		if (error) {
 			return fail(400, { error: error.message });
 		}
 
-		throw redirect(302, '/dashboard');
+		return { success: true };
 	}
 };

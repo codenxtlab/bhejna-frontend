@@ -1,47 +1,58 @@
-import { createSupabaseServerClient } from '$lib/supabase/server';
+import { createServerClient } from '@supabase/ssr';
 import type { Handle } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
+import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 import { paraglideMiddleware } from '$lib/paraglide/server';
 import { getTextDirection } from '$lib/paraglide/runtime';
 
 const handleSupabase: Handle = async ({ event, resolve }) => {
-    // 1. Inject the secure, per-request server client
-    event.locals.supabase = createSupabaseServerClient(event);
+	// 1. Initialize Supabase Server Client
+	event.locals.supabase = createServerClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
+		cookies: {
+			getAll() {
+				return event.cookies.getAll();
+			},
+			setAll(cookiesToSet) {
+				cookiesToSet.forEach(({ name, value, options }) => {
+					event.cookies.set(name, value, { ...options, path: '/' });
+				});
+			},
+		},
+	});
 
-    // 2. Define the safe session fetcher
-    event.locals.safeGetSession = async () => {
-        const { data: { session } } = await event.locals.supabase.auth.getSession();
-        if (!session) {
-            return { session: null, user: null };
-        }
+	// 2. Define the safe session fetcher
+	event.locals.safeGetSession = async () => {
+		const { data: { session } } = await event.locals.supabase.auth.getSession();
+		if (!session) {
+			return { session: null, user: null };
+		}
 
-        // Validate the token cryptographically
-        const { data: { user }, error } = await event.locals.supabase.auth.getUser();
-        
-        if (error) {
-            // Expected behavior if token is expired or malformed.
-            // We gracefully swallow the error to keep the terminal clean,
-            // and we tell Supabase to destroy the dead session cookies.
-            
-            // This forces the SSR client to clear the bad cookies in the user's browser
-            await event.locals.supabase.auth.signOut(); 
-            
-            return { session: null, user: null };
-        }
+		const { data: { user }, error } = await event.locals.supabase.auth.getUser();
+		if (error) {
+			// Stale refresh token — purge cookies so the loop stops
+			await event.locals.supabase.auth.signOut();
+			return { session: null, user: null };
+		}
 
-        return { session, user };
-    };
+		return { session, user };
+	};
 
-    // 3. Populate locals for downstream usage
-    const { session, user } = await event.locals.safeGetSession();
-    event.locals.session = session;
-    event.locals.user = user;
+	// 3. Populate session & user in locals for downstream use
+	const { session, user } = await event.locals.safeGetSession();
+	event.locals.session = session;
+	event.locals.user = user;
 
-    return resolve(event, {
-        filterSerializedResponseHeaders(name) {
-            return name === 'content-range' || name === 'x-supabase-api-version';
-        },
-    });
+	// 4. Run authguard logic: if pathname starts with /dashboard and safeGetSession returns no session, redirect to /login
+	if (event.url.pathname.startsWith('/dashboard') && !session) {
+		throw redirect(303, '/login');
+	}
+
+	return resolve(event, {
+		filterSerializedResponseHeaders(name) {
+			return name === 'content-range' || name === 'x-supabase-api-version';
+		},
+	});
 };
 
 const handleParaglide: Handle = ({ event, resolve }) =>
