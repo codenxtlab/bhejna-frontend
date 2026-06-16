@@ -228,15 +228,20 @@
 											action="?/initializeOnboarding" 
 											use:enhance={() => {
 												loading = true;
+												// Open a blank tab synchronously to satisfy the browser's user-gesture requirement
+												const metaWin = window.open('about:blank', '_blank');
 												return async ({ result }) => {
 													loading = false;
 													const res = result as any;
 													const onboardingUrl = res.data?.onboardingUrl;
-													if (res.type === 'success' && onboardingUrl) {
-														// Open Meta onboarding portal in a new tab securely
-														window.open(onboardingUrl, '_blank');
+													if (res.type === 'success' && onboardingUrl && metaWin) {
+														// Redirect the blank tab to the Meta onboarding URL
+														metaWin.location.href = onboardingUrl;
 														// Navigate current workspace view to success tracker
 														goto('/onboarding-success');
+													} else {
+														// Action failed or cancelled — close the blank tab
+														metaWin?.close();
 													}
 												};
 											}}
