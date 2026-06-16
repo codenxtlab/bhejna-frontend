@@ -1,4 +1,4 @@
-import { BHEJNA_GO_BACKEND_URL } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 /**
  * Custom fetch client for Orval
@@ -8,7 +8,7 @@ export const customFetch = async <T>(
 	url: string,
 	options: RequestInit
 ): Promise<T> => {
-	const baseUrl = BHEJNA_GO_BACKEND_URL.replace(/\/$/, '');
+	const baseUrl = (env.BHEJNA_GO_BACKEND_URL || '').replace(/\/$/, '');
 	const fullUrl = url.startsWith('http') ? url : `${baseUrl}${url}`;
 
 	const response = await fetch(fullUrl, options);

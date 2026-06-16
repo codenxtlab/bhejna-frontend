@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
-import { BHEJNA_INTERNAL_SECRET } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { syncTenant } from '$lib/api/generated/client';
 import { SyncTenantBody } from '$lib/api/generated/zod';
 import { randomBytes } from 'crypto';
@@ -94,7 +94,7 @@ export const actions: Actions = {
             const parsedPayload = SyncTenantBody.parse(goPayload);
             await syncTenant(parsedPayload, {
                 headers: {
-                    Authorization: `Bearer ${BHEJNA_INTERNAL_SECRET}`
+                    Authorization: `Bearer ${env.BHEJNA_INTERNAL_SECRET}`
                 }
             });
         } catch (syncErr: any) {
@@ -148,7 +148,7 @@ export const actions: Actions = {
             const parsedPayload = SyncTenantBody.parse(goPayload);
             await syncTenant(parsedPayload, {
                 headers: {
-                    Authorization: `Bearer ${BHEJNA_INTERNAL_SECRET}`
+                    Authorization: `Bearer ${env.BHEJNA_INTERNAL_SECRET}`
                 }
             });
         } catch (err) {
@@ -164,7 +164,7 @@ export const actions: Actions = {
         }
 
         const userId = user.id;
-        const internalSecret = BHEJNA_INTERNAL_SECRET;
+        const internalSecret = env.BHEJNA_INTERNAL_SECRET;
 
         if (!internalSecret) {
             return fail(500, { message: 'System configuration drop: Missing BHEJNA_INTERNAL_SECRET' });
@@ -250,7 +250,7 @@ export const actions: Actions = {
         }
 
         const userId = user.id;
-        const internalSecret = BHEJNA_INTERNAL_SECRET;
+        const internalSecret = env.BHEJNA_INTERNAL_SECRET;
 
         if (!internalSecret) {
             return fail(500, { message: 'System configuration drop: Missing BHEJNA_INTERNAL_SECRET' });
@@ -318,7 +318,7 @@ export const actions: Actions = {
             return fail(401, { message: 'Unauthorized session bounds' });
         }
 
-        const internalSecret = BHEJNA_INTERNAL_SECRET;
+        const internalSecret = env.BHEJNA_INTERNAL_SECRET;
         if (!internalSecret) {
             return fail(500, { message: 'System configuration drop: Missing BHEJNA_INTERNAL_SECRET' });
         }

@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit';
 import type { RequestEvent } from './$types';
-import { BHEJNA_INTERNAL_SECRET } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { syncTenant } from '$lib/api/generated/client';
 import { SyncTenantBody } from '$lib/api/generated/zod';
 import crypto from 'crypto';
@@ -62,7 +62,7 @@ export const POST = async ({ request, locals }: RequestEvent): Promise<Response>
             const parsedPayload = SyncTenantBody.parse(goPayload);
             await syncTenant(parsedPayload, {
                 headers: {
-                    Authorization: `Bearer ${BHEJNA_INTERNAL_SECRET}`
+                    Authorization: `Bearer ${env.BHEJNA_INTERNAL_SECRET}`
                 }
             });
         } catch (fetchError) {

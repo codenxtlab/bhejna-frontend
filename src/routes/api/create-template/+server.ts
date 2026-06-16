@@ -1,13 +1,13 @@
 import { json, type RequestEvent } from '@sveltejs/kit';
-import { META_SYSTEM_USER_TOKEN } from '$env/static/private';
-import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_PUBLISHABLE_KEY } from '$env/static/public';
+import { env as privateEnv } from '$env/dynamic/private';
+import { env as publicEnv } from '$env/dynamic/public';
 import { createClient } from '@supabase/supabase-js';
 
 // Helper to get an authenticated Supabase client on the server
 function getSupabase(cookies: any) {
     const token = cookies.get('sb-access-token');
     
-    return createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_PUBLISHABLE_KEY, {
+    return createClient(publicEnv.PUBLIC_SUPABASE_URL, publicEnv.PUBLIC_SUPABASE_PUBLISHABLE_KEY, {
         auth: { persistSession: false },
         global: {
             headers: token ? { Authorization: `Bearer ${token}` } : {}
@@ -53,7 +53,7 @@ export const POST = async ({ request, cookies }: RequestEvent): Promise<Response
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${META_SYSTEM_USER_TOKEN}`
+				'Authorization': `Bearer ${privateEnv.META_SYSTEM_USER_TOKEN}`
 			},
 			body: JSON.stringify(payload)
 		});
