@@ -24,6 +24,7 @@
 	let testError = $state('');
 	let copiedSecret = $state(false);
 	let showSecret = $state(false);
+	let copiedConfig = $state(false);
 
 
 
@@ -33,6 +34,25 @@
 			copiedSecret = true;
 			setTimeout(() => { copiedSecret = false; }, 2000);
 		}
+	}
+
+	async function handleCopyIntegrationConfig() {
+		if (whatsappStatus !== 'ACTIVE') return;
+		const config = {
+			bhejna_config_version: "1",
+			waba_id: data.tenant?.waba_id || "",
+			phone_number: data.tenant?.phone_number || "",
+			phone_number_id: data.tenant?.phone_number_id || "",
+			api_key: data.tenant?.api_key || "",
+			webhook_secret: data.tenant?.webhook_secret || "",
+			whatsapp_status: data.tenant?.whatsapp_status || "",
+			display_name: data.tenant?.display_name || data.tenant?.business_name || "",
+			quality_rating: data.tenant?.quality_rating || "",
+			messaging_limit: data.tenant?.messaging_limit ? Number(data.tenant.messaging_limit) : 250
+		};
+		await navigator.clipboard.writeText(JSON.stringify(config, null, 2));
+		copiedConfig = true;
+		setTimeout(() => { copiedConfig = false; }, 2000);
 	}
 
 	async function handleProvision(e: SubmitEvent) {
@@ -164,7 +184,7 @@
 									<div>
 										<p class="font-semibold text-sm text-emerald-200">Gateway Active & Operational</p>
 										<p class="text-xs text-emerald-500/90 mt-1 leading-relaxed">
-											Your WABA ID (<span class="font-mono text-emerald-400">{data.tenant?.waba_id}</span>) and Phone Number ID are hot-hydrated for zero-latency webhook multiplexing.
+											Your WABA ID (<span class="font-mono text-emerald-400">{data.tenant?.waba_id}</span>){#if data.tenant?.phone_number}, WhatsApp Number (<span class="font-mono text-emerald-400">{data.tenant?.phone_number}</span>){/if} and Phone Number ID are hot-hydrated for zero-latency webhook multiplexing.
 										</p>
 									</div>
 								</div>
@@ -415,6 +435,22 @@
 									</div>
 								</div>
 							{/if}
+
+							<div class="mt-6 pt-6 border-t border-white/[0.05]">
+								<button
+									type="button"
+									onclick={handleCopyIntegrationConfig}
+									disabled={whatsappStatus !== 'ACTIVE'}
+									title={whatsappStatus === 'ACTIVE' ? '' : 'Connect your WhatsApp number first'}
+									class="px-4 py-2.5 rounded-lg border border-white/[0.05] hover:bg-white/[0.05] text-slate-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs font-semibold uppercase tracking-wider flex items-center gap-2 cursor-pointer"
+								>
+									{#if copiedConfig}
+										Copied! ✓
+									{:else}
+										Copy Integration Config
+									{/if}
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
