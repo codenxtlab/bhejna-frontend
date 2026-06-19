@@ -22,7 +22,9 @@
 	// API Playground state
 	let recipientTarget = $state('');
 	let testMessageBody = $state('');
-	let playgroundMode = $state<'template' | 'text'>('template');
+	let testMessageBody = $state(
+		'Hi there! 👋\n\nThis is a custom test message from the Bhejna uniform gateway.\nEverything is connected and working perfectly!'
+	);
 	let testing = $state(false);
 	let updatingWebhook = $state(false);
 	let testResult = $state('');
@@ -94,7 +96,7 @@
 		navigator.clipboard.writeText(apiKey);
 	}
 
-	async function handleTestMessage(msgType: 'text' | 'template') {
+	async function handleTestMessage() {
 		testing = true;
 		testResult = '';
 		testError = '';
@@ -107,14 +109,9 @@
 		try {
 			const reqBody: any = {
 				recipient_target: recipientTarget,
-				type: msgType
+				type: 'text',
+				text_body: testMessageBody || 'This is a live test from the Bhejna uniform gateway!'
 			};
-			if (msgType === 'text') {
-				reqBody.text_body =
-					testMessageBody || 'This is a live test from the Bhejna uniform gateway!';
-			} else if (msgType === 'template') {
-				reqBody.template_code = 'hello_world';
-			}
 
 			const res = await fetch('/api/test-message', {
 				method: 'POST',
@@ -271,9 +268,7 @@
 									</form>
 								</div>
 							{:else if whatsappStatus === 'ACTION_REQUIRED'}
-								<div
-									class="rounded-lg border border-red-800/60 bg-red-950/30 p-4 text-red-400"
-								>
+								<div class="rounded-lg border border-red-800/60 bg-red-950/30 p-4 text-red-400">
 									<div class="flex items-start gap-4">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -289,7 +284,8 @@
 										<div>
 											<p class="text-sm font-semibold text-red-200">Action required</p>
 											<p class="mt-1 text-xs leading-relaxed text-red-400/90">
-												Your number needs attention. There was a problem during registration. Please contact support to resolve this.
+												Your number needs attention. There was a problem during registration. Please
+												contact support to resolve this.
 											</p>
 										</div>
 									</div>
@@ -624,132 +620,62 @@
 								</div>
 
 								<div class="space-y-3">
-									<div class="mb-5 flex rounded-lg border border-white/[0.05] bg-[#0B1120] p-1">
-										<button
-											type="button"
-											onclick={() => (playgroundMode = 'template')}
-											class="flex-1 cursor-pointer rounded-md py-1.5 text-center text-xs font-semibold tracking-wider uppercase transition-all {playgroundMode ===
-											'template'
-												? 'bg-[#2563EB] text-white shadow'
-												: 'text-slate-400 hover:text-slate-200'}"
-										>
-											Template
-										</button>
-										<button
-											type="button"
-											onclick={() => (playgroundMode = 'text')}
-											class="flex-1 cursor-pointer rounded-md py-1.5 text-center text-xs font-semibold tracking-wider uppercase transition-all {playgroundMode ===
-											'text'
-												? 'bg-[#2563EB] text-white shadow'
-												: 'text-slate-400 hover:text-slate-200'}"
-										>
-											Free-Form Text
-										</button>
+									<div class="mb-5 space-y-4">
+										<div>
+											<div class="mb-2 flex items-center justify-between">
+												<label
+													for="message_body"
+													class="text-[11px] font-medium tracking-wider text-slate-400 uppercase"
+													>Message Body</label
+												>
+												<span
+													class="font-mono text-[10px] {testMessageBody.length > 1000
+														? 'text-red-400'
+														: 'text-slate-500'}"
+												>
+													{testMessageBody.length} / 1000 chars
+												</span>
+											</div>
+											<textarea
+												id="message_body"
+												bind:value={testMessageBody}
+												placeholder="Write your custom test message here..."
+												rows="4"
+												class="w-full resize-none rounded-lg border border-white/[0.05] bg-[#0B1120] px-4 py-3 text-sm leading-relaxed text-slate-200 shadow-inner transition-colors focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+											></textarea>
+										</div>
 									</div>
 
-									{#if playgroundMode === 'template'}
-										<div class="mb-5 rounded-lg border border-blue-500/10 bg-blue-500/5 p-3.5">
-											<div class="mb-1.5 flex items-center justify-between text-xs">
-												<span class="font-medium text-blue-400">Selected Template</span>
-												<span
-													class="rounded bg-blue-500/10 px-1.5 py-0.5 font-mono text-[10px] text-blue-300"
-													>hello_world</span
-												>
-											</div>
-											<p class="text-[11px] leading-relaxed text-slate-400">
-												Meta's pre-approved standard onboarding greeting template in US English. No
-												custom parameters required.
-											</p>
-										</div>
-
-										<button
-											type="button"
-											onclick={() => handleTestMessage('template')}
-											disabled={testing}
-											class="flex w-full cursor-pointer items-center justify-center rounded-lg bg-[#2563EB] py-2.5 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] transition-all hover:bg-[#1D4ED8] active:scale-[0.98] disabled:opacity-50"
-										>
-											{#if testing}
-												<svg
-													class="mr-3 -ml-1 h-4 w-4 animate-spin text-white"
-													xmlns="http://www.w3.org/2000/svg"
-													fill="none"
-													viewBox="0 0 24 24"
-													><circle
-														class="opacity-25"
-														cx="12"
-														cy="12"
-														r="10"
-														stroke="currentColor"
-														stroke-width="4"
-													></circle><path
-														class="opacity-75"
-														fill="currentColor"
-														d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-													></path></svg
-												>
-												Sending Template...
-											{:else}
-												Send 'hello_world' Template
-											{/if}
-										</button>
-									{:else}
-										<div class="mb-5 space-y-4">
-											<div>
-												<div class="mb-2 flex items-center justify-between">
-													<label
-														for="message_body"
-														class="text-[11px] font-medium tracking-wider text-slate-400 uppercase"
-														>Message Body</label
-													>
-													<span
-														class="font-mono text-[10px] {testMessageBody.length > 1000
-															? 'text-red-400'
-															: 'text-slate-500'}"
-													>
-														{testMessageBody.length} / 1000 chars
-													</span>
-												</div>
-												<textarea
-													id="message_body"
-													bind:value={testMessageBody}
-													placeholder="Write your custom test message here..."
-													rows="4"
-													class="w-full resize-none rounded-lg border border-white/[0.05] bg-[#0B1120] px-4 py-3 text-sm leading-relaxed text-slate-200 shadow-inner transition-colors focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-												></textarea>
-											</div>
-										</div>
-
-										<button
-											type="button"
-											onclick={() => handleTestMessage('text')}
-											disabled={testing || !testMessageBody.trim()}
-											class="flex w-full cursor-pointer items-center justify-center rounded-lg bg-[#2563EB] py-2.5 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] transition-all hover:bg-[#1D4ED8] active:scale-[0.98] disabled:opacity-50"
-										>
-											{#if testing}
-												<svg
-													class="mr-3 -ml-1 h-4 w-4 animate-spin text-white"
-													xmlns="http://www.w3.org/2000/svg"
-													fill="none"
-													viewBox="0 0 24 24"
-													><circle
-														class="opacity-25"
-														cx="12"
-														cy="12"
-														r="10"
-														stroke="currentColor"
-														stroke-width="4"
-													></circle><path
-														class="opacity-75"
-														fill="currentColor"
-														d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-													></path></svg
-												>
-												Sending Custom Text...
-											{:else}
-												Send Custom Text Message
-											{/if}
-										</button>
-									{/if}
+									<button
+										type="button"
+										onclick={() => handleTestMessage()}
+										disabled={testing || !testMessageBody.trim()}
+										class="flex w-full cursor-pointer items-center justify-center rounded-lg bg-[#2563EB] py-2.5 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] transition-all hover:bg-[#1D4ED8] active:scale-[0.98] disabled:opacity-50"
+									>
+										{#if testing}
+											<svg
+												class="mr-3 -ml-1 h-4 w-4 animate-spin text-white"
+												xmlns="http://www.w3.org/2000/svg"
+												fill="none"
+												viewBox="0 0 24 24"
+												><circle
+													class="opacity-25"
+													cx="12"
+													cy="12"
+													r="10"
+													stroke="currentColor"
+													stroke-width="4"
+												></circle><path
+													class="opacity-75"
+													fill="currentColor"
+													d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+												></path></svg
+											>
+											Sending Custom Text...
+										{:else}
+											Send Custom Text Message
+										{/if}
+									</button>
 								</div>
 							</form>
 
