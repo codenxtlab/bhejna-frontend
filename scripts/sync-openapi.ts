@@ -6,7 +6,7 @@ import { compileOpenAPI } from '../src/lib/utils/openapi-compiler.js';
 /**
  * Synchronizes the OpenAPI specification from the backend repository
  * to the frontend documentation platform.
- * 
+ *
  * It produces two outputs:
  * 1. src/lib/api/openapi.yaml: Raw spec for Orval/Zod generation.
  * 2. static/api/openapi.yaml: Public-safe spec for Scalar docs.
@@ -19,7 +19,7 @@ async function syncOpenAPI() {
 	console.log('🔄 Synchronizing OpenAPI contract from backend...');
 
 	// 1. Ensure target directories exist
-	[staticApiDir, libApiDir].forEach(dir => {
+	[staticApiDir, libApiDir].forEach((dir) => {
 		if (!fs.existsSync(dir)) {
 			fs.mkdirSync(dir, { recursive: true });
 		}
@@ -48,7 +48,7 @@ async function syncOpenAPI() {
 		// A. Ensure Sandbox server is first
 		const sandboxUrl = 'https://sandbox.bhejna.codenxtlab.tech';
 		const prodUrl = 'https://bhejna-api.codenxtlab.tech';
-		
+
 		publicSpec.servers = [
 			{ url: sandboxUrl, description: 'Sandbox Server' },
 			{ url: prodUrl, description: 'Production Server' }
@@ -56,11 +56,11 @@ async function syncOpenAPI() {
 
 		// B. Remove internal/admin endpoints
 		if (publicSpec.paths) {
-			const internalPaths = Object.keys(publicSpec.paths).filter(p => 
-				p.startsWith('/v1/internal') || p.startsWith('/v1/admin')
+			const internalPaths = Object.keys(publicSpec.paths).filter(
+				(p) => p.startsWith('/v1/internal') || p.startsWith('/v1/admin')
 			);
-			
-			internalPaths.forEach(p => {
+
+			internalPaths.forEach((p) => {
 				console.log(`   - Hiding internal path: ${p}`);
 				delete publicSpec.paths[p];
 			});
@@ -73,7 +73,7 @@ async function syncOpenAPI() {
 		// 7. Trigger internal regeneration (using raw spec)
 		console.log('🏗️  Regenerating endpoint registry...');
 		await compileOpenAPI();
-		
+
 		console.log('✨ OpenAPI synchronization complete.');
 	} catch (err) {
 		console.error('❌ Sync failed:', err);

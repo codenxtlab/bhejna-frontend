@@ -4,9 +4,9 @@ Bhejna's backend API has migrated to a high-throughput Asynchronous Queue engine
 
 ## What Changes
 
-*   **API Model Alignment**: Synchronize contracts and regenerate fetch clients and schema validators to handle the updated `SendMessageResponse` structure (`job_id` and `status`).
-*   **Playground UI Lifecyle Refactoring**: Update form handlers on the dashboard so successful submissions display a "Message Enqueued" or "Sending..." indicator rather than looking for immediate finished delivery.
-*   **Compile State Verification**: Execute standard frontend checks to guarantee type safety under the async model.
+- **API Model Alignment**: Synchronize contracts and regenerate fetch clients and schema validators to handle the updated `SendMessageResponse` structure (`job_id` and `status`).
+- **Playground UI Lifecyle Refactoring**: Update form handlers on the dashboard so successful submissions display a "Message Enqueued" or "Sending..." indicator rather than looking for immediate finished delivery.
+- **Compile State Verification**: Execute standard frontend checks to guarantee type safety under the async model.
 
 ## Capabilities
 
@@ -20,8 +20,8 @@ Bhejna's backend API has migrated to a high-throughput Asynchronous Queue engine
 
 ## Impact
 
-*   **Affected Code**:
-    *   `src/routes/api/test-message/+server.ts` (proxies the dynamic payload, returning the enqueued job metadata).
-    *   `src/routes/dashboard/+page.svelte` (renders queued status badges and tracks enqueued job IDs).
-*   **APIs**: Response interface of the outbound message dispatch conforms to the asynchronous contract.
-*   **Dependencies**: Requires Orval model regenerations.
+- **Affected Code**:
+  - `src/routes/api/test-message/+server.ts` (proxies the dynamic payload, returning the enqueued job metadata).
+  - `src/routes/dashboard/+page.svelte` (renders queued status badges and tracks enqueued job IDs).
+- **APIs**: Response interface of the outbound message dispatch conforms to the asynchronous contract.
+- **Dependencies**: Requires Orval model regenerations.

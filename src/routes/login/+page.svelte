@@ -26,12 +26,12 @@
 	});
 </script>
 
-<div class="min-h-screen flex items-center justify-center bg-slate-900 p-4 font-sans text-slate-50">
-	<div class="w-full max-w-md bg-slate-800 border border-slate-700 rounded-xl p-8 space-y-6">
+<div class="flex min-h-screen items-center justify-center bg-slate-900 p-4 font-sans text-slate-50">
+	<div class="w-full max-w-md space-y-6 rounded-xl border border-slate-700 bg-slate-800 p-8">
 		<div class="text-center">
-			<img src="/favicon.svg" alt="Bhejna Logo" class="w-12 h-12 mx-auto mb-4" />
+			<img src="/favicon.svg" alt="Bhejna Logo" class="mx-auto mb-4 h-12 w-12" />
 			<h1 class="text-2xl font-bold tracking-tight text-slate-50">Bhejna</h1>
-			<p class="text-xs text-slate-400 mt-1">Control Plane Login</p>
+			<p class="mt-1 text-xs text-slate-400">Control Plane Login</p>
 		</div>
 
 		<form
@@ -48,7 +48,11 @@
 			class="space-y-4"
 		>
 			<div>
-				<label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Email Address</label>
+				<label
+					for="email"
+					class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
+					>Email Address</label
+				>
 				<input
 					type="email"
 					id="email"
@@ -56,13 +60,17 @@
 					bind:value={email}
 					required
 					autocomplete="email"
-					class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-slate-50 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm"
+					class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-sm text-slate-50 transition-all outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
 					placeholder="name@company.com"
 				/>
 			</div>
 
 			<div>
-				<label for="password" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Password</label>
+				<label
+					for="password"
+					class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
+					>Password</label
+				>
 				<input
 					type="password"
 					id="password"
@@ -70,28 +78,28 @@
 					bind:value={password}
 					required
 					autocomplete="current-password"
-					class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-slate-50 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm"
+					class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-sm text-slate-50 transition-all outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
 					placeholder="••••••••"
 				/>
 			</div>
 
 			{#if error}
-				<p class="text-sm text-red-500 text-center font-medium my-2">{error}</p>
+				<p class="my-2 text-center text-sm font-medium text-red-500">{error}</p>
 			{/if}
 
 			<button
 				type="submit"
 				disabled={loading}
-				class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-lg transition-colors disabled:opacity-50 text-sm cursor-pointer"
+				class="w-full cursor-pointer rounded-lg bg-blue-600 py-2.5 text-sm font-bold text-white transition-colors hover:bg-blue-500 disabled:opacity-50"
 			>
 				{loading ? 'Signing in...' : 'Sign In'}
 			</button>
 		</form>
 
-		<div class="text-center pt-4 border-t border-slate-700">
+		<div class="border-t border-slate-700 pt-4 text-center">
 			<a
 				href="/signup"
-				class="text-sm text-slate-400 hover:text-blue-500 transition-colors underline underline-offset-4"
+				class="text-sm text-slate-400 underline underline-offset-4 transition-colors hover:text-blue-500"
 			>
 				Don't have an account? Sign Up
 			</a>

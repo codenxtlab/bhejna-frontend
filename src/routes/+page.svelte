@@ -6,7 +6,9 @@
 
 	onMount(async () => {
 		if (!data.supabase) return;
-		const { data: { user } } = await data.supabase.auth.getUser();
+		const {
+			data: { user }
+		} = await data.supabase.auth.getUser();
 		if (user) {
 			goto('/dashboard');
 		} else {
@@ -15,7 +17,7 @@
 	});
 </script>
 
-<div class="min-h-screen bg-slate-950 flex flex-col items-center justify-center">
-	<img src="/favicon.svg" alt="Bhejna Logo" class="w-16 h-16 mb-6 animate-pulse" />
-	<div class="animate-pulse text-cyan-500 font-bold text-xl">Loading Bhejna...</div>
+<div class="flex min-h-screen flex-col items-center justify-center bg-slate-950">
+	<img src="/favicon.svg" alt="Bhejna Logo" class="mb-6 h-16 w-16 animate-pulse" />
+	<div class="animate-pulse text-xl font-bold text-cyan-500">Loading Bhejna...</div>
 </div>

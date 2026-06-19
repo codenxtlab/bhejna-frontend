@@ -1,1 +1,39 @@
-{"nodes": [{"id": "home_rakshitbhai_bhejna_frontend_src_routes_docs_layout_ts", "label": "+layout.ts", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/routes/docs/+layout.ts", "source_location": "L1"}, {"id": "layout_load", "label": "load()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/routes/docs/+layout.ts", "source_location": "L3"}], "edges": [{"source": "home_rakshitbhai_bhejna_frontend_src_routes_docs_layout_ts", "target": "home_rakshitbhai_bhejna_frontend_src_routes_docs_types", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/routes/docs/+layout.ts", "source_location": "L1", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_routes_docs_layout_ts", "target": "layout_load", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/routes/docs/+layout.ts", "source_location": "L3", "weight": 1.0}], "raw_calls": []}
+{
+	"nodes": [
+		{
+			"id": "home_rakshitbhai_bhejna_frontend_src_routes_docs_layout_ts",
+			"label": "+layout.ts",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/routes/docs/+layout.ts",
+			"source_location": "L1"
+		},
+		{
+			"id": "layout_load",
+			"label": "load()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/routes/docs/+layout.ts",
+			"source_location": "L3"
+		}
+	],
+	"edges": [
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_routes_docs_layout_ts",
+			"target": "home_rakshitbhai_bhejna_frontend_src_routes_docs_types",
+			"relation": "imports_from",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/routes/docs/+layout.ts",
+			"source_location": "L1",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_routes_docs_layout_ts",
+			"target": "layout_load",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/routes/docs/+layout.ts",
+			"source_location": "L3",
+			"weight": 1.0
+		}
+	],
+	"raw_calls": []
+}

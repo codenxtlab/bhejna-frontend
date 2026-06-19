@@ -144,7 +144,7 @@ components:
           type: string
         whatsapp_status:
           type: string
-          enum: [UNCONNECTED, PENDING_ONBOARDING, ACTIVE]
+          enum: [UNCONNECTED, PENDING_ONBOARDING, ACTIVE, ACTION_REQUIRED]
           default: UNCONNECTED
         messaging_limit:
           type: integer
@@ -426,19 +426,3 @@ paths:
         '204':
           description: Tenant paused successfully
 
-webhooks:
-  delivery_update:
-    post:
-      operationId: handleDeliveryUpdate
-      tags:
-        - Webhooks
-      summary: Delivery status update
-      description: Sent when a message status changes (sent, delivered, read, failed).
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WebhookPayload'
-      responses:
-        '200':
-          description: Webhook received

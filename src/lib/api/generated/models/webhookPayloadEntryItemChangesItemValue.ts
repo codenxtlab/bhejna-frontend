@@ -12,8 +12,8 @@ import type { WebhookPayloadEntryItemChangesItemValueMetadata } from './webhookP
 import type { WebhookPayloadEntryItemChangesItemValueStatusesItem } from './webhookPayloadEntryItemChangesItemValueStatusesItem';
 
 export type WebhookPayloadEntryItemChangesItemValue = {
-  messaging_product?: string;
-  metadata?: WebhookPayloadEntryItemChangesItemValueMetadata;
-  statuses?: WebhookPayloadEntryItemChangesItemValueStatusesItem[];
-  messages?: WebhookPayloadEntryItemChangesItemValueMessagesItem[];
+	messaging_product?: string;
+	metadata?: WebhookPayloadEntryItemChangesItemValueMetadata;
+	statuses?: WebhookPayloadEntryItemChangesItemValueStatusesItem[];
+	messages?: WebhookPayloadEntryItemChangesItemValueMessagesItem[];
 };

@@ -10,9 +10,9 @@ It provides a contract-first API for sending messages, tracking delivery status,
 import type { WebhookPayloadEntryItemChangesItemValueMessagesItemText } from './webhookPayloadEntryItemChangesItemValueMessagesItemText';
 
 export type WebhookPayloadEntryItemChangesItemValueMessagesItem = {
-  from?: string;
-  id?: string;
-  timestamp?: string;
-  type?: string;
-  text?: WebhookPayloadEntryItemChangesItemValueMessagesItemText;
+	from?: string;
+	id?: string;
+	timestamp?: string;
+	type?: string;
+	text?: WebhookPayloadEntryItemChangesItemValueMessagesItemText;
 };

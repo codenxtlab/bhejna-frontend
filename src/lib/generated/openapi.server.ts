@@ -3,1791 +3,1609 @@
 // @ts-nocheck
 
 export const spec = {
-  "openapi": "3.0.3",
-  "info": {
-    "title": "Bhejna API",
-    "description": "Bhejna is a high-performance WhatsApp messaging proxy and delivery engine. \nIt provides a contract-first API for sending messages, tracking delivery status, and receiving inbound messages via webhooks.\n",
-    "version": "1.0.0",
-    "contact": {
-      "name": "CodeNxt Lab",
-      "url": "https://codenxtlab.tech"
-    }
-  },
-  "servers": [
-    {
-      "url": "https://bhejna-api.codenxtlab.tech",
-      "description": "Production Server"
-    }
-  ],
-  "tags": [
-    {
-      "name": "Messages",
-      "description": "WhatsApp message delivery operations"
-    },
-    {
-      "name": "Internal",
-      "description": "System administration and sync operations"
-    },
-    {
-      "name": "Webhooks",
-      "description": "Inbound delivery status and message updates"
-    }
-  ],
-  "components": {
-    "securitySchemes": {
-      "ApiKeyAuth": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "X-API-Key"
-      },
-      "InternalAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    },
-    "schemas": {
-      "MessageType": {
-        "type": "string",
-        "enum": [
-          "text",
-          "template",
-          "image",
-          "document",
-          "audio",
-          "video",
-          "sticker",
-          "location",
-          "contacts",
-          "interactive"
-        ],
-        "description": "Allowed WhatsApp message types"
-      },
-      "SendMessageRequest": {
-        "type": "object",
-        "required": [
-          "recipient",
-          "message_type",
-          "payload"
-        ],
-        "properties": {
-          "recipient": {
-            "type": "string",
-            "description": "E.164 formatted phone number (e.g., +1234567890)",
-            "pattern": "^\\+?\\d{7,15}$",
-            "example": "+1234567890"
-          },
-          "message_type": {
-            "type": "string",
-            "enum": [
-              "text",
-              "template",
-              "image",
-              "document",
-              "audio",
-              "video",
-              "sticker",
-              "location",
-              "contacts",
-              "interactive"
-            ],
-            "description": "Allowed WhatsApp message types"
-          },
-          "payload": {
-            "type": "object",
-            "description": "Meta-compatible message payload",
-            "example": {
-              "body": "Hello, this is a test message from Bhejna!"
-            }
-          }
-        }
-      },
-      "SendMessageResponse": {
-        "type": "object",
-        "required": [
-          "job_id",
-          "status"
-        ],
-        "properties": {
-          "job_id": {
-            "type": "string",
-            "example": "01ARZ3NDEKTSV4RRFFQ69G5FAV"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "queued"
-            ]
-          }
-        }
-      },
-      "Tenant": {
-        "type": "object",
-        "required": [
-          "id",
-          "waba_id",
-          "phone_number_id"
-        ],
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "waba_id": {
-            "type": "string"
-          },
-          "phone_number_id": {
-            "type": "string"
-          },
-          "api_key": {
-            "type": "string"
-          },
-          "messaging_limit": {
-            "type": "integer"
-          },
-          "quality_rating": {
-            "type": "string"
-          },
-          "is_paused": {
-            "type": "boolean"
-          },
-          "webhook_url": {
-            "type": "string"
-          },
-          "webhook_secret": {
-            "type": "string"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "SuccessResponse": {
-        "type": "object",
-        "required": [
-          "success"
-        ],
-        "properties": {
-          "success": {
-            "type": "boolean",
-            "example": true
-          },
-          "data": {
-            "type": "object"
-          },
-          "request_id": {
-            "type": "string",
-            "example": "req_123"
-          }
-        }
-      },
-      "ErrorResponse": {
-        "type": "object",
-        "required": [
-          "success",
-          "error"
-        ],
-        "properties": {
-          "success": {
-            "type": "boolean",
-            "example": false
-          },
-          "error": {
-            "type": "object",
-            "required": [
-              "code",
-              "message"
-            ],
-            "properties": {
-              "code": {
-                "type": "string",
-                "example": "INVALID_PHONE"
-              },
-              "message": {
-                "type": "string",
-                "example": "Recipient phone number invalid"
-              },
-              "retryable": {
-                "type": "boolean",
-                "example": false
-              }
-            }
-          },
-          "request_id": {
-            "type": "string",
-            "example": "req_123"
-          }
-        }
-      },
-      "WebhookPayload": {
-        "type": "object",
-        "required": [
-          "object",
-          "entry"
-        ],
-        "properties": {
-          "object": {
-            "type": "string",
-            "example": "whatsapp_business_account"
-          },
-          "entry": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": [
-                "id",
-                "changes"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "description": "WhatsApp Business Account ID"
-                },
-                "changes": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "required": [
-                      "field",
-                      "value"
-                    ],
-                    "properties": {
-                      "field": {
-                        "type": "string",
-                        "example": "messages"
-                      },
-                      "value": {
-                        "type": "object",
-                        "properties": {
-                          "messaging_product": {
-                            "type": "string",
-                            "example": "whatsapp"
-                          },
-                          "metadata": {
-                            "type": "object",
-                            "properties": {
-                              "display_phone_number": {
-                                "type": "string"
-                              },
-                              "phone_number_id": {
-                                "type": "string"
-                              }
-                            }
-                          },
-                          "statuses": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "status": {
-                                  "type": "string",
-                                  "enum": [
-                                    "sent",
-                                    "delivered",
-                                    "read",
-                                    "failed",
-                                    "deleted"
-                                  ]
-                                },
-                                "timestamp": {
-                                  "type": "string"
-                                },
-                                "recipient_id": {
-                                  "type": "string"
-                                },
-                                "errors": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "code": {
-                                        "type": "integer"
-                                      },
-                                      "title": {
-                                        "type": "string"
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "messages": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "from": {
-                                  "type": "string"
-                                },
-                                "id": {
-                                  "type": "string"
-                                },
-                                "timestamp": {
-                                  "type": "string"
-                                },
-                                "type": {
-                                  "type": "string"
-                                },
-                                "text": {
-                                  "type": "object",
-                                  "properties": {
-                                    "body": {
-                                      "type": "string"
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "paths": {
-    "/v1/internal/webhook-schema": {
-      "post": {
-        "operationId": "forceGenerateWebhookType",
-        "description": "Internal shadow endpoint to force generation of WebhookPayload type.",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "object",
-                    "entry"
-                  ],
-                  "properties": {
-                    "object": {
-                      "type": "string",
-                      "example": "whatsapp_business_account"
-                    },
-                    "entry": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": [
-                          "id",
-                          "changes"
-                        ],
-                        "properties": {
-                          "id": {
-                            "type": "string",
-                            "description": "WhatsApp Business Account ID"
-                          },
-                          "changes": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "required": [
-                                "field",
-                                "value"
-                              ],
-                              "properties": {
-                                "field": {
-                                  "type": "string",
-                                  "example": "messages"
-                                },
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "messaging_product": {
-                                      "type": "string",
-                                      "example": "whatsapp"
-                                    },
-                                    "metadata": {
-                                      "type": "object",
-                                      "properties": {
-                                        "display_phone_number": {
-                                          "type": "string"
-                                        },
-                                        "phone_number_id": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    },
-                                    "statuses": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "string"
-                                          },
-                                          "status": {
-                                            "type": "string",
-                                            "enum": [
-                                              "sent",
-                                              "delivered",
-                                              "read",
-                                              "failed",
-                                              "deleted"
-                                            ]
-                                          },
-                                          "timestamp": {
-                                            "type": "string"
-                                          },
-                                          "recipient_id": {
-                                            "type": "string"
-                                          },
-                                          "errors": {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "object",
-                                              "properties": {
-                                                "code": {
-                                                  "type": "integer"
-                                                },
-                                                "title": {
-                                                  "type": "string"
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                                    "messages": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "from": {
-                                            "type": "string"
-                                          },
-                                          "id": {
-                                            "type": "string"
-                                          },
-                                          "timestamp": {
-                                            "type": "string"
-                                          },
-                                          "type": {
-                                            "type": "string"
-                                          },
-                                          "text": {
-                                            "type": "object",
-                                            "properties": {
-                                              "body": {
-                                                "type": "string"
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/messages": {
-      "post": {
-        "operationId": "sendMessage",
-        "tags": [
-          "Messages"
-        ],
-        "summary": "Send a WhatsApp message",
-        "description": "Enqueues a message for delivery via WhatsApp.",
-        "security": [
-          {
-            "ApiKeyAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Idempotency-Key",
-            "schema": {
-              "type": "string"
-            },
-            "required": false,
-            "description": "Unique key to prevent duplicate message processing"
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "recipient",
-                  "message_type",
-                  "payload"
-                ],
-                "properties": {
-                  "recipient": {
-                    "type": "string",
-                    "description": "E.164 formatted phone number (e.g., +1234567890)",
-                    "pattern": "^\\+?\\d{7,15}$",
-                    "example": "+1234567890"
-                  },
-                  "message_type": {
-                    "type": "string",
-                    "enum": [
-                      "text",
-                      "template",
-                      "image",
-                      "document",
-                      "audio",
-                      "video",
-                      "sticker",
-                      "location",
-                      "contacts",
-                      "interactive"
-                    ],
-                    "description": "Allowed WhatsApp message types"
-                  },
-                  "payload": {
-                    "type": "object",
-                    "description": "Meta-compatible message payload",
-                    "example": {
-                      "body": "Hello, this is a test message from Bhejna!"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "Message accepted and queued",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "type": "object",
-                      "required": [
-                        "success"
-                      ],
-                      "properties": {
-                        "success": {
-                          "type": "boolean",
-                          "example": true
-                        },
-                        "data": {
-                          "type": "object"
-                        },
-                        "request_id": {
-                          "type": "string",
-                          "example": "req_123"
-                        }
-                      }
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "type": "object",
-                          "required": [
-                            "job_id",
-                            "status"
-                          ],
-                          "properties": {
-                            "job_id": {
-                              "type": "string",
-                              "example": "01ARZ3NDEKTSV4RRFFQ69G5FAV"
-                            },
-                            "status": {
-                              "type": "string",
-                              "enum": [
-                                "queued"
-                              ]
-                            }
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "success",
-                    "error"
-                  ],
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "error": {
-                      "type": "object",
-                      "required": [
-                        "code",
-                        "message"
-                      ],
-                      "properties": {
-                        "code": {
-                          "type": "string",
-                          "example": "INVALID_PHONE"
-                        },
-                        "message": {
-                          "type": "string",
-                          "example": "Recipient phone number invalid"
-                        },
-                        "retryable": {
-                          "type": "boolean",
-                          "example": false
-                        }
-                      }
-                    },
-                    "request_id": {
-                      "type": "string",
-                      "example": "req_123"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "429": {
-            "description": "Quota exceeded"
-          }
-        }
-      }
-    },
-    "/v1/internal/tenant": {
-      "post": {
-        "operationId": "syncTenant",
-        "tags": [
-          "Internal"
-        ],
-        "summary": "Sync or provision a tenant",
-        "description": "Internal endpoint to provision or update tenant configuration.",
-        "security": [
-          {
-            "InternalAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "oneOf": [
-                  {
-                    "type": "object",
-                    "required": [
-                      "id",
-                      "waba_id",
-                      "phone_number_id"
-                    ],
-                    "properties": {
-                      "id": {
-                        "type": "string"
-                      },
-                      "waba_id": {
-                        "type": "string"
-                      },
-                      "phone_number_id": {
-                        "type": "string"
-                      },
-                      "api_key": {
-                        "type": "string"
-                      },
-                      "messaging_limit": {
-                        "type": "integer"
-                      },
-                      "quality_rating": {
-                        "type": "string"
-                      },
-                      "is_paused": {
-                        "type": "boolean"
-                      },
-                      "webhook_url": {
-                        "type": "string"
-                      },
-                      "webhook_secret": {
-                        "type": "string"
-                      },
-                      "created_at": {
-                        "type": "string",
-                        "format": "date-time"
-                      }
-                    }
-                  },
-                  {
-                    "type": "object",
-                    "required": [
-                      "record"
-                    ],
-                    "properties": {
-                      "record": {
-                        "type": "object",
-                        "required": [
-                          "id",
-                          "waba_id",
-                          "phone_number_id"
-                        ],
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "waba_id": {
-                            "type": "string"
-                          },
-                          "phone_number_id": {
-                            "type": "string"
-                          },
-                          "api_key": {
-                            "type": "string"
-                          },
-                          "messaging_limit": {
-                            "type": "integer"
-                          },
-                          "quality_rating": {
-                            "type": "string"
-                          },
-                          "is_paused": {
-                            "type": "boolean"
-                          },
-                          "webhook_url": {
-                            "type": "string"
-                          },
-                          "webhook_secret": {
-                            "type": "string"
-                          },
-                          "created_at": {
-                            "type": "string",
-                            "format": "date-time"
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Tenant synced successfully"
-          }
-        }
-      }
-    },
-    "/v1/internal/tenants/{id}/pause": {
-      "put": {
-        "operationId": "pauseTenant",
-        "tags": [
-          "Internal"
-        ],
-        "summary": "Pause a tenant",
-        "description": "Manually pause message delivery for a tenant.",
-        "security": [
-          {
-            "InternalAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Tenant paused successfully"
-          }
-        }
-      }
-    }
-  },
-  "webhooks": {
-    "delivery_update": {
-      "post": {
-        "operationId": "handleDeliveryUpdate",
-        "tags": [
-          "Webhooks"
-        ],
-        "summary": "Delivery status update",
-        "description": "Sent when a message status changes (sent, delivered, read, failed).",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "object",
-                  "entry"
-                ],
-                "properties": {
-                  "object": {
-                    "type": "string",
-                    "example": "whatsapp_business_account"
-                  },
-                  "entry": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "id",
-                        "changes"
-                      ],
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "description": "WhatsApp Business Account ID"
-                        },
-                        "changes": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "required": [
-                              "field",
-                              "value"
-                            ],
-                            "properties": {
-                              "field": {
-                                "type": "string",
-                                "example": "messages"
-                              },
-                              "value": {
-                                "type": "object",
-                                "properties": {
-                                  "messaging_product": {
-                                    "type": "string",
-                                    "example": "whatsapp"
-                                  },
-                                  "metadata": {
-                                    "type": "object",
-                                    "properties": {
-                                      "display_phone_number": {
-                                        "type": "string"
-                                      },
-                                      "phone_number_id": {
-                                        "type": "string"
-                                      }
-                                    }
-                                  },
-                                  "statuses": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "status": {
-                                          "type": "string",
-                                          "enum": [
-                                            "sent",
-                                            "delivered",
-                                            "read",
-                                            "failed",
-                                            "deleted"
-                                          ]
-                                        },
-                                        "timestamp": {
-                                          "type": "string"
-                                        },
-                                        "recipient_id": {
-                                          "type": "string"
-                                        },
-                                        "errors": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "code": {
-                                                "type": "integer"
-                                              },
-                                              "title": {
-                                                "type": "string"
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
-                                  "messages": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "from": {
-                                          "type": "string"
-                                        },
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "timestamp": {
-                                          "type": "string"
-                                        },
-                                        "type": {
-                                          "type": "string"
-                                        },
-                                        "text": {
-                                          "type": "object",
-                                          "properties": {
-                                            "body": {
-                                              "type": "string"
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Webhook received"
-          }
-        }
-      }
-    }
-  }
+	openapi: '3.0.3',
+	info: {
+		title: 'Bhejna API',
+		description:
+			'Bhejna is a high-performance WhatsApp messaging proxy and delivery engine. \nIt provides a contract-first API for sending messages, tracking delivery status, and receiving inbound messages via webhooks.\n',
+		version: '1.0.0',
+		contact: {
+			name: 'CodeNxt Lab',
+			url: 'https://codenxtlab.tech'
+		}
+	},
+	servers: [
+		{
+			url: 'https://bhejna-api.codenxtlab.tech',
+			description: 'Production Server'
+		}
+	],
+	tags: [
+		{
+			name: 'Messages',
+			description: 'WhatsApp message delivery operations'
+		},
+		{
+			name: 'Internal',
+			description: 'System administration and sync operations'
+		},
+		{
+			name: 'Webhooks',
+			description: 'Inbound delivery status and message updates'
+		}
+	],
+	components: {
+		securitySchemes: {
+			ApiKeyAuth: {
+				type: 'apiKey',
+				in: 'header',
+				name: 'X-API-Key'
+			},
+			InternalAuth: {
+				type: 'http',
+				scheme: 'bearer',
+				bearerFormat: 'JWT'
+			}
+		},
+		schemas: {
+			MessageType: {
+				type: 'string',
+				enum: [
+					'text',
+					'template',
+					'image',
+					'document',
+					'audio',
+					'video',
+					'sticker',
+					'location',
+					'contacts',
+					'interactive'
+				],
+				description: 'Allowed WhatsApp message types'
+			},
+			SendMessageRequest: {
+				type: 'object',
+				required: ['recipient', 'message_type', 'payload'],
+				properties: {
+					recipient: {
+						type: 'string',
+						description: 'E.164 formatted phone number (e.g., +1234567890)',
+						pattern: '^\\+?\\d{7,15}$',
+						example: '+1234567890'
+					},
+					message_type: {
+						type: 'string',
+						enum: [
+							'text',
+							'template',
+							'image',
+							'document',
+							'audio',
+							'video',
+							'sticker',
+							'location',
+							'contacts',
+							'interactive'
+						],
+						description: 'Allowed WhatsApp message types'
+					},
+					payload: {
+						type: 'object',
+						description: 'Meta-compatible message payload',
+						example: {
+							body: 'Hello, this is a test message from Bhejna!'
+						}
+					}
+				}
+			},
+			SendMessageResponse: {
+				type: 'object',
+				required: ['job_id', 'status'],
+				properties: {
+					job_id: {
+						type: 'string',
+						example: '01ARZ3NDEKTSV4RRFFQ69G5FAV'
+					},
+					status: {
+						type: 'string',
+						enum: ['queued']
+					}
+				}
+			},
+			Tenant: {
+				type: 'object',
+				required: ['id', 'waba_id', 'phone_number_id'],
+				properties: {
+					id: {
+						type: 'string'
+					},
+					waba_id: {
+						type: 'string'
+					},
+					phone_number_id: {
+						type: 'string'
+					},
+					api_key: {
+						type: 'string'
+					},
+					messaging_limit: {
+						type: 'integer'
+					},
+					quality_rating: {
+						type: 'string'
+					},
+					is_paused: {
+						type: 'boolean'
+					},
+					webhook_url: {
+						type: 'string'
+					},
+					webhook_secret: {
+						type: 'string'
+					},
+					created_at: {
+						type: 'string',
+						format: 'date-time'
+					}
+				}
+			},
+			SuccessResponse: {
+				type: 'object',
+				required: ['success'],
+				properties: {
+					success: {
+						type: 'boolean',
+						example: true
+					},
+					data: {
+						type: 'object'
+					},
+					request_id: {
+						type: 'string',
+						example: 'req_123'
+					}
+				}
+			},
+			ErrorResponse: {
+				type: 'object',
+				required: ['success', 'error'],
+				properties: {
+					success: {
+						type: 'boolean',
+						example: false
+					},
+					error: {
+						type: 'object',
+						required: ['code', 'message'],
+						properties: {
+							code: {
+								type: 'string',
+								example: 'INVALID_PHONE'
+							},
+							message: {
+								type: 'string',
+								example: 'Recipient phone number invalid'
+							},
+							retryable: {
+								type: 'boolean',
+								example: false
+							}
+						}
+					},
+					request_id: {
+						type: 'string',
+						example: 'req_123'
+					}
+				}
+			},
+			WebhookPayload: {
+				type: 'object',
+				required: ['object', 'entry'],
+				properties: {
+					object: {
+						type: 'string',
+						example: 'whatsapp_business_account'
+					},
+					entry: {
+						type: 'array',
+						items: {
+							type: 'object',
+							required: ['id', 'changes'],
+							properties: {
+								id: {
+									type: 'string',
+									description: 'WhatsApp Business Account ID'
+								},
+								changes: {
+									type: 'array',
+									items: {
+										type: 'object',
+										required: ['field', 'value'],
+										properties: {
+											field: {
+												type: 'string',
+												example: 'messages'
+											},
+											value: {
+												type: 'object',
+												properties: {
+													messaging_product: {
+														type: 'string',
+														example: 'whatsapp'
+													},
+													metadata: {
+														type: 'object',
+														properties: {
+															display_phone_number: {
+																type: 'string'
+															},
+															phone_number_id: {
+																type: 'string'
+															}
+														}
+													},
+													statuses: {
+														type: 'array',
+														items: {
+															type: 'object',
+															properties: {
+																id: {
+																	type: 'string'
+																},
+																status: {
+																	type: 'string',
+																	enum: ['sent', 'delivered', 'read', 'failed', 'deleted']
+																},
+																timestamp: {
+																	type: 'string'
+																},
+																recipient_id: {
+																	type: 'string'
+																},
+																errors: {
+																	type: 'array',
+																	items: {
+																		type: 'object',
+																		properties: {
+																			code: {
+																				type: 'integer'
+																			},
+																			title: {
+																				type: 'string'
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													},
+													messages: {
+														type: 'array',
+														items: {
+															type: 'object',
+															properties: {
+																from: {
+																	type: 'string'
+																},
+																id: {
+																	type: 'string'
+																},
+																timestamp: {
+																	type: 'string'
+																},
+																type: {
+																	type: 'string'
+																},
+																text: {
+																	type: 'object',
+																	properties: {
+																		body: {
+																			type: 'string'
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	paths: {
+		'/v1/internal/webhook-schema': {
+			post: {
+				operationId: 'forceGenerateWebhookType',
+				description: 'Internal shadow endpoint to force generation of WebhookPayload type.',
+				responses: {
+					'200': {
+						description: 'OK',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									required: ['object', 'entry'],
+									properties: {
+										object: {
+											type: 'string',
+											example: 'whatsapp_business_account'
+										},
+										entry: {
+											type: 'array',
+											items: {
+												type: 'object',
+												required: ['id', 'changes'],
+												properties: {
+													id: {
+														type: 'string',
+														description: 'WhatsApp Business Account ID'
+													},
+													changes: {
+														type: 'array',
+														items: {
+															type: 'object',
+															required: ['field', 'value'],
+															properties: {
+																field: {
+																	type: 'string',
+																	example: 'messages'
+																},
+																value: {
+																	type: 'object',
+																	properties: {
+																		messaging_product: {
+																			type: 'string',
+																			example: 'whatsapp'
+																		},
+																		metadata: {
+																			type: 'object',
+																			properties: {
+																				display_phone_number: {
+																					type: 'string'
+																				},
+																				phone_number_id: {
+																					type: 'string'
+																				}
+																			}
+																		},
+																		statuses: {
+																			type: 'array',
+																			items: {
+																				type: 'object',
+																				properties: {
+																					id: {
+																						type: 'string'
+																					},
+																					status: {
+																						type: 'string',
+																						enum: ['sent', 'delivered', 'read', 'failed', 'deleted']
+																					},
+																					timestamp: {
+																						type: 'string'
+																					},
+																					recipient_id: {
+																						type: 'string'
+																					},
+																					errors: {
+																						type: 'array',
+																						items: {
+																							type: 'object',
+																							properties: {
+																								code: {
+																									type: 'integer'
+																								},
+																								title: {
+																									type: 'string'
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		},
+																		messages: {
+																			type: 'array',
+																			items: {
+																				type: 'object',
+																				properties: {
+																					from: {
+																						type: 'string'
+																					},
+																					id: {
+																						type: 'string'
+																					},
+																					timestamp: {
+																						type: 'string'
+																					},
+																					type: {
+																						type: 'string'
+																					},
+																					text: {
+																						type: 'object',
+																						properties: {
+																							body: {
+																								type: 'string'
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		'/v1/messages': {
+			post: {
+				operationId: 'sendMessage',
+				tags: ['Messages'],
+				summary: 'Send a WhatsApp message',
+				description: 'Enqueues a message for delivery via WhatsApp.',
+				security: [
+					{
+						ApiKeyAuth: []
+					}
+				],
+				parameters: [
+					{
+						in: 'header',
+						name: 'Idempotency-Key',
+						schema: {
+							type: 'string'
+						},
+						required: false,
+						description: 'Unique key to prevent duplicate message processing'
+					}
+				],
+				requestBody: {
+					required: true,
+					content: {
+						'application/json': {
+							schema: {
+								type: 'object',
+								required: ['recipient', 'message_type', 'payload'],
+								properties: {
+									recipient: {
+										type: 'string',
+										description: 'E.164 formatted phone number (e.g., +1234567890)',
+										pattern: '^\\+?\\d{7,15}$',
+										example: '+1234567890'
+									},
+									message_type: {
+										type: 'string',
+										enum: [
+											'text',
+											'template',
+											'image',
+											'document',
+											'audio',
+											'video',
+											'sticker',
+											'location',
+											'contacts',
+											'interactive'
+										],
+										description: 'Allowed WhatsApp message types'
+									},
+									payload: {
+										type: 'object',
+										description: 'Meta-compatible message payload',
+										example: {
+											body: 'Hello, this is a test message from Bhejna!'
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				responses: {
+					'202': {
+						description: 'Message accepted and queued',
+						content: {
+							'application/json': {
+								schema: {
+									allOf: [
+										{
+											type: 'object',
+											required: ['success'],
+											properties: {
+												success: {
+													type: 'boolean',
+													example: true
+												},
+												data: {
+													type: 'object'
+												},
+												request_id: {
+													type: 'string',
+													example: 'req_123'
+												}
+											}
+										},
+										{
+											type: 'object',
+											properties: {
+												data: {
+													type: 'object',
+													required: ['job_id', 'status'],
+													properties: {
+														job_id: {
+															type: 'string',
+															example: '01ARZ3NDEKTSV4RRFFQ69G5FAV'
+														},
+														status: {
+															type: 'string',
+															enum: ['queued']
+														}
+													}
+												}
+											}
+										}
+									]
+								}
+							}
+						}
+					},
+					'400': {
+						description: 'Invalid request',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									required: ['success', 'error'],
+									properties: {
+										success: {
+											type: 'boolean',
+											example: false
+										},
+										error: {
+											type: 'object',
+											required: ['code', 'message'],
+											properties: {
+												code: {
+													type: 'string',
+													example: 'INVALID_PHONE'
+												},
+												message: {
+													type: 'string',
+													example: 'Recipient phone number invalid'
+												},
+												retryable: {
+													type: 'boolean',
+													example: false
+												}
+											}
+										},
+										request_id: {
+											type: 'string',
+											example: 'req_123'
+										}
+									}
+								}
+							}
+						}
+					},
+					'401': {
+						description: 'Unauthorized'
+					},
+					'429': {
+						description: 'Quota exceeded'
+					}
+				}
+			}
+		},
+		'/v1/internal/tenant': {
+			post: {
+				operationId: 'syncTenant',
+				tags: ['Internal'],
+				summary: 'Sync or provision a tenant',
+				description: 'Internal endpoint to provision or update tenant configuration.',
+				security: [
+					{
+						InternalAuth: []
+					}
+				],
+				requestBody: {
+					required: true,
+					content: {
+						'application/json': {
+							schema: {
+								oneOf: [
+									{
+										type: 'object',
+										required: ['id', 'waba_id', 'phone_number_id'],
+										properties: {
+											id: {
+												type: 'string'
+											},
+											waba_id: {
+												type: 'string'
+											},
+											phone_number_id: {
+												type: 'string'
+											},
+											api_key: {
+												type: 'string'
+											},
+											messaging_limit: {
+												type: 'integer'
+											},
+											quality_rating: {
+												type: 'string'
+											},
+											is_paused: {
+												type: 'boolean'
+											},
+											webhook_url: {
+												type: 'string'
+											},
+											webhook_secret: {
+												type: 'string'
+											},
+											created_at: {
+												type: 'string',
+												format: 'date-time'
+											}
+										}
+									},
+									{
+										type: 'object',
+										required: ['record'],
+										properties: {
+											record: {
+												type: 'object',
+												required: ['id', 'waba_id', 'phone_number_id'],
+												properties: {
+													id: {
+														type: 'string'
+													},
+													waba_id: {
+														type: 'string'
+													},
+													phone_number_id: {
+														type: 'string'
+													},
+													api_key: {
+														type: 'string'
+													},
+													messaging_limit: {
+														type: 'integer'
+													},
+													quality_rating: {
+														type: 'string'
+													},
+													is_paused: {
+														type: 'boolean'
+													},
+													webhook_url: {
+														type: 'string'
+													},
+													webhook_secret: {
+														type: 'string'
+													},
+													created_at: {
+														type: 'string',
+														format: 'date-time'
+													}
+												}
+											}
+										}
+									}
+								]
+							}
+						}
+					}
+				},
+				responses: {
+					'200': {
+						description: 'Tenant synced successfully'
+					}
+				}
+			}
+		},
+		'/v1/internal/tenants/{id}/pause': {
+			put: {
+				operationId: 'pauseTenant',
+				tags: ['Internal'],
+				summary: 'Pause a tenant',
+				description: 'Manually pause message delivery for a tenant.',
+				security: [
+					{
+						InternalAuth: []
+					}
+				],
+				parameters: [
+					{
+						name: 'id',
+						in: 'path',
+						required: true,
+						schema: {
+							type: 'string'
+						}
+					}
+				],
+				responses: {
+					'204': {
+						description: 'Tenant paused successfully'
+					}
+				}
+			}
+		}
+	},
+	webhooks: {
+		delivery_update: {
+			post: {
+				operationId: 'handleDeliveryUpdate',
+				tags: ['Webhooks'],
+				summary: 'Delivery status update',
+				description: 'Sent when a message status changes (sent, delivered, read, failed).',
+				requestBody: {
+					content: {
+						'application/json': {
+							schema: {
+								type: 'object',
+								required: ['object', 'entry'],
+								properties: {
+									object: {
+										type: 'string',
+										example: 'whatsapp_business_account'
+									},
+									entry: {
+										type: 'array',
+										items: {
+											type: 'object',
+											required: ['id', 'changes'],
+											properties: {
+												id: {
+													type: 'string',
+													description: 'WhatsApp Business Account ID'
+												},
+												changes: {
+													type: 'array',
+													items: {
+														type: 'object',
+														required: ['field', 'value'],
+														properties: {
+															field: {
+																type: 'string',
+																example: 'messages'
+															},
+															value: {
+																type: 'object',
+																properties: {
+																	messaging_product: {
+																		type: 'string',
+																		example: 'whatsapp'
+																	},
+																	metadata: {
+																		type: 'object',
+																		properties: {
+																			display_phone_number: {
+																				type: 'string'
+																			},
+																			phone_number_id: {
+																				type: 'string'
+																			}
+																		}
+																	},
+																	statuses: {
+																		type: 'array',
+																		items: {
+																			type: 'object',
+																			properties: {
+																				id: {
+																					type: 'string'
+																				},
+																				status: {
+																					type: 'string',
+																					enum: ['sent', 'delivered', 'read', 'failed', 'deleted']
+																				},
+																				timestamp: {
+																					type: 'string'
+																				},
+																				recipient_id: {
+																					type: 'string'
+																				},
+																				errors: {
+																					type: 'array',
+																					items: {
+																						type: 'object',
+																						properties: {
+																							code: {
+																								type: 'integer'
+																							},
+																							title: {
+																								type: 'string'
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	},
+																	messages: {
+																		type: 'array',
+																		items: {
+																			type: 'object',
+																			properties: {
+																				from: {
+																					type: 'string'
+																				},
+																				id: {
+																					type: 'string'
+																				},
+																				timestamp: {
+																					type: 'string'
+																				},
+																				type: {
+																					type: 'string'
+																				},
+																				text: {
+																					type: 'object',
+																					properties: {
+																						body: {
+																							type: 'string'
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				responses: {
+					'200': {
+						description: 'Webhook received'
+					}
+				}
+			}
+		}
+	}
 } as const;
 export const operations = {
-  "forceGenerateWebhookType": {
-    "path": "/v1/internal/webhook-schema",
-    "method": "POST",
-    "operationId": "forceGenerateWebhookType",
-    "description": "Internal shadow endpoint to force generation of WebhookPayload type.",
-    "responses": {
-      "200": {
-        "description": "OK",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "object",
-                "entry"
-              ],
-              "properties": {
-                "object": {
-                  "type": "string",
-                  "example": "whatsapp_business_account"
-                },
-                "entry": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "required": [
-                      "id",
-                      "changes"
-                    ],
-                    "properties": {
-                      "id": {
-                        "type": "string",
-                        "description": "WhatsApp Business Account ID"
-                      },
-                      "changes": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "required": [
-                            "field",
-                            "value"
-                          ],
-                          "properties": {
-                            "field": {
-                              "type": "string",
-                              "example": "messages"
-                            },
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "messaging_product": {
-                                  "type": "string",
-                                  "example": "whatsapp"
-                                },
-                                "metadata": {
-                                  "type": "object",
-                                  "properties": {
-                                    "display_phone_number": {
-                                      "type": "string"
-                                    },
-                                    "phone_number_id": {
-                                      "type": "string"
-                                    }
-                                  }
-                                },
-                                "statuses": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "string"
-                                      },
-                                      "status": {
-                                        "type": "string",
-                                        "enum": [
-                                          "sent",
-                                          "delivered",
-                                          "read",
-                                          "failed",
-                                          "deleted"
-                                        ]
-                                      },
-                                      "timestamp": {
-                                        "type": "string"
-                                      },
-                                      "recipient_id": {
-                                        "type": "string"
-                                      },
-                                      "errors": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "code": {
-                                              "type": "integer"
-                                            },
-                                            "title": {
-                                              "type": "string"
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                },
-                                "messages": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "from": {
-                                        "type": "string"
-                                      },
-                                      "id": {
-                                        "type": "string"
-                                      },
-                                      "timestamp": {
-                                        "type": "string"
-                                      },
-                                      "type": {
-                                        "type": "string"
-                                      },
-                                      "text": {
-                                        "type": "object",
-                                        "properties": {
-                                          "body": {
-                                            "type": "string"
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "sendMessage": {
-    "path": "/v1/messages",
-    "method": "POST",
-    "operationId": "sendMessage",
-    "tags": [
-      "Messages"
-    ],
-    "summary": "Send a WhatsApp message",
-    "description": "Enqueues a message for delivery via WhatsApp.",
-    "security": [
-      {
-        "ApiKeyAuth": []
-      }
-    ],
-    "parameters": [
-      {
-        "in": "header",
-        "name": "Idempotency-Key",
-        "schema": {
-          "type": "string"
-        },
-        "required": false,
-        "description": "Unique key to prevent duplicate message processing"
-      }
-    ],
-    "requestBody": {
-      "required": true,
-      "content": {
-        "application/json": {
-          "schema": {
-            "type": "object",
-            "required": [
-              "recipient",
-              "message_type",
-              "payload"
-            ],
-            "properties": {
-              "recipient": {
-                "type": "string",
-                "description": "E.164 formatted phone number (e.g., +1234567890)",
-                "pattern": "^\\+?\\d{7,15}$",
-                "example": "+1234567890"
-              },
-              "message_type": {
-                "type": "string",
-                "enum": [
-                  "text",
-                  "template",
-                  "image",
-                  "document",
-                  "audio",
-                  "video",
-                  "sticker",
-                  "location",
-                  "contacts",
-                  "interactive"
-                ],
-                "description": "Allowed WhatsApp message types"
-              },
-              "payload": {
-                "type": "object",
-                "description": "Meta-compatible message payload",
-                "example": {
-                  "body": "Hello, this is a test message from Bhejna!"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "responses": {
-      "202": {
-        "description": "Message accepted and queued",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
-                {
-                  "type": "object",
-                  "required": [
-                    "success"
-                  ],
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "type": "object"
-                    },
-                    "request_id": {
-                      "type": "string",
-                      "example": "req_123"
-                    }
-                  }
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "object",
-                      "required": [
-                        "job_id",
-                        "status"
-                      ],
-                      "properties": {
-                        "job_id": {
-                          "type": "string",
-                          "example": "01ARZ3NDEKTSV4RRFFQ69G5FAV"
-                        },
-                        "status": {
-                          "type": "string",
-                          "enum": [
-                            "queued"
-                          ]
-                        }
-                      }
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        }
-      },
-      "400": {
-        "description": "Invalid request",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "success",
-                "error"
-              ],
-              "properties": {
-                "success": {
-                  "type": "boolean",
-                  "example": false
-                },
-                "error": {
-                  "type": "object",
-                  "required": [
-                    "code",
-                    "message"
-                  ],
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "INVALID_PHONE"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Recipient phone number invalid"
-                    },
-                    "retryable": {
-                      "type": "boolean",
-                      "example": false
-                    }
-                  }
-                },
-                "request_id": {
-                  "type": "string",
-                  "example": "req_123"
-                }
-              }
-            }
-          }
-        }
-      },
-      "401": {
-        "description": "Unauthorized"
-      },
-      "429": {
-        "description": "Quota exceeded"
-      }
-    }
-  },
-  "syncTenant": {
-    "path": "/v1/internal/tenant",
-    "method": "POST",
-    "operationId": "syncTenant",
-    "tags": [
-      "Internal"
-    ],
-    "summary": "Sync or provision a tenant",
-    "description": "Internal endpoint to provision or update tenant configuration.",
-    "security": [
-      {
-        "InternalAuth": []
-      }
-    ],
-    "requestBody": {
-      "required": true,
-      "content": {
-        "application/json": {
-          "schema": {
-            "oneOf": [
-              {
-                "type": "object",
-                "required": [
-                  "id",
-                  "waba_id",
-                  "phone_number_id"
-                ],
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "waba_id": {
-                    "type": "string"
-                  },
-                  "phone_number_id": {
-                    "type": "string"
-                  },
-                  "api_key": {
-                    "type": "string"
-                  },
-                  "messaging_limit": {
-                    "type": "integer"
-                  },
-                  "quality_rating": {
-                    "type": "string"
-                  },
-                  "is_paused": {
-                    "type": "boolean"
-                  },
-                  "webhook_url": {
-                    "type": "string"
-                  },
-                  "webhook_secret": {
-                    "type": "string"
-                  },
-                  "created_at": {
-                    "type": "string",
-                    "format": "date-time"
-                  }
-                }
-              },
-              {
-                "type": "object",
-                "required": [
-                  "record"
-                ],
-                "properties": {
-                  "record": {
-                    "type": "object",
-                    "required": [
-                      "id",
-                      "waba_id",
-                      "phone_number_id"
-                    ],
-                    "properties": {
-                      "id": {
-                        "type": "string"
-                      },
-                      "waba_id": {
-                        "type": "string"
-                      },
-                      "phone_number_id": {
-                        "type": "string"
-                      },
-                      "api_key": {
-                        "type": "string"
-                      },
-                      "messaging_limit": {
-                        "type": "integer"
-                      },
-                      "quality_rating": {
-                        "type": "string"
-                      },
-                      "is_paused": {
-                        "type": "boolean"
-                      },
-                      "webhook_url": {
-                        "type": "string"
-                      },
-                      "webhook_secret": {
-                        "type": "string"
-                      },
-                      "created_at": {
-                        "type": "string",
-                        "format": "date-time"
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        }
-      }
-    },
-    "responses": {
-      "200": {
-        "description": "Tenant synced successfully"
-      }
-    }
-  },
-  "pauseTenant": {
-    "path": "/v1/internal/tenants/{id}/pause",
-    "method": "PUT",
-    "operationId": "pauseTenant",
-    "tags": [
-      "Internal"
-    ],
-    "summary": "Pause a tenant",
-    "description": "Manually pause message delivery for a tenant.",
-    "security": [
-      {
-        "InternalAuth": []
-      }
-    ],
-    "parameters": [
-      {
-        "name": "id",
-        "in": "path",
-        "required": true,
-        "schema": {
-          "type": "string"
-        }
-      }
-    ],
-    "responses": {
-      "204": {
-        "description": "Tenant paused successfully"
-      }
-    }
-  },
-  "handleDeliveryUpdate": {
-    "path": "WEBHOOK",
-    "method": "POST",
-    "isWebhook": true,
-    "webhookKey": "delivery_update",
-    "operationId": "handleDeliveryUpdate",
-    "tags": [
-      "Webhooks"
-    ],
-    "summary": "Delivery status update",
-    "description": "Sent when a message status changes (sent, delivered, read, failed).",
-    "requestBody": {
-      "content": {
-        "application/json": {
-          "schema": {
-            "type": "object",
-            "required": [
-              "object",
-              "entry"
-            ],
-            "properties": {
-              "object": {
-                "type": "string",
-                "example": "whatsapp_business_account"
-              },
-              "entry": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "required": [
-                    "id",
-                    "changes"
-                  ],
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "description": "WhatsApp Business Account ID"
-                    },
-                    "changes": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": [
-                          "field",
-                          "value"
-                        ],
-                        "properties": {
-                          "field": {
-                            "type": "string",
-                            "example": "messages"
-                          },
-                          "value": {
-                            "type": "object",
-                            "properties": {
-                              "messaging_product": {
-                                "type": "string",
-                                "example": "whatsapp"
-                              },
-                              "metadata": {
-                                "type": "object",
-                                "properties": {
-                                  "display_phone_number": {
-                                    "type": "string"
-                                  },
-                                  "phone_number_id": {
-                                    "type": "string"
-                                  }
-                                }
-                              },
-                              "statuses": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "status": {
-                                      "type": "string",
-                                      "enum": [
-                                        "sent",
-                                        "delivered",
-                                        "read",
-                                        "failed",
-                                        "deleted"
-                                      ]
-                                    },
-                                    "timestamp": {
-                                      "type": "string"
-                                    },
-                                    "recipient_id": {
-                                      "type": "string"
-                                    },
-                                    "errors": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "code": {
-                                            "type": "integer"
-                                          },
-                                          "title": {
-                                            "type": "string"
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              },
-                              "messages": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "from": {
-                                      "type": "string"
-                                    },
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "timestamp": {
-                                      "type": "string"
-                                    },
-                                    "type": {
-                                      "type": "string"
-                                    },
-                                    "text": {
-                                      "type": "object",
-                                      "properties": {
-                                        "body": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "responses": {
-      "200": {
-        "description": "Webhook received"
-      }
-    }
-  }
+	forceGenerateWebhookType: {
+		path: '/v1/internal/webhook-schema',
+		method: 'POST',
+		operationId: 'forceGenerateWebhookType',
+		description: 'Internal shadow endpoint to force generation of WebhookPayload type.',
+		responses: {
+			'200': {
+				description: 'OK',
+				content: {
+					'application/json': {
+						schema: {
+							type: 'object',
+							required: ['object', 'entry'],
+							properties: {
+								object: {
+									type: 'string',
+									example: 'whatsapp_business_account'
+								},
+								entry: {
+									type: 'array',
+									items: {
+										type: 'object',
+										required: ['id', 'changes'],
+										properties: {
+											id: {
+												type: 'string',
+												description: 'WhatsApp Business Account ID'
+											},
+											changes: {
+												type: 'array',
+												items: {
+													type: 'object',
+													required: ['field', 'value'],
+													properties: {
+														field: {
+															type: 'string',
+															example: 'messages'
+														},
+														value: {
+															type: 'object',
+															properties: {
+																messaging_product: {
+																	type: 'string',
+																	example: 'whatsapp'
+																},
+																metadata: {
+																	type: 'object',
+																	properties: {
+																		display_phone_number: {
+																			type: 'string'
+																		},
+																		phone_number_id: {
+																			type: 'string'
+																		}
+																	}
+																},
+																statuses: {
+																	type: 'array',
+																	items: {
+																		type: 'object',
+																		properties: {
+																			id: {
+																				type: 'string'
+																			},
+																			status: {
+																				type: 'string',
+																				enum: ['sent', 'delivered', 'read', 'failed', 'deleted']
+																			},
+																			timestamp: {
+																				type: 'string'
+																			},
+																			recipient_id: {
+																				type: 'string'
+																			},
+																			errors: {
+																				type: 'array',
+																				items: {
+																					type: 'object',
+																					properties: {
+																						code: {
+																							type: 'integer'
+																						},
+																						title: {
+																							type: 'string'
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																},
+																messages: {
+																	type: 'array',
+																	items: {
+																		type: 'object',
+																		properties: {
+																			from: {
+																				type: 'string'
+																			},
+																			id: {
+																				type: 'string'
+																			},
+																			timestamp: {
+																				type: 'string'
+																			},
+																			type: {
+																				type: 'string'
+																			},
+																			text: {
+																				type: 'object',
+																				properties: {
+																					body: {
+																						type: 'string'
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	sendMessage: {
+		path: '/v1/messages',
+		method: 'POST',
+		operationId: 'sendMessage',
+		tags: ['Messages'],
+		summary: 'Send a WhatsApp message',
+		description: 'Enqueues a message for delivery via WhatsApp.',
+		security: [
+			{
+				ApiKeyAuth: []
+			}
+		],
+		parameters: [
+			{
+				in: 'header',
+				name: 'Idempotency-Key',
+				schema: {
+					type: 'string'
+				},
+				required: false,
+				description: 'Unique key to prevent duplicate message processing'
+			}
+		],
+		requestBody: {
+			required: true,
+			content: {
+				'application/json': {
+					schema: {
+						type: 'object',
+						required: ['recipient', 'message_type', 'payload'],
+						properties: {
+							recipient: {
+								type: 'string',
+								description: 'E.164 formatted phone number (e.g., +1234567890)',
+								pattern: '^\\+?\\d{7,15}$',
+								example: '+1234567890'
+							},
+							message_type: {
+								type: 'string',
+								enum: [
+									'text',
+									'template',
+									'image',
+									'document',
+									'audio',
+									'video',
+									'sticker',
+									'location',
+									'contacts',
+									'interactive'
+								],
+								description: 'Allowed WhatsApp message types'
+							},
+							payload: {
+								type: 'object',
+								description: 'Meta-compatible message payload',
+								example: {
+									body: 'Hello, this is a test message from Bhejna!'
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		responses: {
+			'202': {
+				description: 'Message accepted and queued',
+				content: {
+					'application/json': {
+						schema: {
+							allOf: [
+								{
+									type: 'object',
+									required: ['success'],
+									properties: {
+										success: {
+											type: 'boolean',
+											example: true
+										},
+										data: {
+											type: 'object'
+										},
+										request_id: {
+											type: 'string',
+											example: 'req_123'
+										}
+									}
+								},
+								{
+									type: 'object',
+									properties: {
+										data: {
+											type: 'object',
+											required: ['job_id', 'status'],
+											properties: {
+												job_id: {
+													type: 'string',
+													example: '01ARZ3NDEKTSV4RRFFQ69G5FAV'
+												},
+												status: {
+													type: 'string',
+													enum: ['queued']
+												}
+											}
+										}
+									}
+								}
+							]
+						}
+					}
+				}
+			},
+			'400': {
+				description: 'Invalid request',
+				content: {
+					'application/json': {
+						schema: {
+							type: 'object',
+							required: ['success', 'error'],
+							properties: {
+								success: {
+									type: 'boolean',
+									example: false
+								},
+								error: {
+									type: 'object',
+									required: ['code', 'message'],
+									properties: {
+										code: {
+											type: 'string',
+											example: 'INVALID_PHONE'
+										},
+										message: {
+											type: 'string',
+											example: 'Recipient phone number invalid'
+										},
+										retryable: {
+											type: 'boolean',
+											example: false
+										}
+									}
+								},
+								request_id: {
+									type: 'string',
+									example: 'req_123'
+								}
+							}
+						}
+					}
+				}
+			},
+			'401': {
+				description: 'Unauthorized'
+			},
+			'429': {
+				description: 'Quota exceeded'
+			}
+		}
+	},
+	syncTenant: {
+		path: '/v1/internal/tenant',
+		method: 'POST',
+		operationId: 'syncTenant',
+		tags: ['Internal'],
+		summary: 'Sync or provision a tenant',
+		description: 'Internal endpoint to provision or update tenant configuration.',
+		security: [
+			{
+				InternalAuth: []
+			}
+		],
+		requestBody: {
+			required: true,
+			content: {
+				'application/json': {
+					schema: {
+						oneOf: [
+							{
+								type: 'object',
+								required: ['id', 'waba_id', 'phone_number_id'],
+								properties: {
+									id: {
+										type: 'string'
+									},
+									waba_id: {
+										type: 'string'
+									},
+									phone_number_id: {
+										type: 'string'
+									},
+									api_key: {
+										type: 'string'
+									},
+									messaging_limit: {
+										type: 'integer'
+									},
+									quality_rating: {
+										type: 'string'
+									},
+									is_paused: {
+										type: 'boolean'
+									},
+									webhook_url: {
+										type: 'string'
+									},
+									webhook_secret: {
+										type: 'string'
+									},
+									created_at: {
+										type: 'string',
+										format: 'date-time'
+									}
+								}
+							},
+							{
+								type: 'object',
+								required: ['record'],
+								properties: {
+									record: {
+										type: 'object',
+										required: ['id', 'waba_id', 'phone_number_id'],
+										properties: {
+											id: {
+												type: 'string'
+											},
+											waba_id: {
+												type: 'string'
+											},
+											phone_number_id: {
+												type: 'string'
+											},
+											api_key: {
+												type: 'string'
+											},
+											messaging_limit: {
+												type: 'integer'
+											},
+											quality_rating: {
+												type: 'string'
+											},
+											is_paused: {
+												type: 'boolean'
+											},
+											webhook_url: {
+												type: 'string'
+											},
+											webhook_secret: {
+												type: 'string'
+											},
+											created_at: {
+												type: 'string',
+												format: 'date-time'
+											}
+										}
+									}
+								}
+							}
+						]
+					}
+				}
+			}
+		},
+		responses: {
+			'200': {
+				description: 'Tenant synced successfully'
+			}
+		}
+	},
+	pauseTenant: {
+		path: '/v1/internal/tenants/{id}/pause',
+		method: 'PUT',
+		operationId: 'pauseTenant',
+		tags: ['Internal'],
+		summary: 'Pause a tenant',
+		description: 'Manually pause message delivery for a tenant.',
+		security: [
+			{
+				InternalAuth: []
+			}
+		],
+		parameters: [
+			{
+				name: 'id',
+				in: 'path',
+				required: true,
+				schema: {
+					type: 'string'
+				}
+			}
+		],
+		responses: {
+			'204': {
+				description: 'Tenant paused successfully'
+			}
+		}
+	},
+	handleDeliveryUpdate: {
+		path: 'WEBHOOK',
+		method: 'POST',
+		isWebhook: true,
+		webhookKey: 'delivery_update',
+		operationId: 'handleDeliveryUpdate',
+		tags: ['Webhooks'],
+		summary: 'Delivery status update',
+		description: 'Sent when a message status changes (sent, delivered, read, failed).',
+		requestBody: {
+			content: {
+				'application/json': {
+					schema: {
+						type: 'object',
+						required: ['object', 'entry'],
+						properties: {
+							object: {
+								type: 'string',
+								example: 'whatsapp_business_account'
+							},
+							entry: {
+								type: 'array',
+								items: {
+									type: 'object',
+									required: ['id', 'changes'],
+									properties: {
+										id: {
+											type: 'string',
+											description: 'WhatsApp Business Account ID'
+										},
+										changes: {
+											type: 'array',
+											items: {
+												type: 'object',
+												required: ['field', 'value'],
+												properties: {
+													field: {
+														type: 'string',
+														example: 'messages'
+													},
+													value: {
+														type: 'object',
+														properties: {
+															messaging_product: {
+																type: 'string',
+																example: 'whatsapp'
+															},
+															metadata: {
+																type: 'object',
+																properties: {
+																	display_phone_number: {
+																		type: 'string'
+																	},
+																	phone_number_id: {
+																		type: 'string'
+																	}
+																}
+															},
+															statuses: {
+																type: 'array',
+																items: {
+																	type: 'object',
+																	properties: {
+																		id: {
+																			type: 'string'
+																		},
+																		status: {
+																			type: 'string',
+																			enum: ['sent', 'delivered', 'read', 'failed', 'deleted']
+																		},
+																		timestamp: {
+																			type: 'string'
+																		},
+																		recipient_id: {
+																			type: 'string'
+																		},
+																		errors: {
+																			type: 'array',
+																			items: {
+																				type: 'object',
+																				properties: {
+																					code: {
+																						type: 'integer'
+																					},
+																					title: {
+																						type: 'string'
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															},
+															messages: {
+																type: 'array',
+																items: {
+																	type: 'object',
+																	properties: {
+																		from: {
+																			type: 'string'
+																		},
+																		id: {
+																			type: 'string'
+																		},
+																		timestamp: {
+																			type: 'string'
+																		},
+																		type: {
+																			type: 'string'
+																		},
+																		text: {
+																			type: 'object',
+																			properties: {
+																				body: {
+																					type: 'string'
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		responses: {
+			'200': {
+				description: 'Webhook received'
+			}
+		}
+	}
 } as const;
 export const webhooks = {
-  "delivery_update": {
-    "post": {
-      "operationId": "handleDeliveryUpdate",
-      "tags": [
-        "Webhooks"
-      ],
-      "summary": "Delivery status update",
-      "description": "Sent when a message status changes (sent, delivered, read, failed).",
-      "requestBody": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "object",
-                "entry"
-              ],
-              "properties": {
-                "object": {
-                  "type": "string",
-                  "example": "whatsapp_business_account"
-                },
-                "entry": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "required": [
-                      "id",
-                      "changes"
-                    ],
-                    "properties": {
-                      "id": {
-                        "type": "string",
-                        "description": "WhatsApp Business Account ID"
-                      },
-                      "changes": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "required": [
-                            "field",
-                            "value"
-                          ],
-                          "properties": {
-                            "field": {
-                              "type": "string",
-                              "example": "messages"
-                            },
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "messaging_product": {
-                                  "type": "string",
-                                  "example": "whatsapp"
-                                },
-                                "metadata": {
-                                  "type": "object",
-                                  "properties": {
-                                    "display_phone_number": {
-                                      "type": "string"
-                                    },
-                                    "phone_number_id": {
-                                      "type": "string"
-                                    }
-                                  }
-                                },
-                                "statuses": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "string"
-                                      },
-                                      "status": {
-                                        "type": "string",
-                                        "enum": [
-                                          "sent",
-                                          "delivered",
-                                          "read",
-                                          "failed",
-                                          "deleted"
-                                        ]
-                                      },
-                                      "timestamp": {
-                                        "type": "string"
-                                      },
-                                      "recipient_id": {
-                                        "type": "string"
-                                      },
-                                      "errors": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "code": {
-                                              "type": "integer"
-                                            },
-                                            "title": {
-                                              "type": "string"
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                },
-                                "messages": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "from": {
-                                        "type": "string"
-                                      },
-                                      "id": {
-                                        "type": "string"
-                                      },
-                                      "timestamp": {
-                                        "type": "string"
-                                      },
-                                      "type": {
-                                        "type": "string"
-                                      },
-                                      "text": {
-                                        "type": "object",
-                                        "properties": {
-                                          "body": {
-                                            "type": "string"
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "responses": {
-        "200": {
-          "description": "Webhook received"
-        }
-      }
-    }
-  }
+	delivery_update: {
+		post: {
+			operationId: 'handleDeliveryUpdate',
+			tags: ['Webhooks'],
+			summary: 'Delivery status update',
+			description: 'Sent when a message status changes (sent, delivered, read, failed).',
+			requestBody: {
+				content: {
+					'application/json': {
+						schema: {
+							type: 'object',
+							required: ['object', 'entry'],
+							properties: {
+								object: {
+									type: 'string',
+									example: 'whatsapp_business_account'
+								},
+								entry: {
+									type: 'array',
+									items: {
+										type: 'object',
+										required: ['id', 'changes'],
+										properties: {
+											id: {
+												type: 'string',
+												description: 'WhatsApp Business Account ID'
+											},
+											changes: {
+												type: 'array',
+												items: {
+													type: 'object',
+													required: ['field', 'value'],
+													properties: {
+														field: {
+															type: 'string',
+															example: 'messages'
+														},
+														value: {
+															type: 'object',
+															properties: {
+																messaging_product: {
+																	type: 'string',
+																	example: 'whatsapp'
+																},
+																metadata: {
+																	type: 'object',
+																	properties: {
+																		display_phone_number: {
+																			type: 'string'
+																		},
+																		phone_number_id: {
+																			type: 'string'
+																		}
+																	}
+																},
+																statuses: {
+																	type: 'array',
+																	items: {
+																		type: 'object',
+																		properties: {
+																			id: {
+																				type: 'string'
+																			},
+																			status: {
+																				type: 'string',
+																				enum: ['sent', 'delivered', 'read', 'failed', 'deleted']
+																			},
+																			timestamp: {
+																				type: 'string'
+																			},
+																			recipient_id: {
+																				type: 'string'
+																			},
+																			errors: {
+																				type: 'array',
+																				items: {
+																					type: 'object',
+																					properties: {
+																						code: {
+																							type: 'integer'
+																						},
+																						title: {
+																							type: 'string'
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																},
+																messages: {
+																	type: 'array',
+																	items: {
+																		type: 'object',
+																		properties: {
+																			from: {
+																				type: 'string'
+																			},
+																			id: {
+																				type: 'string'
+																			},
+																			timestamp: {
+																				type: 'string'
+																			},
+																			type: {
+																				type: 'string'
+																			},
+																			text: {
+																				type: 'object',
+																				properties: {
+																					body: {
+																						type: 'string'
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			responses: {
+				'200': {
+					description: 'Webhook received'
+				}
+			}
+		}
+	}
 } as const;
 export const schemas = (spec.components?.schemas || {}) as const;
 

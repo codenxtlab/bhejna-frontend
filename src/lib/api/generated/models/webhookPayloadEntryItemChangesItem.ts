@@ -10,6 +10,6 @@ It provides a contract-first API for sending messages, tracking delivery status,
 import type { WebhookPayloadEntryItemChangesItemValue } from './webhookPayloadEntryItemChangesItemValue';
 
 export type WebhookPayloadEntryItemChangesItem = {
-  field: string;
-  value: WebhookPayloadEntryItemChangesItemValue;
+	field: string;
+	value: WebhookPayloadEntryItemChangesItemValue;
 };

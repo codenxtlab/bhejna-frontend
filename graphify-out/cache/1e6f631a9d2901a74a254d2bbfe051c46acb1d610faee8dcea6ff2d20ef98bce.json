@@ -1,1 +1,148 @@
-{"nodes": [{"id": "home_rakshitbhai_bhejna_frontend_scripts_sync_openapi_ts", "label": "sync-openapi.ts", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L1"}, {"id": "sync_openapi_syncopenapi", "label": "syncOpenAPI()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L9"}], "edges": [{"source": "home_rakshitbhai_bhejna_frontend_scripts_sync_openapi_ts", "target": "fs", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L1", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_scripts_sync_openapi_ts", "target": "path", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L2", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_scripts_sync_openapi_ts", "target": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L3", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_scripts_sync_openapi_ts", "target": "sync_openapi_syncopenapi", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L9", "weight": 1.0}], "raw_calls": [{"caller_nid": "sync_openapi_syncopenapi", "callee": "resolve", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L11"}, {"caller_nid": "sync_openapi_syncopenapi", "callee": "join", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L12"}, {"caller_nid": "sync_openapi_syncopenapi", "callee": "log", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L14"}, {"caller_nid": "sync_openapi_syncopenapi", "callee": "existsSync", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L17"}, {"caller_nid": "sync_openapi_syncopenapi", "callee": "mkdirSync", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L18"}, {"caller_nid": "sync_openapi_syncopenapi", "callee": "existsSync", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L22"}, {"caller_nid": "sync_openapi_syncopenapi", "callee": "error", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L23"}, {"caller_nid": "sync_openapi_syncopenapi", "callee": "exit", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L24"}, {"caller_nid": "sync_openapi_syncopenapi", "callee": "copyFileSync", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L29"}, {"caller_nid": "sync_openapi_syncopenapi", "callee": "log", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L30"}, {"caller_nid": "sync_openapi_syncopenapi", "callee": "log", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L33"}, {"caller_nid": "sync_openapi_syncopenapi", "callee": "compileOpenAPI", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L34"}, {"caller_nid": "sync_openapi_syncopenapi", "callee": "log", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L36"}, {"caller_nid": "sync_openapi_syncopenapi", "callee": "error", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L38"}, {"caller_nid": "sync_openapi_syncopenapi", "callee": "exit", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts", "source_location": "L39"}]}
+{
+	"nodes": [
+		{
+			"id": "home_rakshitbhai_bhejna_frontend_scripts_sync_openapi_ts",
+			"label": "sync-openapi.ts",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L1"
+		},
+		{
+			"id": "sync_openapi_syncopenapi",
+			"label": "syncOpenAPI()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L9"
+		}
+	],
+	"edges": [
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_scripts_sync_openapi_ts",
+			"target": "fs",
+			"relation": "imports_from",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L1",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_scripts_sync_openapi_ts",
+			"target": "path",
+			"relation": "imports_from",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L2",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_scripts_sync_openapi_ts",
+			"target": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts",
+			"relation": "imports_from",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L3",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_scripts_sync_openapi_ts",
+			"target": "sync_openapi_syncopenapi",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L9",
+			"weight": 1.0
+		}
+	],
+	"raw_calls": [
+		{
+			"caller_nid": "sync_openapi_syncopenapi",
+			"callee": "resolve",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L11"
+		},
+		{
+			"caller_nid": "sync_openapi_syncopenapi",
+			"callee": "join",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L12"
+		},
+		{
+			"caller_nid": "sync_openapi_syncopenapi",
+			"callee": "log",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L14"
+		},
+		{
+			"caller_nid": "sync_openapi_syncopenapi",
+			"callee": "existsSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L17"
+		},
+		{
+			"caller_nid": "sync_openapi_syncopenapi",
+			"callee": "mkdirSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L18"
+		},
+		{
+			"caller_nid": "sync_openapi_syncopenapi",
+			"callee": "existsSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L22"
+		},
+		{
+			"caller_nid": "sync_openapi_syncopenapi",
+			"callee": "error",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L23"
+		},
+		{
+			"caller_nid": "sync_openapi_syncopenapi",
+			"callee": "exit",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L24"
+		},
+		{
+			"caller_nid": "sync_openapi_syncopenapi",
+			"callee": "copyFileSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L29"
+		},
+		{
+			"caller_nid": "sync_openapi_syncopenapi",
+			"callee": "log",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L30"
+		},
+		{
+			"caller_nid": "sync_openapi_syncopenapi",
+			"callee": "log",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L33"
+		},
+		{
+			"caller_nid": "sync_openapi_syncopenapi",
+			"callee": "compileOpenAPI",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L34"
+		},
+		{
+			"caller_nid": "sync_openapi_syncopenapi",
+			"callee": "log",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L36"
+		},
+		{
+			"caller_nid": "sync_openapi_syncopenapi",
+			"callee": "error",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L38"
+		},
+		{
+			"caller_nid": "sync_openapi_syncopenapi",
+			"callee": "exit",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/sync-openapi.ts",
+			"source_location": "L39"
+		}
+	]
+}

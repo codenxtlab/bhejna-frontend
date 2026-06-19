@@ -189,10 +189,14 @@ export const actions: Actions = {
 
 			if (currentTenant) {
 				tenantId = currentTenant.id;
+				const apiKey = currentTenant.api_key || 'nxt_live_' + randomBytes(32).toString('hex');
 				// Transition state tracking column locally
 				const { data: updatedTenant, error: updateError } = await locals.supabase
 					.from('tenants')
-					.update({ whatsapp_status: 'PENDING_ONBOARDING' })
+					.update({ 
+						whatsapp_status: 'PENDING_ONBOARDING',
+						api_key: apiKey
+					})
 					.eq('id', tenantId)
 					.select()
 					.single();
@@ -201,12 +205,14 @@ export const actions: Actions = {
 					return fail(500, { message: updateError?.message || 'Update failed' });
 				tenantData = updatedTenant;
 			} else {
+				const apiKey = 'nxt_live_' + randomBytes(32).toString('hex');
 				// Initialize clean multi-tenant record entry matching RLS constraints
 				const { data: newTenant, error: insertError } = await locals.supabase
 					.from('tenants')
 					.insert({
 						user_id: userId,
-						whatsapp_status: 'PENDING_ONBOARDING'
+						whatsapp_status: 'PENDING_ONBOARDING',
+						api_key: apiKey
 					})
 					.select()
 					.single();
@@ -239,28 +245,7 @@ export const actions: Actions = {
 				}
 			});
 
-			// 3. Mint a STATELESS SIGNED STATE for OAuth redirect correlation
-			const expiry = Date.now() + 600000; // 10 minutes from now
-			const payload = `${tenantId}.${expiry}`;
-			const sig = createHmac('sha256', internalSecret).update(payload).digest('hex');
-			const state = Buffer.from(payload).toString('base64url') + '.' + sig;
-
-			// 4. Construct the dynamic Meta Login-for-Business OAuth URL
-			const metaAppId = env.META_APP_ID || env.PUBLIC_META_APP_ID || '1594349876023947';
-			const redirectUri = env.META_OAUTH_REDIRECT_URI;
-			if (!redirectUri) {
-				return fail(500, { message: 'Missing META_OAUTH_REDIRECT_URI environment configuration' });
-			}
-
-			const onboardingUrl =
-				`https://www.facebook.com/v23.0/dialog/oauth` +
-				`?client_id=${metaAppId}` +
-				`&config_id=1298428131650108` +
-				`&response_type=code` +
-				`&redirect_uri=${encodeURIComponent(redirectUri)}` +
-				`&state=${state}`;
-
-			return { success: true, onboardingUrl };
+			return { success: true };
 		} catch (err: any) {
 			return fail(500, {
 				message: err.message || 'An unexpected internal routing exception occurred'

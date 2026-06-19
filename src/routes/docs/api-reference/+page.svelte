@@ -28,10 +28,13 @@
 
 <svelte:head>
 	<title>API Reference | Bhejna Docs</title>
-	<meta name="description" content="Interactive API documentation for Bhejna - high-performance WhatsApp messaging proxy." />
+	<meta
+		name="description"
+		content="Interactive API documentation for Bhejna - high-performance WhatsApp messaging proxy."
+	/>
 </svelte:head>
 
-<main class="w-full min-h-screen bg-[#0A0A0A] text-white">
+<main class="min-h-screen w-full bg-[#0A0A0A] text-white">
 	<!-- Scalar UI Container -->
 	<div bind:this={container} class="scalar-theme-deep-space"></div>
 </main>

@@ -1,1 +1,30 @@
-{"nodes": [{"id": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_messages_es_js", "label": "es.js", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/messages/es.js", "source_location": "L1"}, {"id": "es_hello_world", "label": "hello_world()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/messages/es.js", "source_location": "L6"}], "edges": [{"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_messages_es_js", "target": "es_hello_world", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/messages/es.js", "source_location": "L6", "weight": 1.0}], "raw_calls": []}
+{
+	"nodes": [
+		{
+			"id": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_messages_es_js",
+			"label": "es.js",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/messages/es.js",
+			"source_location": "L1"
+		},
+		{
+			"id": "es_hello_world",
+			"label": "hello_world()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/messages/es.js",
+			"source_location": "L6"
+		}
+	],
+	"edges": [
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_messages_es_js",
+			"target": "es_hello_world",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/messages/es.js",
+			"source_location": "L6",
+			"weight": 1.0
+		}
+	],
+	"raw_calls": []
+}

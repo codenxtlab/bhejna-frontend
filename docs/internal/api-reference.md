@@ -10,6 +10,7 @@ This documentation covers the service-to-service communication between the Bhejn
 When a user connects a WhatsApp account on the dashboard, the frontend provisions the tenant in the central database and then synchronizes the configuration to the edge.
 
 ### Sync Tenant
+
 - **OperationId**: `syncTenant`
 - **Method**: `POST`
 - **Path**: `/v1/internal/tenant`
@@ -19,6 +20,7 @@ When a user connects a WhatsApp account on the dashboard, the frontend provision
 Manage the operational state of tenants on the edge.
 
 ### Pause Delivery
+
 - **OperationId**: `pauseTenant`
 - **Method**: `PUT`
 - **Path**: `/v1/internal/tenants/{id}/pause`
@@ -26,7 +28,9 @@ Manage the operational state of tenants on the edge.
 ## Technical Reference
 
 ### Webhook Schema Generation
+
 Internal utility used to ensure type-safety for the asynchronous webhook processing engine.
+
 - **OperationId**: `forceGenerateWebhookType`
 - **Method**: `POST`
 - **Path**: `/v1/internal/webhook-schema`

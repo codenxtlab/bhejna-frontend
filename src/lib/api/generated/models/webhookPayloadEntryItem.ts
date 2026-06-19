@@ -10,7 +10,7 @@ It provides a contract-first API for sending messages, tracking delivery status,
 import type { WebhookPayloadEntryItemChangesItem } from './webhookPayloadEntryItemChangesItem';
 
 export type WebhookPayloadEntryItem = {
-  /** WhatsApp Business Account ID */
-  id: string;
-  changes: WebhookPayloadEntryItemChangesItem[];
+	/** WhatsApp Business Account ID */
+	id: string;
+	changes: WebhookPayloadEntryItemChangesItem[];
 };

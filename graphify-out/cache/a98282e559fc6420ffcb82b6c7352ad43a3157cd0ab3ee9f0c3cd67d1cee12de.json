@@ -1,1 +1,30 @@
-{"nodes": [{"id": "home_rakshitbhai_bhejna_frontend_src_lib_components_docs_schematable_svelte", "label": "SchemaTable.svelte", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/components/docs/SchemaTable.svelte", "source_location": "L1"}, {"id": "schematable_gettypelabel", "label": "getTypeLabel()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/components/docs/SchemaTable.svelte", "source_location": "L58"}], "edges": [{"source": "home_rakshitbhai_bhejna_frontend_src_lib_components_docs_schematable_svelte", "target": "schematable_gettypelabel", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/components/docs/SchemaTable.svelte", "source_location": "L58", "weight": 1.0}], "raw_calls": []}
+{
+	"nodes": [
+		{
+			"id": "home_rakshitbhai_bhejna_frontend_src_lib_components_docs_schematable_svelte",
+			"label": "SchemaTable.svelte",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/components/docs/SchemaTable.svelte",
+			"source_location": "L1"
+		},
+		{
+			"id": "schematable_gettypelabel",
+			"label": "getTypeLabel()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/components/docs/SchemaTable.svelte",
+			"source_location": "L58"
+		}
+	],
+	"edges": [
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_components_docs_schematable_svelte",
+			"target": "schematable_gettypelabel",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/components/docs/SchemaTable.svelte",
+			"source_location": "L58",
+			"weight": 1.0
+		}
+	],
+	"raw_calls": []
+}

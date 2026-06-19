@@ -1,1 +1,522 @@
-{"nodes": [{"id": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts", "label": "openapi-compiler.ts", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L1"}, {"id": "openapi_compiler_compileopenapi", "label": "compileOpenAPI()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L14"}, {"id": "openapi_compiler_validatemarkdownreferences", "label": "validateMarkdownReferences()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L166"}, {"id": "openapi_compiler_walkdir", "label": "walkDir()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L220"}], "edges": [{"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts", "target": "json_schema_ref_parser", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L1", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts", "target": "fs", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L2", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts", "target": "path", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L3", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts", "target": "promises", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L4", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts", "target": "openapi_compiler_compileopenapi", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L14", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts", "target": "openapi_compiler_validatemarkdownreferences", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L166", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts", "target": "openapi_compiler_walkdir", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L220", "weight": 1.0}, {"source": "openapi_compiler_compileopenapi", "target": "openapi_compiler_walkdir", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L30", "weight": 1.0}, {"source": "openapi_compiler_compileopenapi", "target": "openapi_compiler_validatemarkdownreferences", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L109", "weight": 1.0}, {"source": "openapi_compiler_validatemarkdownreferences", "target": "openapi_compiler_walkdir", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L178", "weight": 1.0}], "raw_calls": [{"caller_nid": "openapi_compiler_compileopenapi", "callee": "resolve", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L15"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "resolve", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L16"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "resolve", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L17"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "resolve", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L18"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "existsSync", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L20"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "warn", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L21"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "statSync", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L27"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "existsSync", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L30"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "statSync", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L32"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "existsSync", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L36"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "existsSync", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L37"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "statSync", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L40"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "statSync", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L41"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "min", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L42"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "log", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L45"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "log", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L54"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "dereference", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L56"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "entries", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L61"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "entries", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L62"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "toUpperCase", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L64"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "has", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L66"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "add", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L69"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "toUpperCase", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L83"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "entries", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L90"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "entries", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L92"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "toUpperCase", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L97"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "stringify", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L116"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "stringify", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L117"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "stringify", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L118"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "stringify", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L131"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "stringify", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L132"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "stringify", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L133"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "dirname", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L141"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "existsSync", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L142"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "mkdirSync", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L143"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "writeFileSync", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L146"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "writeFileSync", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L147"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "keys", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L149"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "keys", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L150"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "log", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L151"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "error", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L155"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "error", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L156"}, {"caller_nid": "openapi_compiler_compileopenapi", "callee": "exit", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L157"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "resolve", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L170"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "existsSync", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L171"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "keys", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L173"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "keys", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L174"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "readFileSync", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L181"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "relative", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L182"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "cwd", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L182"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "matchAll", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L185"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "has", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L188"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "push", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L189"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "join", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L191"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "matchAll", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L197"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "has", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L200"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "push", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L201"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "join", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L203"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "join", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L213"}, {"caller_nid": "openapi_compiler_validatemarkdownreferences", "callee": "map", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L213"}, {"caller_nid": "openapi_compiler_walkdir", "callee": "readdirSync", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L222"}, {"caller_nid": "openapi_compiler_walkdir", "callee": "join", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L223"}, {"caller_nid": "openapi_compiler_walkdir", "callee": "isDirectory", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L224"}, {"caller_nid": "openapi_compiler_walkdir", "callee": "push", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L225"}, {"caller_nid": "openapi_compiler_walkdir", "callee": "endsWith", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L226"}, {"caller_nid": "openapi_compiler_walkdir", "callee": "push", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts", "source_location": "L227"}]}
+{
+	"nodes": [
+		{
+			"id": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts",
+			"label": "openapi-compiler.ts",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L1"
+		},
+		{
+			"id": "openapi_compiler_compileopenapi",
+			"label": "compileOpenAPI()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L14"
+		},
+		{
+			"id": "openapi_compiler_validatemarkdownreferences",
+			"label": "validateMarkdownReferences()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L166"
+		},
+		{
+			"id": "openapi_compiler_walkdir",
+			"label": "walkDir()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L220"
+		}
+	],
+	"edges": [
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts",
+			"target": "json_schema_ref_parser",
+			"relation": "imports_from",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L1",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts",
+			"target": "fs",
+			"relation": "imports_from",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L2",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts",
+			"target": "path",
+			"relation": "imports_from",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L3",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts",
+			"target": "promises",
+			"relation": "imports_from",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L4",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts",
+			"target": "openapi_compiler_compileopenapi",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L14",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts",
+			"target": "openapi_compiler_validatemarkdownreferences",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L166",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler_ts",
+			"target": "openapi_compiler_walkdir",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L220",
+			"weight": 1.0
+		},
+		{
+			"source": "openapi_compiler_compileopenapi",
+			"target": "openapi_compiler_walkdir",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L30",
+			"weight": 1.0
+		},
+		{
+			"source": "openapi_compiler_compileopenapi",
+			"target": "openapi_compiler_validatemarkdownreferences",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L109",
+			"weight": 1.0
+		},
+		{
+			"source": "openapi_compiler_validatemarkdownreferences",
+			"target": "openapi_compiler_walkdir",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L178",
+			"weight": 1.0
+		}
+	],
+	"raw_calls": [
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "resolve",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L15"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "resolve",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L16"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "resolve",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L17"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "resolve",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L18"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "existsSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L20"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "warn",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L21"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "statSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L27"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "existsSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L30"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "statSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L32"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "existsSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L36"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "existsSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L37"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "statSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L40"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "statSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L41"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "min",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L42"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "log",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L45"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "log",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L54"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "dereference",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L56"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "entries",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L61"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "entries",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L62"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "toUpperCase",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L64"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "has",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L66"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "add",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L69"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "toUpperCase",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L83"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "entries",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L90"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "entries",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L92"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "toUpperCase",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L97"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "stringify",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L116"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "stringify",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L117"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "stringify",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L118"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "stringify",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L131"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "stringify",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L132"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "stringify",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L133"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "dirname",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L141"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "existsSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L142"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "mkdirSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L143"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "writeFileSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L146"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "writeFileSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L147"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "keys",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L149"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "keys",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L150"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "log",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L151"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "error",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L155"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "error",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L156"
+		},
+		{
+			"caller_nid": "openapi_compiler_compileopenapi",
+			"callee": "exit",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L157"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "resolve",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L170"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "existsSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L171"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "keys",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L173"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "keys",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L174"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "readFileSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L181"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "relative",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L182"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "cwd",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L182"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "matchAll",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L185"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "has",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L188"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "push",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L189"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "join",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L191"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "matchAll",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L197"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "has",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L200"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "push",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L201"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "join",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L203"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "join",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L213"
+		},
+		{
+			"caller_nid": "openapi_compiler_validatemarkdownreferences",
+			"callee": "map",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L213"
+		},
+		{
+			"caller_nid": "openapi_compiler_walkdir",
+			"callee": "readdirSync",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L222"
+		},
+		{
+			"caller_nid": "openapi_compiler_walkdir",
+			"callee": "join",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L223"
+		},
+		{
+			"caller_nid": "openapi_compiler_walkdir",
+			"callee": "isDirectory",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L224"
+		},
+		{
+			"caller_nid": "openapi_compiler_walkdir",
+			"callee": "push",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L225"
+		},
+		{
+			"caller_nid": "openapi_compiler_walkdir",
+			"callee": "endsWith",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L226"
+		},
+		{
+			"caller_nid": "openapi_compiler_walkdir",
+			"callee": "push",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-compiler.ts",
+			"source_location": "L227"
+		}
+	]
+}

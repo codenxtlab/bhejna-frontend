@@ -1,1 +1,58 @@
-{"nodes": [{"id": "home_rakshitbhai_bhejna_frontend_scratch_test_shiki_js", "label": "test_shiki.js", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/scratch/test_shiki.js", "source_location": "L1"}, {"id": "test_shiki_test", "label": "test()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/scratch/test_shiki.js", "source_location": "L3"}], "edges": [{"source": "home_rakshitbhai_bhejna_frontend_scratch_test_shiki_js", "target": "shiki", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/scratch/test_shiki.js", "source_location": "L1", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_scratch_test_shiki_js", "target": "test_shiki_test", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/scratch/test_shiki.js", "source_location": "L3", "weight": 1.0}], "raw_calls": [{"caller_nid": "test_shiki_test", "callee": "createHighlighter", "source_file": "/home/rakshitbhai/bhejna-frontend/scratch/test_shiki.js", "source_location": "L5"}, {"caller_nid": "test_shiki_test", "callee": "log", "source_file": "/home/rakshitbhai/bhejna-frontend/scratch/test_shiki.js", "source_location": "L9"}, {"caller_nid": "test_shiki_test", "callee": "error", "source_file": "/home/rakshitbhai/bhejna-frontend/scratch/test_shiki.js", "source_location": "L11"}]}
+{
+	"nodes": [
+		{
+			"id": "home_rakshitbhai_bhejna_frontend_scratch_test_shiki_js",
+			"label": "test_shiki.js",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scratch/test_shiki.js",
+			"source_location": "L1"
+		},
+		{
+			"id": "test_shiki_test",
+			"label": "test()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scratch/test_shiki.js",
+			"source_location": "L3"
+		}
+	],
+	"edges": [
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_scratch_test_shiki_js",
+			"target": "shiki",
+			"relation": "imports_from",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scratch/test_shiki.js",
+			"source_location": "L1",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_scratch_test_shiki_js",
+			"target": "test_shiki_test",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scratch/test_shiki.js",
+			"source_location": "L3",
+			"weight": 1.0
+		}
+	],
+	"raw_calls": [
+		{
+			"caller_nid": "test_shiki_test",
+			"callee": "createHighlighter",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scratch/test_shiki.js",
+			"source_location": "L5"
+		},
+		{
+			"caller_nid": "test_shiki_test",
+			"callee": "log",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scratch/test_shiki.js",
+			"source_location": "L9"
+		},
+		{
+			"caller_nid": "test_shiki_test",
+			"callee": "error",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scratch/test_shiki.js",
+			"source_location": "L11"
+		}
+	]
+}

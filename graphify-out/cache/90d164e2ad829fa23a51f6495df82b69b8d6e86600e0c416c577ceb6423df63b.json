@@ -1,1 +1,32 @@
-{"nodes": [{"id": "home_rakshitbhai_bhejna_frontend_scripts_inject_imports_py", "label": "inject-imports.py", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/inject-imports.py", "source_location": "L1"}], "edges": [{"source": "home_rakshitbhai_bhejna_frontend_scripts_inject_imports_py", "target": "os", "relation": "imports", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/inject-imports.py", "source_location": "L1", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_scripts_inject_imports_py", "target": "re", "relation": "imports", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/scripts/inject-imports.py", "source_location": "L2", "weight": 1.0}], "raw_calls": []}
+{
+	"nodes": [
+		{
+			"id": "home_rakshitbhai_bhejna_frontend_scripts_inject_imports_py",
+			"label": "inject-imports.py",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/inject-imports.py",
+			"source_location": "L1"
+		}
+	],
+	"edges": [
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_scripts_inject_imports_py",
+			"target": "os",
+			"relation": "imports",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/inject-imports.py",
+			"source_location": "L1",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_scripts_inject_imports_py",
+			"target": "re",
+			"relation": "imports",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/scripts/inject-imports.py",
+			"source_location": "L2",
+			"weight": 1.0
+		}
+	],
+	"raw_calls": []
+}

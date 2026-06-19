@@ -15,12 +15,14 @@
 		/**
 		 * Auth State Listener:
 		 * This listener monitors when the user logs in or out on the client.
-		 * When the session changes, it calls 'invalidate', which re-runs the 
+		 * When the session changes, it calls 'invalidate', which re-runs the
 		 * +layout.ts load function and forces the cookies to sync with the server.
 		 */
 		if (!supabase) return;
 
-		const { data: { subscription } } = supabase.auth.onAuthStateChange((event, _session) => {
+		const {
+			data: { subscription }
+		} = supabase.auth.onAuthStateChange((event, _session) => {
 			if (_session?.access_token !== session?.access_token) {
 				invalidate('supabase:auth');
 			}
@@ -29,7 +31,6 @@
 		return () => subscription.unsubscribe();
 	});
 </script>
-
 
 <div style="display:none">
 	{#each locales as locale (locale)}

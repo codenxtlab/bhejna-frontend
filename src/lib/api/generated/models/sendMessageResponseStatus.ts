@@ -8,9 +8,9 @@ It provides a contract-first API for sending messages, tracking delivery status,
  * OpenAPI spec version: 1.0.0
  */
 
-export type SendMessageResponseStatus = typeof SendMessageResponseStatus[keyof typeof SendMessageResponseStatus];
-
+export type SendMessageResponseStatus =
+	(typeof SendMessageResponseStatus)[keyof typeof SendMessageResponseStatus];
 
 export const SendMessageResponseStatus = {
-  queued: 'queued',
+	queued: 'queued'
 } as const;

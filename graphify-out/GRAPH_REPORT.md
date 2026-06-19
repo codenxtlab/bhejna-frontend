@@ -1,15 +1,18 @@
-# Graph Report - /home/rakshitbhai/bhejna-frontend  (2026-05-26)
+# Graph Report - /home/rakshitbhai/bhejna-frontend (2026-05-26)
 
 ## Corpus Check
+
 - 74 files · ~41,601 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
+
 - 165 nodes · 213 edges · 60 communities detected
 - Extraction: 86% EXTRACTED · 14% INFERRED · 0% AMBIGUOUS · INFERRED: 29 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
+
 - [[_COMMUNITY_Community 0|Community 0]]
 - [[_COMMUNITY_Community 1|Community 1]]
 - [[_COMMUNITY_Community 2|Community 2]]
@@ -72,6 +75,7 @@
 - [[_COMMUNITY_Community 59|Community 59]]
 
 ## God Nodes (most connected - your core abstractions)
+
 1. `toLocale()` - 12 edges
 2. `localizeUrl()` - 11 edges
 3. `paraglideMiddleware()` - 11 edges
@@ -84,260 +88,322 @@
 10. `deLocalizeUrl()` - 8 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `isCustomStrategy()` --calls--> `test()`  [INFERRED]
+
+- `isCustomStrategy()` --calls--> `test()` [INFERRED]
   /home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js → /home/rakshitbhai/bhejna-frontend/scratch/test_shiki.js
-- `reroute()` --calls--> `deLocalizeUrl()`  [INFERRED]
+- `reroute()` --calls--> `deLocalizeUrl()` [INFERRED]
   /home/rakshitbhai/bhejna-frontend/src/hooks.ts → /home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js
-- `handleParaglide()` --calls--> `paraglideMiddleware()`  [INFERRED]
+- `handleParaglide()` --calls--> `paraglideMiddleware()` [INFERRED]
   /home/rakshitbhai/bhejna-frontend/src/hooks.server.ts → /home/rakshitbhai/bhejna-frontend/src/lib/paraglide/server.js
-- `getStrategyForUrl()` --calls--> `paraglideMiddleware()`  [INFERRED]
+- `getStrategyForUrl()` --calls--> `paraglideMiddleware()` [INFERRED]
   /home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js → /home/rakshitbhai/bhejna-frontend/src/lib/paraglide/server.js
-- `isExcludedByRouteStrategy()` --calls--> `paraglideMiddleware()`  [INFERRED]
+- `isExcludedByRouteStrategy()` --calls--> `paraglideMiddleware()` [INFERRED]
   /home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js → /home/rakshitbhai/bhejna-frontend/src/lib/paraglide/server.js
 
 ## Communities
 
 ### Community 0 - "Community 0"
+
 Cohesion: 0.14
 Nodes (27): assertIsLocale(), defaultUrlPatternExtractLocale(), defineCustomClientStrategy(), defineCustomServerStrategy(), extractLocaleFromCookie(), extractLocaleFromHeader(), extractLocaleFromNavigator(), extractLocaleFromRequest() (+19 more)
 
 ### Community 1 - "Community 1"
+
 Cohesion: 0.24
 Nodes (13): forceGenerateWebhookType(), getForceGenerateWebhookTypeUrl(), getGetV1MetaWebhookUrl(), getPauseTenantUrl(), getPostV1MetaWebhookUrl(), getSendMessageUrl(), getSyncTenantUrl(), getV1MetaWebhook() (+5 more)
 
 ### Community 2 - "Community 2"
+
 Cohesion: 0.21
 Nodes (12): reroute(), aggregateGroups(), deLocalizeHref(), deLocalizeUrl(), deLocalizeUrlDefaultPattern(), fillMissingUrlParts(), fillPattern(), generateStaticLocalizedUrls() (+4 more)
 
 ### Community 3 - "Community 3"
+
 Cohesion: 0.24
 Nodes (8): handleParaglide(), handleSupabase(), overwriteServerAsyncLocalStorage(), cloneRequestWithFallback(), createMockAsyncLocalStorage(), createSupabaseServerClient(), paraglideMiddleware(), resolveMiddlewareUrl()
 
 ### Community 4 - "Community 4"
+
 Cohesion: 0.24
 Nodes (5): number(), plural(), relativetime(), getSupabase(), POST()
 
 ### Community 5 - "Community 5"
+
 Cohesion: 0.39
 Nodes (5): compileOpenAPI(), validateMarkdownReferences(), walkDir(), load(), syncOpenAPI()
 
 ### Community 6 - "Community 6"
+
 Cohesion: 0.33
 Nodes (2): getHighlighter(), highlight()
 
 ### Community 7 - "Community 7"
+
 Cohesion: 0.5
 Nodes (2): createSupabaseBrowserClient(), load()
 
 ### Community 8 - "Community 8"
+
 Cohesion: 1.0
 Nodes (1): test()
 
 ### Community 9 - "Community 9"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 10 - "Community 10"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 11 - "Community 11"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 12 - "Community 12"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 13 - "Community 13"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 14 - "Community 14"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 15 - "Community 15"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 16 - "Community 16"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 17 - "Community 17"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 18 - "Community 18"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 19 - "Community 19"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 20 - "Community 20"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 21 - "Community 21"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 22 - "Community 22"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 23 - "Community 23"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 24 - "Community 24"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 25 - "Community 25"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 26 - "Community 26"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 27 - "Community 27"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 28 - "Community 28"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 29 - "Community 29"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 30 - "Community 30"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 31 - "Community 31"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 32 - "Community 32"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 33 - "Community 33"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 34 - "Community 34"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 35 - "Community 35"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 36 - "Community 36"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 37 - "Community 37"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 38 - "Community 38"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 39 - "Community 39"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 40 - "Community 40"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 41 - "Community 41"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 42 - "Community 42"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 43 - "Community 43"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 44 - "Community 44"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 45 - "Community 45"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 46 - "Community 46"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 47 - "Community 47"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 48 - "Community 48"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 49 - "Community 49"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 50 - "Community 50"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 51 - "Community 51"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 52 - "Community 52"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 53 - "Community 53"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 54 - "Community 54"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 55 - "Community 55"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 56 - "Community 56"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 57 - "Community 57"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 58 - "Community 58"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ### Community 59 - "Community 59"
+
 Cohesion: 1.0
-Nodes (0): 
+Nodes (0):
 
 ## Knowledge Gaps
+
 - **Thin community `Community 8`** (2 nodes): `test_shiki.js`, `test()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 9`** (2 nodes): `hello_world()`, `en.js`
@@ -444,6 +510,7 @@ Nodes (0):
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
+
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `GET()` connect `Community 0` to `Community 1`, `Community 3`, `Community 4`?**

@@ -1,1 +1,48 @@
-{"nodes": [{"id": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_vite_ts", "label": "openapi-vite.ts", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-vite.ts", "source_location": "L1"}, {"id": "openapi_vite_openapicompilerplugin", "label": "openapiCompilerPlugin()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-vite.ts", "source_location": "L8"}], "edges": [{"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_vite_ts", "target": "vite", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-vite.ts", "source_location": "L1", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_vite_ts", "target": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-vite.ts", "source_location": "L2", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_vite_ts", "target": "openapi_vite_openapicompilerplugin", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-vite.ts", "source_location": "L8", "weight": 1.0}], "raw_calls": []}
+{
+	"nodes": [
+		{
+			"id": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_vite_ts",
+			"label": "openapi-vite.ts",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-vite.ts",
+			"source_location": "L1"
+		},
+		{
+			"id": "openapi_vite_openapicompilerplugin",
+			"label": "openapiCompilerPlugin()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-vite.ts",
+			"source_location": "L8"
+		}
+	],
+	"edges": [
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_vite_ts",
+			"target": "vite",
+			"relation": "imports_from",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-vite.ts",
+			"source_location": "L1",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_vite_ts",
+			"target": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_compiler",
+			"relation": "imports_from",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-vite.ts",
+			"source_location": "L2",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_utils_openapi_vite_ts",
+			"target": "openapi_vite_openapicompilerplugin",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/utils/openapi-vite.ts",
+			"source_location": "L8",
+			"weight": 1.0
+		}
+	],
+	"raw_calls": []
+}

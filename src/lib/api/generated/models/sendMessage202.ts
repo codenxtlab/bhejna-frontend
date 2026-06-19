@@ -11,5 +11,5 @@ import type { SendMessageResponse } from './sendMessageResponse';
 import type { SuccessResponse } from './successResponse';
 
 export type SendMessage202 = SuccessResponse & {
-  data?: SendMessageResponse;
+	data?: SendMessageResponse;
 };

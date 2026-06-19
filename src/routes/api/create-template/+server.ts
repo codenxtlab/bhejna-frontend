@@ -5,20 +5,23 @@ import { createClient } from '@supabase/supabase-js';
 
 // Helper to get an authenticated Supabase client on the server
 function getSupabase(cookies: any) {
-    const token = cookies.get('sb-access-token');
-    
-    return createClient(publicEnv.PUBLIC_SUPABASE_URL, publicEnv.PUBLIC_SUPABASE_PUBLISHABLE_KEY, {
-        auth: { persistSession: false },
-        global: {
-            headers: token ? { Authorization: `Bearer ${token}` } : {}
-        }
-    });
+	const token = cookies.get('sb-access-token');
+
+	return createClient(publicEnv.PUBLIC_SUPABASE_URL, publicEnv.PUBLIC_SUPABASE_PUBLISHABLE_KEY, {
+		auth: { persistSession: false },
+		global: {
+			headers: token ? { Authorization: `Bearer ${token}` } : {}
+		}
+	});
 }
 
 export const POST = async ({ request, cookies }: RequestEvent): Promise<Response> => {
 	try {
 		const supabase = getSupabase(cookies);
-		const { data: { user }, error: userError } = await supabase.auth.getUser();
+		const {
+			data: { user },
+			error: userError
+		} = await supabase.auth.getUser();
 
 		if (userError || !user) {
 			return json({ message: 'Unauthorized' }, { status: 401 });
@@ -32,19 +35,22 @@ export const POST = async ({ request, cookies }: RequestEvent): Promise<Response
 			.single();
 
 		if (tenantError || !tenant || !tenant.waba_id) {
-			return json({ message: 'Tenant configuration not found or WABA ID is missing' }, { status: 404 });
+			return json(
+				{ message: 'Tenant configuration not found or WABA ID is missing' },
+				{ status: 404 }
+			);
 		}
 
 		// Make a POST request directly to the Meta Graph API (v25.0)
 		const metaUrl = `https://graph.facebook.com/v25.0/${tenant.waba_id}/message_templates`;
 		const payload = {
-			name: "test_review_template_01",
-			language: "en_US",
-			category: "MARKETING",
+			name: 'test_review_template_01',
+			language: 'en_US',
+			category: 'MARKETING',
 			components: [
 				{
-					type: "BODY",
-					text: "Hello, this is a test template for Meta App Review."
+					type: 'BODY',
+					text: 'Hello, this is a test template for Meta App Review.'
 				}
 			]
 		};
@@ -53,7 +59,7 @@ export const POST = async ({ request, cookies }: RequestEvent): Promise<Response
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${privateEnv.META_SYSTEM_USER_TOKEN}`
+				Authorization: `Bearer ${privateEnv.META_SYSTEM_USER_TOKEN}`
 			},
 			body: JSON.stringify(payload)
 		});
@@ -68,7 +74,7 @@ export const POST = async ({ request, cookies }: RequestEvent): Promise<Response
 		}
 
 		const data = await response.json();
-		
+
 		// Return the new Template ID to the frontend
 		return json({ id: data.id, status: data.status, category: data.category });
 	} catch (error: any) {

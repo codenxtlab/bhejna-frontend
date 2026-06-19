@@ -1,1 +1,351 @@
-{"nodes": [{"id": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts", "label": "client.ts", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L1"}, {"id": "client_getgetv1metawebhookurl", "label": "getGetV1MetaWebhookUrl()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L40"}, {"id": "client_getv1metawebhook", "label": "getV1MetaWebhook()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L58"}, {"id": "client_getpostv1metawebhookurl", "label": "getPostV1MetaWebhookUrl()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L83"}, {"id": "client_postv1metawebhook", "label": "postV1MetaWebhook()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L94"}, {"id": "client_getforcegeneratewebhooktypeurl", "label": "getForceGenerateWebhookTypeUrl()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L120"}, {"id": "client_forcegeneratewebhooktype", "label": "forceGenerateWebhookType()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L131"}, {"id": "client_getsendmessageurl", "label": "getSendMessageUrl()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L173"}, {"id": "client_sendmessage", "label": "sendMessage()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L185"}, {"id": "client_getsynctenanturl", "label": "getSyncTenantUrl()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L211"}, {"id": "client_synctenant", "label": "syncTenant()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L223"}, {"id": "client_getpausetenanturl", "label": "getPauseTenantUrl()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L249"}, {"id": "client_pausetenant", "label": "pauseTenant()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L261"}], "edges": [{"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts", "target": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_models", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L10", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts", "target": "home_rakshitbhai_bhejna_frontend_src_lib_api_mutator", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L19", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts", "target": "client_getgetv1metawebhookurl", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L40", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts", "target": "client_getv1metawebhook", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L58", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts", "target": "client_getpostv1metawebhookurl", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L83", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts", "target": "client_postv1metawebhook", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L94", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts", "target": "client_getforcegeneratewebhooktypeurl", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L120", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts", "target": "client_forcegeneratewebhooktype", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L131", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts", "target": "client_getsendmessageurl", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L173", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts", "target": "client_sendmessage", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L185", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts", "target": "client_getsynctenanturl", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L211", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts", "target": "client_synctenant", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L223", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts", "target": "client_getpausetenanturl", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L249", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts", "target": "client_pausetenant", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L261", "weight": 1.0}, {"source": "client_getv1metawebhook", "target": "client_getgetv1metawebhookurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L60", "weight": 1.0}, {"source": "client_postv1metawebhook", "target": "client_getpostv1metawebhookurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L96", "weight": 1.0}, {"source": "client_forcegeneratewebhooktype", "target": "client_getforcegeneratewebhooktypeurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L133", "weight": 1.0}, {"source": "client_sendmessage", "target": "client_getsendmessageurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L187", "weight": 1.0}, {"source": "client_synctenant", "target": "client_getsynctenanturl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L225", "weight": 1.0}, {"source": "client_pausetenant", "target": "client_getpausetenanturl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L263", "weight": 1.0}], "raw_calls": [{"caller_nid": "client_getgetv1metawebhookurl", "callee": "forEach", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L43"}, {"caller_nid": "client_getgetv1metawebhookurl", "callee": "entries", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L43"}, {"caller_nid": "client_getgetv1metawebhookurl", "callee": "toString", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L50"}, {"caller_nid": "client_getv1metawebhook", "callee": "customFetch", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L60"}, {"caller_nid": "client_postv1metawebhook", "callee": "customFetch", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L96"}, {"caller_nid": "client_postv1metawebhook", "callee": "stringify", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L101"}, {"caller_nid": "client_forcegeneratewebhooktype", "callee": "customFetch", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L133"}, {"caller_nid": "client_sendmessage", "callee": "customFetch", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L187"}, {"caller_nid": "client_sendmessage", "callee": "stringify", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L192"}, {"caller_nid": "client_synctenant", "callee": "customFetch", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L225"}, {"caller_nid": "client_synctenant", "callee": "stringify", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L230"}, {"caller_nid": "client_pausetenant", "callee": "customFetch", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts", "source_location": "L263"}]}
+{
+	"nodes": [
+		{
+			"id": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts",
+			"label": "client.ts",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L1"
+		},
+		{
+			"id": "client_getgetv1metawebhookurl",
+			"label": "getGetV1MetaWebhookUrl()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L40"
+		},
+		{
+			"id": "client_getv1metawebhook",
+			"label": "getV1MetaWebhook()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L58"
+		},
+		{
+			"id": "client_getpostv1metawebhookurl",
+			"label": "getPostV1MetaWebhookUrl()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L83"
+		},
+		{
+			"id": "client_postv1metawebhook",
+			"label": "postV1MetaWebhook()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L94"
+		},
+		{
+			"id": "client_getforcegeneratewebhooktypeurl",
+			"label": "getForceGenerateWebhookTypeUrl()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L120"
+		},
+		{
+			"id": "client_forcegeneratewebhooktype",
+			"label": "forceGenerateWebhookType()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L131"
+		},
+		{
+			"id": "client_getsendmessageurl",
+			"label": "getSendMessageUrl()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L173"
+		},
+		{
+			"id": "client_sendmessage",
+			"label": "sendMessage()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L185"
+		},
+		{
+			"id": "client_getsynctenanturl",
+			"label": "getSyncTenantUrl()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L211"
+		},
+		{
+			"id": "client_synctenant",
+			"label": "syncTenant()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L223"
+		},
+		{
+			"id": "client_getpausetenanturl",
+			"label": "getPauseTenantUrl()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L249"
+		},
+		{
+			"id": "client_pausetenant",
+			"label": "pauseTenant()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L261"
+		}
+	],
+	"edges": [
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts",
+			"target": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_models",
+			"relation": "imports_from",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L10",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts",
+			"target": "home_rakshitbhai_bhejna_frontend_src_lib_api_mutator",
+			"relation": "imports_from",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L19",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts",
+			"target": "client_getgetv1metawebhookurl",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L40",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts",
+			"target": "client_getv1metawebhook",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L58",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts",
+			"target": "client_getpostv1metawebhookurl",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L83",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts",
+			"target": "client_postv1metawebhook",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L94",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts",
+			"target": "client_getforcegeneratewebhooktypeurl",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L120",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts",
+			"target": "client_forcegeneratewebhooktype",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L131",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts",
+			"target": "client_getsendmessageurl",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L173",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts",
+			"target": "client_sendmessage",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L185",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts",
+			"target": "client_getsynctenanturl",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L211",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts",
+			"target": "client_synctenant",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L223",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts",
+			"target": "client_getpausetenanturl",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L249",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_api_generated_client_ts",
+			"target": "client_pausetenant",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L261",
+			"weight": 1.0
+		},
+		{
+			"source": "client_getv1metawebhook",
+			"target": "client_getgetv1metawebhookurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L60",
+			"weight": 1.0
+		},
+		{
+			"source": "client_postv1metawebhook",
+			"target": "client_getpostv1metawebhookurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L96",
+			"weight": 1.0
+		},
+		{
+			"source": "client_forcegeneratewebhooktype",
+			"target": "client_getforcegeneratewebhooktypeurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L133",
+			"weight": 1.0
+		},
+		{
+			"source": "client_sendmessage",
+			"target": "client_getsendmessageurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L187",
+			"weight": 1.0
+		},
+		{
+			"source": "client_synctenant",
+			"target": "client_getsynctenanturl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L225",
+			"weight": 1.0
+		},
+		{
+			"source": "client_pausetenant",
+			"target": "client_getpausetenanturl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L263",
+			"weight": 1.0
+		}
+	],
+	"raw_calls": [
+		{
+			"caller_nid": "client_getgetv1metawebhookurl",
+			"callee": "forEach",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L43"
+		},
+		{
+			"caller_nid": "client_getgetv1metawebhookurl",
+			"callee": "entries",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L43"
+		},
+		{
+			"caller_nid": "client_getgetv1metawebhookurl",
+			"callee": "toString",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L50"
+		},
+		{
+			"caller_nid": "client_getv1metawebhook",
+			"callee": "customFetch",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L60"
+		},
+		{
+			"caller_nid": "client_postv1metawebhook",
+			"callee": "customFetch",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L96"
+		},
+		{
+			"caller_nid": "client_postv1metawebhook",
+			"callee": "stringify",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L101"
+		},
+		{
+			"caller_nid": "client_forcegeneratewebhooktype",
+			"callee": "customFetch",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L133"
+		},
+		{
+			"caller_nid": "client_sendmessage",
+			"callee": "customFetch",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L187"
+		},
+		{
+			"caller_nid": "client_sendmessage",
+			"callee": "stringify",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L192"
+		},
+		{
+			"caller_nid": "client_synctenant",
+			"callee": "customFetch",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L225"
+		},
+		{
+			"caller_nid": "client_synctenant",
+			"callee": "stringify",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L230"
+		},
+		{
+			"caller_nid": "client_pausetenant",
+			"callee": "customFetch",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/api/generated/client.ts",
+			"source_location": "L263"
+		}
+	]
+}

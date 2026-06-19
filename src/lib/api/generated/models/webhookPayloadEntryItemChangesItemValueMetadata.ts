@@ -9,6 +9,6 @@ It provides a contract-first API for sending messages, tracking delivery status,
  */
 
 export type WebhookPayloadEntryItemChangesItemValueMetadata = {
-  display_phone_number?: string;
-  phone_number_id?: string;
+	display_phone_number?: string;
+	phone_number_id?: string;
 };

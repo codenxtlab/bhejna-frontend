@@ -1,1 +1,1839 @@
-{"nodes": [{"id": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "label": "runtime.js", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1"}, {"id": "runtime_findmatchingroutestrategy", "label": "findMatchingRouteStrategy()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L88"}, {"id": "runtime_getstrategyforurl", "label": "getStrategyForUrl()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L118"}, {"id": "runtime_isexcludedbyroutestrategy", "label": "isExcludedByRouteStrategy()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L133"}, {"id": "runtime_overwriteserverasynclocalstorage", "label": "overwriteServerAsyncLocalStorage()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L171"}, {"id": "runtime_getlocale", "label": "getLocale()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L215"}, {"id": "runtime_getlocaleforurl", "label": "getLocaleForUrl()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L249"}, {"id": "runtime_resolvelocalewithstrategies", "label": "resolveLocaleWithStrategies()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L265"}, {"id": "runtime_overwritegetlocale", "label": "overwriteGetLocale()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L332"}, {"id": "runtime_gettextdirection", "label": "getTextDirection()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L363"}, {"id": "runtime_navigateorreload", "label": "navigateOrReload()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L386"}, {"id": "runtime_setlocale", "label": "setLocale()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L420"}, {"id": "runtime_overwritesetlocale", "label": "overwriteSetLocale()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L533"}, {"id": "runtime_geturlorigin", "label": "getUrlOrigin()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L546"}, {"id": "runtime_overwritegeturlorigin", "label": "overwriteGetUrlOrigin()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L563"}, {"id": "runtime_tolocale", "label": "toLocale()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L573"}, {"id": "runtime_islocale", "label": "isLocale()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L600"}, {"id": "runtime_assertislocale", "label": "assertIsLocale()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L610"}, {"id": "runtime_extractlocalefromrequest", "label": "extractLocaleFromRequest()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L641"}, {"id": "runtime_extractlocalefromrequestwithstrategies", "label": "extractLocaleFromRequestWithStrategies()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L653"}, {"id": "runtime_resolveeffectiverequesturl", "label": "resolveEffectiveRequestUrl()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L698"}, {"id": "runtime_extractlocalefromrequestasync", "label": "extractLocaleFromRequestAsync()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L736"}, {"id": "runtime_resolveeffectiverequesturlfromrequestasync", "label": "resolveEffectiveRequestUrlFromRequestAsync()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L764"}, {"id": "runtime_extractlocalefromcookie", "label": "extractLocaleFromCookie()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L779"}, {"id": "runtime_extractlocalefromheader", "label": "extractLocaleFromHeader()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L800"}, {"id": "runtime_extractlocalefromnavigator", "label": "extractLocaleFromNavigator()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L843"}, {"id": "runtime_extractlocalefromurl", "label": "extractLocaleFromUrl()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L884"}, {"id": "runtime_defaulturlpatternextractlocale", "label": "defaultUrlPatternExtractLocale()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L919"}, {"id": "runtime_localizeurl", "label": "localizeUrl()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L969"}, {"id": "runtime_localizeurldefaultpattern", "label": "localizeUrlDefaultPattern()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1011"}, {"id": "runtime_delocalizeurl", "label": "deLocalizeUrl()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1072"}, {"id": "runtime_delocalizeurldefaultpattern", "label": "deLocalizeUrlDefaultPattern()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1104"}, {"id": "runtime_fillmissingurlparts", "label": "fillMissingUrlParts()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1123"}, {"id": "runtime_fillpattern", "label": "fillPattern()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1171"}, {"id": "runtime_aggregategroups", "label": "aggregateGroups()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1224"}, {"id": "runtime_shouldredirect", "label": "shouldRedirect()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1308"}, {"id": "runtime_resolvelocale", "label": "resolveLocale()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1330"}, {"id": "runtime_resolveurl", "label": "resolveUrl()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1351"}, {"id": "runtime_normalizeurl", "label": "normalizeUrl()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1378"}, {"id": "runtime_localizehref", "label": "localizeHref()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1424"}, {"id": "runtime_delocalizehref", "label": "deLocalizeHref()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1485"}, {"id": "runtime_trackmessagecall", "label": "trackMessageCall()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1500"}, {"id": "runtime_generatestaticlocalizedurls", "label": "generateStaticLocalizedUrls()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1552"}, {"id": "runtime_iscustomstrategy", "label": "isCustomStrategy()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1650"}, {"id": "runtime_definecustomserverstrategy", "label": "defineCustomServerStrategy()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1663"}, {"id": "runtime_definecustomclientstrategy", "label": "defineCustomClientStrategy()", "file_type": "code", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1679"}], "edges": [{"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_findmatchingroutestrategy", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L88", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_getstrategyforurl", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L118", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_isexcludedbyroutestrategy", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L133", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_overwriteserverasynclocalstorage", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L171", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_getlocale", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L215", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_getlocaleforurl", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L249", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_resolvelocalewithstrategies", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L265", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_overwritegetlocale", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L332", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_gettextdirection", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L363", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_navigateorreload", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L386", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_setlocale", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L420", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_overwritesetlocale", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L533", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_geturlorigin", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L546", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_overwritegeturlorigin", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L563", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_tolocale", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L573", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_islocale", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L600", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_assertislocale", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L610", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_extractlocalefromrequest", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L641", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_extractlocalefromrequestwithstrategies", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L653", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_resolveeffectiverequesturl", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L698", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_extractlocalefromrequestasync", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L736", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_resolveeffectiverequesturlfromrequestasync", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L764", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_extractlocalefromcookie", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L779", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_extractlocalefromheader", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L800", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_extractlocalefromnavigator", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L843", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_extractlocalefromurl", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L884", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_defaulturlpatternextractlocale", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L919", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_localizeurl", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L969", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_localizeurldefaultpattern", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1011", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_delocalizeurl", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1072", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_delocalizeurldefaultpattern", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1104", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_fillmissingurlparts", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1123", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_fillpattern", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1171", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_aggregategroups", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1224", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_shouldredirect", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1308", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_resolvelocale", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1330", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_resolveurl", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1351", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_normalizeurl", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1378", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_localizehref", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1424", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_delocalizehref", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1485", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_trackmessagecall", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1500", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_generatestaticlocalizedurls", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1552", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_iscustomstrategy", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1650", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_definecustomserverstrategy", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1663", "weight": 1.0}, {"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js", "target": "runtime_definecustomclientstrategy", "relation": "contains", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1679", "weight": 1.0}, {"source": "runtime_getstrategyforurl", "target": "runtime_findmatchingroutestrategy", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L119", "weight": 1.0}, {"source": "runtime_isexcludedbyroutestrategy", "target": "runtime_findmatchingroutestrategy", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L134", "weight": 1.0}, {"source": "runtime_getlocale", "target": "runtime_getstrategyforurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L229", "weight": 1.0}, {"source": "runtime_getlocale", "target": "runtime_resolvelocalewithstrategies", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L231", "weight": 1.0}, {"source": "runtime_getlocale", "target": "runtime_setlocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L237", "weight": 1.0}, {"source": "runtime_getlocaleforurl", "target": "runtime_getstrategyforurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L253", "weight": 1.0}, {"source": "runtime_getlocaleforurl", "target": "runtime_resolvelocalewithstrategies", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L254", "weight": 1.0}, {"source": "runtime_resolvelocalewithstrategies", "target": "runtime_extractlocalefromcookie", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L270", "weight": 1.0}, {"source": "runtime_resolvelocalewithstrategies", "target": "runtime_extractlocalefromurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L279", "weight": 1.0}, {"source": "runtime_resolvelocalewithstrategies", "target": "runtime_extractlocalefromnavigator", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L289", "weight": 1.0}, {"source": "runtime_resolvelocalewithstrategies", "target": "runtime_iscustomstrategy", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L296", "weight": 1.0}, {"source": "runtime_resolvelocalewithstrategies", "target": "runtime_getlocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L299", "weight": 1.0}, {"source": "runtime_resolvelocalewithstrategies", "target": "runtime_assertislocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L306", "weight": 1.0}, {"source": "runtime_resolvelocalewithstrategies", "target": "runtime_tolocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L310", "weight": 1.0}, {"source": "runtime_setlocale", "target": "runtime_getlocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L430", "weight": 1.0}, {"source": "runtime_setlocale", "target": "runtime_getstrategyforurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L441", "weight": 1.0}, {"source": "runtime_setlocale", "target": "runtime_localizeurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L477", "weight": 1.0}, {"source": "runtime_setlocale", "target": "runtime_iscustomstrategy", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L487", "weight": 1.0}, {"source": "runtime_assertislocale", "target": "runtime_tolocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L611", "weight": 1.0}, {"source": "runtime_extractlocalefromrequest", "target": "runtime_resolveeffectiverequesturl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L642", "weight": 1.0}, {"source": "runtime_extractlocalefromrequest", "target": "runtime_extractlocalefromrequestwithstrategies", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L643", "weight": 1.0}, {"source": "runtime_extractlocalefromrequest", "target": "runtime_getstrategyforurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L643", "weight": 1.0}, {"source": "runtime_extractlocalefromrequestwithstrategies", "target": "runtime_resolveeffectiverequesturl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L654", "weight": 1.0}, {"source": "runtime_extractlocalefromrequestwithstrategies", "target": "runtime_extractlocalefromurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L666", "weight": 1.0}, {"source": "runtime_extractlocalefromrequestwithstrategies", "target": "runtime_extractlocalefromheader", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L670", "weight": 1.0}, {"source": "runtime_extractlocalefromrequestwithstrategies", "target": "runtime_iscustomstrategy", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L681", "weight": 1.0}, {"source": "runtime_extractlocalefromrequestwithstrategies", "target": "runtime_tolocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L686", "weight": 1.0}, {"source": "runtime_extractlocalefromrequestasync", "target": "runtime_resolveeffectiverequesturlfromrequestasync", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L739", "weight": 1.0}, {"source": "runtime_extractlocalefromrequestasync", "target": "runtime_getstrategyforurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L740", "weight": 1.0}, {"source": "runtime_extractlocalefromrequestasync", "target": "runtime_iscustomstrategy", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L743", "weight": 1.0}, {"source": "runtime_extractlocalefromrequestasync", "target": "runtime_getlocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L747", "weight": 1.0}, {"source": "runtime_extractlocalefromrequestasync", "target": "runtime_tolocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L750", "weight": 1.0}, {"source": "runtime_extractlocalefromrequestasync", "target": "runtime_extractlocalefromrequestwithstrategies", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L757", "weight": 1.0}, {"source": "runtime_extractlocalefromcookie", "target": "runtime_tolocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L785", "weight": 1.0}, {"source": "runtime_extractlocalefromheader", "target": "runtime_tolocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L818", "weight": 1.0}, {"source": "runtime_extractlocalefromnavigator", "target": "runtime_tolocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L852", "weight": 1.0}, {"source": "runtime_extractlocalefromurl", "target": "runtime_defaulturlpatternextractlocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L892", "weight": 1.0}, {"source": "runtime_defaulturlpatternextractlocale", "target": "runtime_tolocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L922", "weight": 1.0}, {"source": "runtime_localizeurl", "target": "runtime_assertislocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L971", "weight": 1.0}, {"source": "runtime_localizeurl", "target": "runtime_getlocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L972", "weight": 1.0}, {"source": "runtime_localizeurl", "target": "runtime_localizeurldefaultpattern", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L974", "weight": 1.0}, {"source": "runtime_localizeurl", "target": "runtime_fillpattern", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L989", "weight": 1.0}, {"source": "runtime_localizeurl", "target": "runtime_aggregategroups", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L989", "weight": 1.0}, {"source": "runtime_localizeurl", "target": "runtime_fillmissingurlparts", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L990", "weight": 1.0}, {"source": "runtime_localizeurldefaultpattern", "target": "runtime_geturlorigin", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1012", "weight": 1.0}, {"source": "runtime_localizeurldefaultpattern", "target": "runtime_extractlocalefromurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1013", "weight": 1.0}, {"source": "runtime_localizeurldefaultpattern", "target": "runtime_tolocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1020", "weight": 1.0}, {"source": "runtime_delocalizeurl", "target": "runtime_delocalizeurldefaultpattern", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1074", "weight": 1.0}, {"source": "runtime_delocalizeurl", "target": "runtime_aggregategroups", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1084", "weight": 1.0}, {"source": "runtime_delocalizeurl", "target": "runtime_fillpattern", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1085", "weight": 1.0}, {"source": "runtime_delocalizeurl", "target": "runtime_fillmissingurlparts", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1086", "weight": 1.0}, {"source": "runtime_delocalizeurldefaultpattern", "target": "runtime_geturlorigin", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1105", "weight": 1.0}, {"source": "runtime_delocalizeurldefaultpattern", "target": "runtime_tolocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1108", "weight": 1.0}, {"source": "runtime_shouldredirect", "target": "runtime_resolveurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1309", "weight": 1.0}, {"source": "runtime_shouldredirect", "target": "runtime_resolvelocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1310", "weight": 1.0}, {"source": "runtime_shouldredirect", "target": "runtime_getstrategyforurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1311", "weight": 1.0}, {"source": "runtime_shouldredirect", "target": "runtime_isexcludedbyroutestrategy", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1312", "weight": 1.0}, {"source": "runtime_shouldredirect", "target": "runtime_localizeurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1315", "weight": 1.0}, {"source": "runtime_shouldredirect", "target": "runtime_normalizeurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1316", "weight": 1.0}, {"source": "runtime_resolvelocale", "target": "runtime_tolocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1331", "weight": 1.0}, {"source": "runtime_resolvelocale", "target": "runtime_extractlocalefromrequestasync", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1336", "weight": 1.0}, {"source": "runtime_resolvelocale", "target": "runtime_getlocaleforurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1341", "weight": 1.0}, {"source": "runtime_resolvelocale", "target": "runtime_getlocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1343", "weight": 1.0}, {"source": "runtime_resolveurl", "target": "runtime_geturlorigin", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1356", "weight": 1.0}, {"source": "runtime_localizehref", "target": "runtime_getlocale", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1425", "weight": 1.0}, {"source": "runtime_localizehref", "target": "runtime_geturlorigin", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1427", "weight": 1.0}, {"source": "runtime_localizehref", "target": "runtime_localizeurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1428", "weight": 1.0}, {"source": "runtime_delocalizehref", "target": "runtime_geturlorigin", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1486", "weight": 1.0}, {"source": "runtime_delocalizehref", "target": "runtime_delocalizeurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1487", "weight": 1.0}, {"source": "runtime_generatestaticlocalizedurls", "target": "runtime_localizeurl", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1593", "weight": 1.0}, {"source": "runtime_definecustomserverstrategy", "target": "runtime_iscustomstrategy", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1664", "weight": 1.0}, {"source": "runtime_definecustomclientstrategy", "target": "runtime_iscustomstrategy", "relation": "calls", "confidence": "EXTRACTED", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1680", "weight": 1.0}], "raw_calls": [{"caller_nid": "runtime_findmatchingroutestrategy", "callee": "exec", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L100"}, {"caller_nid": "runtime_getstrategyforurl", "callee": "isArray", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L122"}, {"caller_nid": "runtime_getlocale", "callee": "getStore", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L222"}, {"caller_nid": "runtime_resolvelocalewithstrategies", "callee": "getItem", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L294"}, {"caller_nid": "runtime_resolvelocalewithstrategies", "callee": "has", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L296"}, {"caller_nid": "runtime_resolvelocalewithstrategies", "callee": "get", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L297"}, {"caller_nid": "runtime_gettextdirection", "callee": "getTextInfo", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L369"}, {"caller_nid": "runtime_gettextdirection", "callee": "toLowerCase", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L377"}, {"caller_nid": "runtime_gettextdirection", "callee": "split", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L377"}, {"caller_nid": "runtime_gettextdirection", "callee": "has", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L378"}, {"caller_nid": "runtime_navigateorreload", "callee": "reload", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L393"}, {"caller_nid": "runtime_setlocale", "callee": "setItem", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L485"}, {"caller_nid": "runtime_setlocale", "callee": "has", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L487"}, {"caller_nid": "runtime_setlocale", "callee": "get", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L488"}, {"caller_nid": "runtime_setlocale", "callee": "catch", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L493"}, {"caller_nid": "runtime_setlocale", "callee": "push", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L498"}, {"caller_nid": "runtime_setlocale", "callee": "then", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L512"}, {"caller_nid": "runtime_setlocale", "callee": "all", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L512"}, {"caller_nid": "runtime_setlocale", "callee": "runReload", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L516"}, {"caller_nid": "runtime_geturlorigin", "callee": "getStore", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L548"}, {"caller_nid": "runtime_tolocale", "callee": "toLowerCase", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L577"}, {"caller_nid": "runtime_tolocale", "callee": "toLowerCase", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L579"}, {"caller_nid": "runtime_islocale", "callee": "some", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L601"}, {"caller_nid": "runtime_assertislocale", "callee": "join", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L614"}, {"caller_nid": "runtime_extractlocalefromrequestwithstrategies", "callee": "split", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L659"}, {"caller_nid": "runtime_extractlocalefromrequestwithstrategies", "callee": "find", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L659"}, {"caller_nid": "runtime_extractlocalefromrequestwithstrategies", "callee": "split", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L659"}, {"caller_nid": "runtime_extractlocalefromrequestwithstrategies", "callee": "get", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L659"}, {"caller_nid": "runtime_extractlocalefromrequestasync", "callee": "has", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L743"}, {"caller_nid": "runtime_extractlocalefromrequestasync", "callee": "get", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L744"}, {"caller_nid": "runtime_extractlocalefromcookie", "callee": "match", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L783"}, {"caller_nid": "runtime_extractlocalefromheader", "callee": "get", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L801"}, {"caller_nid": "runtime_extractlocalefromheader", "callee": "sort", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L804"}, {"caller_nid": "runtime_extractlocalefromheader", "callee": "map", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L804"}, {"caller_nid": "runtime_extractlocalefromheader", "callee": "split", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L804"}, {"caller_nid": "runtime_extractlocalefromnavigator", "callee": "map", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L847"}, {"caller_nid": "runtime_extractlocalefromurl", "callee": "exec", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L899"}, {"caller_nid": "runtime_defaulturlpatternextractlocale", "callee": "filter", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L921"}, {"caller_nid": "runtime_defaulturlpatternextractlocale", "callee": "split", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L921"}, {"caller_nid": "runtime_localizeurl", "callee": "exec", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L981"}, {"caller_nid": "runtime_localizeurl", "callee": "find", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L985"}, {"caller_nid": "runtime_localizeurl", "callee": "exec", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L992"}, {"caller_nid": "runtime_localizeurl", "callee": "find", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L994"}, {"caller_nid": "runtime_localizeurldefaultpattern", "callee": "filter", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1018"}, {"caller_nid": "runtime_localizeurldefaultpattern", "callee": "split", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1018"}, {"caller_nid": "runtime_localizeurldefaultpattern", "callee": "shift", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1021"}, {"caller_nid": "runtime_localizeurldefaultpattern", "callee": "join", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1025"}, {"caller_nid": "runtime_localizeurldefaultpattern", "callee": "join", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1029"}, {"caller_nid": "runtime_delocalizeurl", "callee": "exec", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1081"}, {"caller_nid": "runtime_delocalizeurl", "callee": "exec", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1090"}, {"caller_nid": "runtime_delocalizeurldefaultpattern", "callee": "filter", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1106"}, {"caller_nid": "runtime_delocalizeurldefaultpattern", "callee": "split", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1106"}, {"caller_nid": "runtime_delocalizeurldefaultpattern", "callee": "join", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1109"}, {"caller_nid": "runtime_delocalizeurldefaultpattern", "callee": "slice", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1109"}, {"caller_nid": "runtime_fillpattern", "callee": "replace", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1175"}, {"caller_nid": "runtime_fillpattern", "callee": "replace", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1180"}, {"caller_nid": "runtime_fillpattern", "callee": "replace", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1190"}, {"caller_nid": "runtime_fillpattern", "callee": "replace", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1214"}, {"caller_nid": "runtime_shouldredirect", "callee": "includes", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1312"}, {"caller_nid": "runtime_normalizeurl", "callee": "replace", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1380"}, {"caller_nid": "runtime_localizehref", "callee": "startsWith", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1431"}, {"caller_nid": "runtime_delocalizehref", "callee": "startsWith", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1490"}, {"caller_nid": "runtime_trackmessagecall", "callee": "getStore", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1503"}, {"caller_nid": "runtime_trackmessagecall", "callee": "add", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1505"}, {"caller_nid": "runtime_generatestaticlocalizedurls", "callee": "add", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1562"}, {"caller_nid": "runtime_generatestaticlocalizedurls", "callee": "add", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1568"}, {"caller_nid": "runtime_generatestaticlocalizedurls", "callee": "from", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1572"}, {"caller_nid": "runtime_generatestaticlocalizedurls", "callee": "exec", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1584"}, {"caller_nid": "runtime_generatestaticlocalizedurls", "callee": "has", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1596"}, {"caller_nid": "runtime_generatestaticlocalizedurls", "callee": "add", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1597"}, {"caller_nid": "runtime_generatestaticlocalizedurls", "callee": "add", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1598"}, {"caller_nid": "runtime_generatestaticlocalizedurls", "callee": "add", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1615"}, {"caller_nid": "runtime_generatestaticlocalizedurls", "callee": "from", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1618"}, {"caller_nid": "runtime_iscustomstrategy", "callee": "test", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1651"}, {"caller_nid": "runtime_definecustomserverstrategy", "callee": "set", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1667"}, {"caller_nid": "runtime_definecustomclientstrategy", "callee": "set", "source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js", "source_location": "L1683"}]}
+{
+	"nodes": [
+		{
+			"id": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"label": "runtime.js",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1"
+		},
+		{
+			"id": "runtime_findmatchingroutestrategy",
+			"label": "findMatchingRouteStrategy()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L88"
+		},
+		{
+			"id": "runtime_getstrategyforurl",
+			"label": "getStrategyForUrl()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L118"
+		},
+		{
+			"id": "runtime_isexcludedbyroutestrategy",
+			"label": "isExcludedByRouteStrategy()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L133"
+		},
+		{
+			"id": "runtime_overwriteserverasynclocalstorage",
+			"label": "overwriteServerAsyncLocalStorage()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L171"
+		},
+		{
+			"id": "runtime_getlocale",
+			"label": "getLocale()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L215"
+		},
+		{
+			"id": "runtime_getlocaleforurl",
+			"label": "getLocaleForUrl()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L249"
+		},
+		{
+			"id": "runtime_resolvelocalewithstrategies",
+			"label": "resolveLocaleWithStrategies()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L265"
+		},
+		{
+			"id": "runtime_overwritegetlocale",
+			"label": "overwriteGetLocale()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L332"
+		},
+		{
+			"id": "runtime_gettextdirection",
+			"label": "getTextDirection()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L363"
+		},
+		{
+			"id": "runtime_navigateorreload",
+			"label": "navigateOrReload()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L386"
+		},
+		{
+			"id": "runtime_setlocale",
+			"label": "setLocale()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L420"
+		},
+		{
+			"id": "runtime_overwritesetlocale",
+			"label": "overwriteSetLocale()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L533"
+		},
+		{
+			"id": "runtime_geturlorigin",
+			"label": "getUrlOrigin()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L546"
+		},
+		{
+			"id": "runtime_overwritegeturlorigin",
+			"label": "overwriteGetUrlOrigin()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L563"
+		},
+		{
+			"id": "runtime_tolocale",
+			"label": "toLocale()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L573"
+		},
+		{
+			"id": "runtime_islocale",
+			"label": "isLocale()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L600"
+		},
+		{
+			"id": "runtime_assertislocale",
+			"label": "assertIsLocale()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L610"
+		},
+		{
+			"id": "runtime_extractlocalefromrequest",
+			"label": "extractLocaleFromRequest()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L641"
+		},
+		{
+			"id": "runtime_extractlocalefromrequestwithstrategies",
+			"label": "extractLocaleFromRequestWithStrategies()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L653"
+		},
+		{
+			"id": "runtime_resolveeffectiverequesturl",
+			"label": "resolveEffectiveRequestUrl()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L698"
+		},
+		{
+			"id": "runtime_extractlocalefromrequestasync",
+			"label": "extractLocaleFromRequestAsync()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L736"
+		},
+		{
+			"id": "runtime_resolveeffectiverequesturlfromrequestasync",
+			"label": "resolveEffectiveRequestUrlFromRequestAsync()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L764"
+		},
+		{
+			"id": "runtime_extractlocalefromcookie",
+			"label": "extractLocaleFromCookie()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L779"
+		},
+		{
+			"id": "runtime_extractlocalefromheader",
+			"label": "extractLocaleFromHeader()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L800"
+		},
+		{
+			"id": "runtime_extractlocalefromnavigator",
+			"label": "extractLocaleFromNavigator()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L843"
+		},
+		{
+			"id": "runtime_extractlocalefromurl",
+			"label": "extractLocaleFromUrl()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L884"
+		},
+		{
+			"id": "runtime_defaulturlpatternextractlocale",
+			"label": "defaultUrlPatternExtractLocale()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L919"
+		},
+		{
+			"id": "runtime_localizeurl",
+			"label": "localizeUrl()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L969"
+		},
+		{
+			"id": "runtime_localizeurldefaultpattern",
+			"label": "localizeUrlDefaultPattern()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1011"
+		},
+		{
+			"id": "runtime_delocalizeurl",
+			"label": "deLocalizeUrl()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1072"
+		},
+		{
+			"id": "runtime_delocalizeurldefaultpattern",
+			"label": "deLocalizeUrlDefaultPattern()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1104"
+		},
+		{
+			"id": "runtime_fillmissingurlparts",
+			"label": "fillMissingUrlParts()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1123"
+		},
+		{
+			"id": "runtime_fillpattern",
+			"label": "fillPattern()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1171"
+		},
+		{
+			"id": "runtime_aggregategroups",
+			"label": "aggregateGroups()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1224"
+		},
+		{
+			"id": "runtime_shouldredirect",
+			"label": "shouldRedirect()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1308"
+		},
+		{
+			"id": "runtime_resolvelocale",
+			"label": "resolveLocale()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1330"
+		},
+		{
+			"id": "runtime_resolveurl",
+			"label": "resolveUrl()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1351"
+		},
+		{
+			"id": "runtime_normalizeurl",
+			"label": "normalizeUrl()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1378"
+		},
+		{
+			"id": "runtime_localizehref",
+			"label": "localizeHref()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1424"
+		},
+		{
+			"id": "runtime_delocalizehref",
+			"label": "deLocalizeHref()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1485"
+		},
+		{
+			"id": "runtime_trackmessagecall",
+			"label": "trackMessageCall()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1500"
+		},
+		{
+			"id": "runtime_generatestaticlocalizedurls",
+			"label": "generateStaticLocalizedUrls()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1552"
+		},
+		{
+			"id": "runtime_iscustomstrategy",
+			"label": "isCustomStrategy()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1650"
+		},
+		{
+			"id": "runtime_definecustomserverstrategy",
+			"label": "defineCustomServerStrategy()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1663"
+		},
+		{
+			"id": "runtime_definecustomclientstrategy",
+			"label": "defineCustomClientStrategy()",
+			"file_type": "code",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1679"
+		}
+	],
+	"edges": [
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_findmatchingroutestrategy",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L88",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_getstrategyforurl",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L118",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_isexcludedbyroutestrategy",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L133",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_overwriteserverasynclocalstorage",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L171",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_getlocale",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L215",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_getlocaleforurl",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L249",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_resolvelocalewithstrategies",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L265",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_overwritegetlocale",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L332",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_gettextdirection",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L363",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_navigateorreload",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L386",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_setlocale",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L420",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_overwritesetlocale",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L533",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_geturlorigin",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L546",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_overwritegeturlorigin",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L563",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_tolocale",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L573",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_islocale",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L600",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_assertislocale",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L610",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_extractlocalefromrequest",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L641",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_extractlocalefromrequestwithstrategies",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L653",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_resolveeffectiverequesturl",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L698",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_extractlocalefromrequestasync",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L736",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_resolveeffectiverequesturlfromrequestasync",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L764",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_extractlocalefromcookie",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L779",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_extractlocalefromheader",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L800",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_extractlocalefromnavigator",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L843",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_extractlocalefromurl",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L884",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_defaulturlpatternextractlocale",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L919",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_localizeurl",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L969",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_localizeurldefaultpattern",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1011",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_delocalizeurl",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1072",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_delocalizeurldefaultpattern",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1104",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_fillmissingurlparts",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1123",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_fillpattern",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1171",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_aggregategroups",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1224",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_shouldredirect",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1308",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_resolvelocale",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1330",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_resolveurl",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1351",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_normalizeurl",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1378",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_localizehref",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1424",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_delocalizehref",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1485",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_trackmessagecall",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1500",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_generatestaticlocalizedurls",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1552",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_iscustomstrategy",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1650",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_definecustomserverstrategy",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1663",
+			"weight": 1.0
+		},
+		{
+			"source": "home_rakshitbhai_bhejna_frontend_src_lib_paraglide_runtime_js",
+			"target": "runtime_definecustomclientstrategy",
+			"relation": "contains",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1679",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_getstrategyforurl",
+			"target": "runtime_findmatchingroutestrategy",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L119",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_isexcludedbyroutestrategy",
+			"target": "runtime_findmatchingroutestrategy",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L134",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_getlocale",
+			"target": "runtime_getstrategyforurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L229",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_getlocale",
+			"target": "runtime_resolvelocalewithstrategies",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L231",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_getlocale",
+			"target": "runtime_setlocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L237",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_getlocaleforurl",
+			"target": "runtime_getstrategyforurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L253",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_getlocaleforurl",
+			"target": "runtime_resolvelocalewithstrategies",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L254",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_resolvelocalewithstrategies",
+			"target": "runtime_extractlocalefromcookie",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L270",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_resolvelocalewithstrategies",
+			"target": "runtime_extractlocalefromurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L279",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_resolvelocalewithstrategies",
+			"target": "runtime_extractlocalefromnavigator",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L289",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_resolvelocalewithstrategies",
+			"target": "runtime_iscustomstrategy",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L296",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_resolvelocalewithstrategies",
+			"target": "runtime_getlocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L299",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_resolvelocalewithstrategies",
+			"target": "runtime_assertislocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L306",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_resolvelocalewithstrategies",
+			"target": "runtime_tolocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L310",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_setlocale",
+			"target": "runtime_getlocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L430",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_setlocale",
+			"target": "runtime_getstrategyforurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L441",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_setlocale",
+			"target": "runtime_localizeurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L477",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_setlocale",
+			"target": "runtime_iscustomstrategy",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L487",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_assertislocale",
+			"target": "runtime_tolocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L611",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromrequest",
+			"target": "runtime_resolveeffectiverequesturl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L642",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromrequest",
+			"target": "runtime_extractlocalefromrequestwithstrategies",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L643",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromrequest",
+			"target": "runtime_getstrategyforurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L643",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromrequestwithstrategies",
+			"target": "runtime_resolveeffectiverequesturl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L654",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromrequestwithstrategies",
+			"target": "runtime_extractlocalefromurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L666",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromrequestwithstrategies",
+			"target": "runtime_extractlocalefromheader",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L670",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromrequestwithstrategies",
+			"target": "runtime_iscustomstrategy",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L681",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromrequestwithstrategies",
+			"target": "runtime_tolocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L686",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromrequestasync",
+			"target": "runtime_resolveeffectiverequesturlfromrequestasync",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L739",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromrequestasync",
+			"target": "runtime_getstrategyforurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L740",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromrequestasync",
+			"target": "runtime_iscustomstrategy",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L743",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromrequestasync",
+			"target": "runtime_getlocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L747",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromrequestasync",
+			"target": "runtime_tolocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L750",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromrequestasync",
+			"target": "runtime_extractlocalefromrequestwithstrategies",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L757",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromcookie",
+			"target": "runtime_tolocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L785",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromheader",
+			"target": "runtime_tolocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L818",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromnavigator",
+			"target": "runtime_tolocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L852",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_extractlocalefromurl",
+			"target": "runtime_defaulturlpatternextractlocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L892",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_defaulturlpatternextractlocale",
+			"target": "runtime_tolocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L922",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_localizeurl",
+			"target": "runtime_assertislocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L971",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_localizeurl",
+			"target": "runtime_getlocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L972",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_localizeurl",
+			"target": "runtime_localizeurldefaultpattern",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L974",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_localizeurl",
+			"target": "runtime_fillpattern",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L989",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_localizeurl",
+			"target": "runtime_aggregategroups",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L989",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_localizeurl",
+			"target": "runtime_fillmissingurlparts",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L990",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_localizeurldefaultpattern",
+			"target": "runtime_geturlorigin",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1012",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_localizeurldefaultpattern",
+			"target": "runtime_extractlocalefromurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1013",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_localizeurldefaultpattern",
+			"target": "runtime_tolocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1020",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_delocalizeurl",
+			"target": "runtime_delocalizeurldefaultpattern",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1074",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_delocalizeurl",
+			"target": "runtime_aggregategroups",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1084",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_delocalizeurl",
+			"target": "runtime_fillpattern",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1085",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_delocalizeurl",
+			"target": "runtime_fillmissingurlparts",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1086",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_delocalizeurldefaultpattern",
+			"target": "runtime_geturlorigin",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1105",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_delocalizeurldefaultpattern",
+			"target": "runtime_tolocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1108",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_shouldredirect",
+			"target": "runtime_resolveurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1309",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_shouldredirect",
+			"target": "runtime_resolvelocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1310",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_shouldredirect",
+			"target": "runtime_getstrategyforurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1311",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_shouldredirect",
+			"target": "runtime_isexcludedbyroutestrategy",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1312",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_shouldredirect",
+			"target": "runtime_localizeurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1315",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_shouldredirect",
+			"target": "runtime_normalizeurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1316",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_resolvelocale",
+			"target": "runtime_tolocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1331",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_resolvelocale",
+			"target": "runtime_extractlocalefromrequestasync",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1336",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_resolvelocale",
+			"target": "runtime_getlocaleforurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1341",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_resolvelocale",
+			"target": "runtime_getlocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1343",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_resolveurl",
+			"target": "runtime_geturlorigin",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1356",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_localizehref",
+			"target": "runtime_getlocale",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1425",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_localizehref",
+			"target": "runtime_geturlorigin",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1427",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_localizehref",
+			"target": "runtime_localizeurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1428",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_delocalizehref",
+			"target": "runtime_geturlorigin",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1486",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_delocalizehref",
+			"target": "runtime_delocalizeurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1487",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_generatestaticlocalizedurls",
+			"target": "runtime_localizeurl",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1593",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_definecustomserverstrategy",
+			"target": "runtime_iscustomstrategy",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1664",
+			"weight": 1.0
+		},
+		{
+			"source": "runtime_definecustomclientstrategy",
+			"target": "runtime_iscustomstrategy",
+			"relation": "calls",
+			"confidence": "EXTRACTED",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1680",
+			"weight": 1.0
+		}
+	],
+	"raw_calls": [
+		{
+			"caller_nid": "runtime_findmatchingroutestrategy",
+			"callee": "exec",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L100"
+		},
+		{
+			"caller_nid": "runtime_getstrategyforurl",
+			"callee": "isArray",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L122"
+		},
+		{
+			"caller_nid": "runtime_getlocale",
+			"callee": "getStore",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L222"
+		},
+		{
+			"caller_nid": "runtime_resolvelocalewithstrategies",
+			"callee": "getItem",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L294"
+		},
+		{
+			"caller_nid": "runtime_resolvelocalewithstrategies",
+			"callee": "has",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L296"
+		},
+		{
+			"caller_nid": "runtime_resolvelocalewithstrategies",
+			"callee": "get",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L297"
+		},
+		{
+			"caller_nid": "runtime_gettextdirection",
+			"callee": "getTextInfo",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L369"
+		},
+		{
+			"caller_nid": "runtime_gettextdirection",
+			"callee": "toLowerCase",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L377"
+		},
+		{
+			"caller_nid": "runtime_gettextdirection",
+			"callee": "split",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L377"
+		},
+		{
+			"caller_nid": "runtime_gettextdirection",
+			"callee": "has",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L378"
+		},
+		{
+			"caller_nid": "runtime_navigateorreload",
+			"callee": "reload",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L393"
+		},
+		{
+			"caller_nid": "runtime_setlocale",
+			"callee": "setItem",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L485"
+		},
+		{
+			"caller_nid": "runtime_setlocale",
+			"callee": "has",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L487"
+		},
+		{
+			"caller_nid": "runtime_setlocale",
+			"callee": "get",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L488"
+		},
+		{
+			"caller_nid": "runtime_setlocale",
+			"callee": "catch",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L493"
+		},
+		{
+			"caller_nid": "runtime_setlocale",
+			"callee": "push",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L498"
+		},
+		{
+			"caller_nid": "runtime_setlocale",
+			"callee": "then",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L512"
+		},
+		{
+			"caller_nid": "runtime_setlocale",
+			"callee": "all",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L512"
+		},
+		{
+			"caller_nid": "runtime_setlocale",
+			"callee": "runReload",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L516"
+		},
+		{
+			"caller_nid": "runtime_geturlorigin",
+			"callee": "getStore",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L548"
+		},
+		{
+			"caller_nid": "runtime_tolocale",
+			"callee": "toLowerCase",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L577"
+		},
+		{
+			"caller_nid": "runtime_tolocale",
+			"callee": "toLowerCase",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L579"
+		},
+		{
+			"caller_nid": "runtime_islocale",
+			"callee": "some",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L601"
+		},
+		{
+			"caller_nid": "runtime_assertislocale",
+			"callee": "join",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L614"
+		},
+		{
+			"caller_nid": "runtime_extractlocalefromrequestwithstrategies",
+			"callee": "split",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L659"
+		},
+		{
+			"caller_nid": "runtime_extractlocalefromrequestwithstrategies",
+			"callee": "find",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L659"
+		},
+		{
+			"caller_nid": "runtime_extractlocalefromrequestwithstrategies",
+			"callee": "split",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L659"
+		},
+		{
+			"caller_nid": "runtime_extractlocalefromrequestwithstrategies",
+			"callee": "get",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L659"
+		},
+		{
+			"caller_nid": "runtime_extractlocalefromrequestasync",
+			"callee": "has",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L743"
+		},
+		{
+			"caller_nid": "runtime_extractlocalefromrequestasync",
+			"callee": "get",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L744"
+		},
+		{
+			"caller_nid": "runtime_extractlocalefromcookie",
+			"callee": "match",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L783"
+		},
+		{
+			"caller_nid": "runtime_extractlocalefromheader",
+			"callee": "get",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L801"
+		},
+		{
+			"caller_nid": "runtime_extractlocalefromheader",
+			"callee": "sort",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L804"
+		},
+		{
+			"caller_nid": "runtime_extractlocalefromheader",
+			"callee": "map",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L804"
+		},
+		{
+			"caller_nid": "runtime_extractlocalefromheader",
+			"callee": "split",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L804"
+		},
+		{
+			"caller_nid": "runtime_extractlocalefromnavigator",
+			"callee": "map",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L847"
+		},
+		{
+			"caller_nid": "runtime_extractlocalefromurl",
+			"callee": "exec",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L899"
+		},
+		{
+			"caller_nid": "runtime_defaulturlpatternextractlocale",
+			"callee": "filter",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L921"
+		},
+		{
+			"caller_nid": "runtime_defaulturlpatternextractlocale",
+			"callee": "split",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L921"
+		},
+		{
+			"caller_nid": "runtime_localizeurl",
+			"callee": "exec",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L981"
+		},
+		{
+			"caller_nid": "runtime_localizeurl",
+			"callee": "find",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L985"
+		},
+		{
+			"caller_nid": "runtime_localizeurl",
+			"callee": "exec",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L992"
+		},
+		{
+			"caller_nid": "runtime_localizeurl",
+			"callee": "find",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L994"
+		},
+		{
+			"caller_nid": "runtime_localizeurldefaultpattern",
+			"callee": "filter",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1018"
+		},
+		{
+			"caller_nid": "runtime_localizeurldefaultpattern",
+			"callee": "split",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1018"
+		},
+		{
+			"caller_nid": "runtime_localizeurldefaultpattern",
+			"callee": "shift",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1021"
+		},
+		{
+			"caller_nid": "runtime_localizeurldefaultpattern",
+			"callee": "join",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1025"
+		},
+		{
+			"caller_nid": "runtime_localizeurldefaultpattern",
+			"callee": "join",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1029"
+		},
+		{
+			"caller_nid": "runtime_delocalizeurl",
+			"callee": "exec",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1081"
+		},
+		{
+			"caller_nid": "runtime_delocalizeurl",
+			"callee": "exec",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1090"
+		},
+		{
+			"caller_nid": "runtime_delocalizeurldefaultpattern",
+			"callee": "filter",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1106"
+		},
+		{
+			"caller_nid": "runtime_delocalizeurldefaultpattern",
+			"callee": "split",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1106"
+		},
+		{
+			"caller_nid": "runtime_delocalizeurldefaultpattern",
+			"callee": "join",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1109"
+		},
+		{
+			"caller_nid": "runtime_delocalizeurldefaultpattern",
+			"callee": "slice",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1109"
+		},
+		{
+			"caller_nid": "runtime_fillpattern",
+			"callee": "replace",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1175"
+		},
+		{
+			"caller_nid": "runtime_fillpattern",
+			"callee": "replace",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1180"
+		},
+		{
+			"caller_nid": "runtime_fillpattern",
+			"callee": "replace",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1190"
+		},
+		{
+			"caller_nid": "runtime_fillpattern",
+			"callee": "replace",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1214"
+		},
+		{
+			"caller_nid": "runtime_shouldredirect",
+			"callee": "includes",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1312"
+		},
+		{
+			"caller_nid": "runtime_normalizeurl",
+			"callee": "replace",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1380"
+		},
+		{
+			"caller_nid": "runtime_localizehref",
+			"callee": "startsWith",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1431"
+		},
+		{
+			"caller_nid": "runtime_delocalizehref",
+			"callee": "startsWith",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1490"
+		},
+		{
+			"caller_nid": "runtime_trackmessagecall",
+			"callee": "getStore",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1503"
+		},
+		{
+			"caller_nid": "runtime_trackmessagecall",
+			"callee": "add",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1505"
+		},
+		{
+			"caller_nid": "runtime_generatestaticlocalizedurls",
+			"callee": "add",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1562"
+		},
+		{
+			"caller_nid": "runtime_generatestaticlocalizedurls",
+			"callee": "add",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1568"
+		},
+		{
+			"caller_nid": "runtime_generatestaticlocalizedurls",
+			"callee": "from",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1572"
+		},
+		{
+			"caller_nid": "runtime_generatestaticlocalizedurls",
+			"callee": "exec",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1584"
+		},
+		{
+			"caller_nid": "runtime_generatestaticlocalizedurls",
+			"callee": "has",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1596"
+		},
+		{
+			"caller_nid": "runtime_generatestaticlocalizedurls",
+			"callee": "add",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1597"
+		},
+		{
+			"caller_nid": "runtime_generatestaticlocalizedurls",
+			"callee": "add",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1598"
+		},
+		{
+			"caller_nid": "runtime_generatestaticlocalizedurls",
+			"callee": "add",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1615"
+		},
+		{
+			"caller_nid": "runtime_generatestaticlocalizedurls",
+			"callee": "from",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1618"
+		},
+		{
+			"caller_nid": "runtime_iscustomstrategy",
+			"callee": "test",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1651"
+		},
+		{
+			"caller_nid": "runtime_definecustomserverstrategy",
+			"callee": "set",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1667"
+		},
+		{
+			"caller_nid": "runtime_definecustomclientstrategy",
+			"callee": "set",
+			"source_file": "/home/rakshitbhai/bhejna-frontend/src/lib/paraglide/runtime.js",
+			"source_location": "L1683"
+		}
+	]
+}

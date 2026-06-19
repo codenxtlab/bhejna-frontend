@@ -9,6 +9,6 @@ It provides a contract-first API for sending messages, tracking delivery status,
  */
 
 export type WebhookPayloadEntryItemChangesItemValueStatusesItemErrorsItem = {
-  code?: number;
-  title?: string;
+	code?: number;
+	title?: string;
 };

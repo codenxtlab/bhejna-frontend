@@ -11,9 +11,9 @@ import type { WebhookPayloadEntryItemChangesItemValueStatusesItemErrorsItem } fr
 import type { WebhookPayloadEntryItemChangesItemValueStatusesItemStatus } from './webhookPayloadEntryItemChangesItemValueStatusesItemStatus';
 
 export type WebhookPayloadEntryItemChangesItemValueStatusesItem = {
-  id?: string;
-  status?: WebhookPayloadEntryItemChangesItemValueStatusesItemStatus;
-  timestamp?: string;
-  recipient_id?: string;
-  errors?: WebhookPayloadEntryItemChangesItemValueStatusesItemErrorsItem[];
+	id?: string;
+	status?: WebhookPayloadEntryItemChangesItemValueStatusesItemStatus;
+	timestamp?: string;
+	recipient_id?: string;
+	errors?: WebhookPayloadEntryItemChangesItemValueStatusesItemErrorsItem[];
 };

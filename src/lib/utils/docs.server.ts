@@ -22,7 +22,7 @@ export async function getHighlighter() {
 export async function highlight(code: string, lang: string = 'text') {
 	const h = await getHighlighter();
 	const shikiLang = langMap[lang.toLowerCase()] || lang.toLowerCase();
-	
+
 	try {
 		return h.codeToHtml(code, {
 			lang: supportedLangs.includes(shikiLang) ? shikiLang : 'text',

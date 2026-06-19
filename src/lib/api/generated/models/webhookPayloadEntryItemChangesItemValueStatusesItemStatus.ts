@@ -8,13 +8,13 @@ It provides a contract-first API for sending messages, tracking delivery status,
  * OpenAPI spec version: 1.0.0
  */
 
-export type WebhookPayloadEntryItemChangesItemValueStatusesItemStatus = typeof WebhookPayloadEntryItemChangesItemValueStatusesItemStatus[keyof typeof WebhookPayloadEntryItemChangesItemValueStatusesItemStatus];
-
+export type WebhookPayloadEntryItemChangesItemValueStatusesItemStatus =
+	(typeof WebhookPayloadEntryItemChangesItemValueStatusesItemStatus)[keyof typeof WebhookPayloadEntryItemChangesItemValueStatusesItemStatus];
 
 export const WebhookPayloadEntryItemChangesItemValueStatusesItemStatus = {
-  sent: 'sent',
-  delivered: 'delivered',
-  read: 'read',
-  failed: 'failed',
-  deleted: 'deleted',
+	sent: 'sent',
+	delivered: 'delivered',
+	read: 'read',
+	failed: 'failed',
+	deleted: 'deleted'
 } as const;

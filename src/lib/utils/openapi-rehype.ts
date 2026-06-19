@@ -49,7 +49,7 @@ export function rehypeOpenApi() {
 						const available = Object.keys(schemas as any);
 						console.warn(
 							`⚠️  rehypeOpenApi: Schema "${targetSchema}" not found in registry.\n` +
-							`   Available schemas: ${available.join(', ')}`
+								`   Available schemas: ${available.join(', ')}`
 						);
 					}
 				}

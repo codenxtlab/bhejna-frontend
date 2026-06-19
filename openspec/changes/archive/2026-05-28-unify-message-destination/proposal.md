@@ -4,9 +4,9 @@ Currently, our Go backend contracts and local SvelteKit API proxy route utilize 
 
 ## What Changes
 
-*   **Contract Alignment**: Synchronize our OpenAPI definitions from the Go backend and regenerate local SDK clients and Zod schema validators (`npm run api:sync`).
-*   **API Proxy Refactoring (BREAKING)**: Completely remove `to_phone` and `to_bsuid` properties from the `/api/test-message` proxy payload, and replace them with a unified polymorphic field `to`.
-*   **Dashboard UI Refactoring**: Replace split/obsolete target variables like `recipientPhone` with a single unified `recipientTarget` state in the developer playground UI.
+- **Contract Alignment**: Synchronize our OpenAPI definitions from the Go backend and regenerate local SDK clients and Zod schema validators (`npm run api:sync`).
+- **API Proxy Refactoring (BREAKING)**: Completely remove `to_phone` and `to_bsuid` properties from the `/api/test-message` proxy payload, and replace them with a unified polymorphic field `to`.
+- **Dashboard UI Refactoring**: Replace split/obsolete target variables like `recipientPhone` with a single unified `recipientTarget` state in the developer playground UI.
 
 ## Capabilities
 
@@ -20,8 +20,8 @@ Currently, our Go backend contracts and local SvelteKit API proxy route utilize 
 
 ## Impact
 
-*   **Affected Code**:
-    *   `src/routes/api/test-message/+server.ts` (flat payload construction maps `to` field).
-    *   `src/routes/dashboard/+page.svelte` (playground variables and form submission maps `recipientTarget`).
-*   **APIs**: Local proxy `/api/test-message` route structure shifts to polymorphic validation.
-*   **Dependencies**: Requires Orval model regenerations.
+- **Affected Code**:
+  - `src/routes/api/test-message/+server.ts` (flat payload construction maps `to` field).
+  - `src/routes/dashboard/+page.svelte` (playground variables and form submission maps `recipientTarget`).
+- **APIs**: Local proxy `/api/test-message` route structure shifts to polymorphic validation.
+- **Dependencies**: Requires Orval model regenerations.

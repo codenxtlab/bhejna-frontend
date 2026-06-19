@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { enhance, deserialize } from '$app/forms';
 
 	import { env } from '$env/dynamic/public';
@@ -136,28 +136,21 @@
 		}
 	}
 
-	async function handleOnboardingClick(e: MouseEvent) {
-		e.preventDefault();
-		loading = true;
+	async function fireProvision() {
 		try {
-			const response = await fetch('?/initializeOnboarding', {
+			fetch('?/initializeOnboarding', {
 				method: 'POST',
 				body: new FormData()
+			}).then(async (response) => {
+				const result = deserialize(await response.text());
+				if (result.type === 'success') {
+					await invalidateAll();
+				} else {
+					console.error('Background onboarding initialization failed:', result);
+				}
 			});
-
-			const result = deserialize(await response.text());
-
-			if (result.type === 'success' && result.data && (result.data as any).onboardingUrl) {
-				window.location.href = (result.data as any).onboardingUrl;
-			} else {
-				console.error('Onboarding init action failed:', result);
-				error = 'Onboarding initialization failed. Please try again.';
-			}
-		} catch (err: any) {
-			console.error('Failed to initialize onboarding:', err);
-			error = err.message || 'Failed to initialize onboarding';
-		} finally {
-			loading = false;
+		} catch (err) {
+			console.error('Failed to trigger background onboarding:', err);
 		}
 	}
 </script>
@@ -290,8 +283,8 @@
 										<a
 											href={metaOnboardUrl}
 											target="_blank"
-											rel="noopener noreferrer"
-											onclick={handleOnboardingClick}
+											rel="noopener"
+											onclick={fireProvision}
 											class="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-md shadow-blue-950/30 transition hover:bg-blue-500"
 										>
 											<svg

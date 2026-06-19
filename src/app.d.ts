@@ -1,20 +1,20 @@
 import { SupabaseClient, Session, User } from '@supabase/supabase-js';
 
 declare global {
-    namespace App {
-        interface Locals {
-            supabase: SupabaseClient;
-            safeGetSession: () => Promise<{ session: Session | null; user: User | null }>;
-            user: User | null;
-            session: Session | null;
-        }
-        interface PageData {
-            session: Session | null;
-            user: User | null;
-        }
-    }
+	namespace App {
+		interface Locals {
+			supabase: SupabaseClient;
+			safeGetSession: () => Promise<{ session: Session | null; user: User | null }>;
+			user: User | null;
+			session: Session | null;
+		}
+		interface PageData {
+			session: Session | null;
+			user: User | null;
+		}
+	}
 
-    interface Window {}
+	interface Window {}
 }
 
 export {};
