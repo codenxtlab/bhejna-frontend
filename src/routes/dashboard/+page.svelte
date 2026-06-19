@@ -21,7 +21,6 @@
 
 	// API Playground state
 	let recipientTarget = $state('');
-	let testMessageBody = $state('');
 	let testMessageBody = $state(
 		'Hi there! 👋\n\nThis is a custom test message from the Bhejna uniform gateway.\nEverything is connected and working perfectly!'
 	);
