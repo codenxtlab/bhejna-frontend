@@ -2,9 +2,12 @@ import { json } from '@sveltejs/kit';
 import type { RequestEvent } from '@sveltejs/kit';
 import { sendMessage } from '$lib/api/generated/client';
 import { SendMessageBody } from '$lib/api/generated/zod';
+import { env } from '$env/dynamic/private';
 import crypto from 'crypto';
 
-export const POST = async ({ request, locals }: RequestEvent): Promise<Response> => {
+export const POST = async (event: RequestEvent): Promise<Response> => {
+	const { request, locals, platform } = event;
+	console.log("DIAGNOSTIC ENV READS - dynamic env URL:", env.BHEJNA_GO_BACKEND_URL, " | platform env URL:", (platform as any)?.env?.BHEJNA_GO_BACKEND_URL);
 	try {
 		const payload = await request.json();
 
