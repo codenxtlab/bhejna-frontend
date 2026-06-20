@@ -901,18 +901,24 @@
 						</div>
 
 						<div class="space-y-3">
-							<div class="grid grid-cols-2 gap-1 rounded-xl bg-slate-950 p-1 border border-slate-800">
+							<div class="flex p-1 rounded-xl bg-slate-950 border border-slate-800 relative select-none">
+								<!-- Sliding Background Pill -->
+								<div 
+									class="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-lg bg-slate-900 border border-slate-800 transition-all duration-200 ease-out"
+									class:translate-x-full={playgroundType === 'template'}
+								></div>
+								
 								<button
 									type="button"
 									onclick={() => (playgroundType = 'text')}
-									class="rounded-lg py-1.5 text-xs font-medium transition-all {playgroundType === 'text' ? 'bg-slate-900 border border-slate-800 text-blue-400 shadow-sm' : 'text-slate-400 hover:text-slate-200'}"
+									class="relative z-10 flex-1 py-1.5 text-xs font-medium transition-colors duration-200 text-center {playgroundType === 'text' ? 'text-slate-200' : 'text-slate-500 hover:text-slate-400'}"
 								>
 									Text Message
 								</button>
 								<button
 									type="button"
 									onclick={() => (playgroundType = 'template')}
-									class="rounded-lg py-1.5 text-xs font-medium transition-all {playgroundType === 'template' ? 'bg-slate-900 border border-slate-800 text-blue-400 shadow-sm' : 'text-slate-400 hover:text-slate-200'}"
+									class="relative z-10 flex-1 py-1.5 text-xs font-medium transition-colors duration-200 text-center {playgroundType === 'template' ? 'text-slate-200' : 'text-slate-500 hover:text-slate-400'}"
 								>
 									Template
 								</button>
