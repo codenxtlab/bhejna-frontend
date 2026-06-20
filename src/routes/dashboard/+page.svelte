@@ -772,6 +772,7 @@
 								bind:value={webhookUrlValue}
 								required
 								pattern="https://.*"
+								onblur={() => webhookUrlDirty = true}
 								placeholder="https://your-domain.com/webhooks/bhejna"
 								class="w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 font-mono text-sm text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
 							/>
