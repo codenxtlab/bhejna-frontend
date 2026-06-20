@@ -305,6 +305,13 @@
 			</div>
 			
 			<div class="flex items-center space-x-6">
+				<a
+					href="/docs"
+					class="text-xs font-semibold text-slate-400 hover:text-slate-200 transition-colors"
+				>
+					Documentation
+				</a>
+				
 				<!-- Connection Status Pill -->
 				<div class="hidden sm:flex items-center gap-2 rounded-full bg-slate-950 px-3.5 py-1.5 border border-slate-800 text-xs">
 					{#if whatsappStatus === 'ACTIVE'}
