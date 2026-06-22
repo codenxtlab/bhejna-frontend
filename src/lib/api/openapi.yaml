@@ -209,13 +209,13 @@ components:
         - event_type
         - channel
         - received_at
-        - business_phone_number
       properties:
         bhejna_event_id:
           type: string
           format: uuid
         event_type:
           type: string
+          description: "Type of webhook event. Examples: message.received, message.status_updated, template.status_update, template.quality_update, template.category_update"
         channel:
           type: string
         received_at:
@@ -281,8 +281,301 @@ components:
             pricing_category:
               type: string
               nullable: true
+        template_update:
+          type: object
+          required:
+            - message_template_id
+            - message_template_name
+            - language
+            - status
+            - category
+          properties:
+            message_template_id:
+              type: string
+            message_template_name:
+              type: string
+            language:
+              type: string
+            status:
+              $ref: '#/components/schemas/TemplateStatus'
+            category:
+              $ref: '#/components/schemas/TemplateCategory'
+            quality_rating:
+              type: string
+              nullable: true
+            rejection_reason:
+              type: string
+              nullable: true
+
+    TemplateCategory:
+      type: string
+      enum: [MARKETING, UTILITY, AUTHENTICATION]
+
+    TemplateStatus:
+      type: string
+      enum: [PENDING, APPROVED, REJECTED, PAUSED, DISABLED, IN_APPEAL, LIMIT_EXCEEDED, PENDING_DELETION, DELETED]
+      description: "Lifecycle state owned by Meta. Bhejna reflects it and never authors it. New templates are PENDING until Meta review completes (minutes, up to 24h)."
+
+    TemplateButton:
+      type: object
+      required:
+        - type
+        - text
+      properties:
+        type:
+          type: string
+          enum: [QUICK_REPLY, URL, PHONE_NUMBER]
+        text:
+          type: string
+        url:
+          type: string
+          description: "Required when type is URL"
+        phone_number:
+          type: string
+          description: "Required when type is PHONE_NUMBER"
+
+    TemplateComponent:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum: [HEADER, BODY, FOOTER, BUTTONS]
+        format:
+          type: string
+          enum: [TEXT]
+          description: "v1 TEXT-only, media via Resumable Upload is planned"
+        text:
+          type: string
+        example:
+          type: object
+          description: "Meta-required sample values for variables, e.g. {\"body_text\":[[\"Jessica\",\"ORD-123\"]]}"
+        buttons:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateButton'
+
+    CreateTemplateRequest:
+      type: object
+      required:
+        - name
+        - language
+        - category
+        - components
+      properties:
+        name:
+          type: string
+          pattern: '^[a-z0-9_]+$'
+        language:
+          type: string
+        category:
+          $ref: '#/components/schemas/TemplateCategory'
+        allow_category_change:
+          type: boolean
+          default: true
+          description: "let Meta auto-correct category instead of rejecting on mismatch"
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateComponent'
+
+    MessageTemplate:
+      type: object
+      required:
+        - id
+        - name
+        - language
+        - category
+        - status
+        - components
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: string
+          description: "Meta template ID, authoritative"
+        name:
+          type: string
+        language:
+          type: string
+        category:
+          $ref: '#/components/schemas/TemplateCategory'
+        status:
+          $ref: '#/components/schemas/TemplateStatus'
+        quality_rating:
+          type: string
+          enum: [GREEN, YELLOW, RED, UNKNOWN]
+          nullable: true
+          description: "Meta-reconciled, null until usage feedback"
+        rejection_reason:
+          type: string
+          nullable: true
+          description: "set on REJECTED"
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateComponent'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    TemplateListResponse:
+      type: object
+      required:
+        - data
+        - paging
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageTemplate'
+        paging:
+          type: object
+          properties:
+            cursor:
+              type: string
+              nullable: true
 
 paths:
+  /v1/templates:
+    post:
+      operationId: createTemplate
+      tags:
+        - Templates
+      summary: Create a message template
+      description: Submits a template request to Meta.
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTemplateRequest'
+      responses:
+        '201':
+          description: Template created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageTemplate'
+        '400':
+          description: Invalid request or validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Template name conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    get:
+      operationId: listTemplates
+      tags:
+        - Templates
+      summary: List message templates
+      description: Returns a list of message templates matching the filter.
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: query
+          name: status
+          schema:
+            $ref: '#/components/schemas/TemplateStatus'
+          required: false
+      responses:
+        '200':
+          description: Successfully retrieved template list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v1/templates/{id}:
+    get:
+      operationId: getTemplate
+      tags:
+        - Templates
+      summary: Get a template by Meta ID
+      description: Returns a single message template from the local mirror.
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Template details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageTemplate'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Template not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v1/templates/{name}:
+    delete:
+      operationId: deleteTemplate
+      tags:
+        - Templates
+      summary: Delete a template by name
+      description: Deletes a message template from Meta and local mirror.
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: name
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: Template deleted successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Template not found on Meta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /v1/meta/webhook:
     get:
       operationId: GetV1MetaWebhook
@@ -371,7 +664,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/SendMessageResponse'
         '400':
-          description: Invalid request
+          description: |
+            Invalid request. For `type=template` sends, additional error codes may be returned:
+            - `TEMPLATE_NOT_FOUND`: no template with this name/language exists in the mirror for this account — create it via `POST /v1/templates` and wait for approval.
+            - `TEMPLATE_NOT_APPROVED`: template exists but is not in APPROVED status (e.g. PENDING, REJECTED, PAUSED).
+            - `TEMPLATE_PARAM_MISMATCH`: body parameter count in the request does not match the template's stored body component.
           content:
             application/json:
               schema:

@@ -8,9 +8,13 @@ It provides a contract-first API for sending messages, tracking delivery status,
  * OpenAPI spec version: 1.0.0
  */
 
+export * from './createTemplateRequest';
 export * from './errorResponse';
 export * from './errorResponseError';
 export * from './getV1MetaWebhookParams';
+export * from './listTemplatesParams';
+export * from './messageTemplate';
+export * from './messageTemplateQualityRating';
 export * from './messageType';
 export * from './sendMessageRequest';
 export * from './sendMessageRequestTemplate';
@@ -27,6 +31,16 @@ export * from './sendMessageResponse';
 export * from './successResponse';
 export * from './successResponseData';
 export * from './syncTenantBody';
+export * from './templateButton';
+export * from './templateButtonType';
+export * from './templateCategory';
+export * from './templateComponent';
+export * from './templateComponentExample';
+export * from './templateComponentFormat';
+export * from './templateComponentType';
+export * from './templateListResponse';
+export * from './templateListResponsePaging';
+export * from './templateStatus';
 export * from './tenant';
 export * from './tenantWhatsappStatus';
 export * from './webhookPayload';
@@ -34,3 +48,4 @@ export * from './webhookPayloadMessage';
 export * from './webhookPayloadSender';
 export * from './webhookPayloadStatusUpdate';
 export * from './webhookPayloadStatusUpdateStatus';
+export * from './webhookPayloadTemplateUpdate';

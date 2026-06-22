@@ -8,15 +8,223 @@ It provides a contract-first API for sending messages, tracking delivery status,
  * OpenAPI spec version: 1.0.0
  */
 import type {
+  CreateTemplateRequest,
   ErrorResponse,
   GetV1MetaWebhookParams,
+  ListTemplatesParams,
+  MessageTemplate,
   SendMessageRequest,
   SendMessageResponse,
   SyncTenantBody,
+  TemplateListResponse,
   WebhookPayload
 } from './models';
 
 import { customFetch } from '../mutator';
+
+export type createTemplateResponse201 = {
+  data: MessageTemplate
+  status: 201
+}
+
+export type createTemplateResponse400 = {
+  data: ErrorResponse
+  status: 400
+}
+
+export type createTemplateResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type createTemplateResponse409 = {
+  data: ErrorResponse
+  status: 409
+}
+
+export type createTemplateResponseSuccess = (createTemplateResponse201) & {
+  headers: Headers;
+};
+export type createTemplateResponseError = (createTemplateResponse400 | createTemplateResponse401 | createTemplateResponse409) & {
+  headers: Headers;
+};
+
+export type createTemplateResponse = (createTemplateResponseSuccess | createTemplateResponseError)
+
+export const getCreateTemplateUrl = () => {
+
+
+
+
+  return `/v1/templates`
+}
+
+/**
+ * Submits a template request to Meta.
+ * @summary Create a message template
+ */
+export const createTemplate = async (createTemplateRequest: CreateTemplateRequest, options?: RequestInit): Promise<createTemplateResponse> => {
+
+  return customFetch<createTemplateResponse>(getCreateTemplateUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createTemplateRequest,)
+  }
+);}
+
+
+
+export type listTemplatesResponse200 = {
+  data: TemplateListResponse
+  status: 200
+}
+
+export type listTemplatesResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type listTemplatesResponseSuccess = (listTemplatesResponse200) & {
+  headers: Headers;
+};
+export type listTemplatesResponseError = (listTemplatesResponse401) & {
+  headers: Headers;
+};
+
+export type listTemplatesResponse = (listTemplatesResponseSuccess | listTemplatesResponseError)
+
+export const getListTemplatesUrl = (params?: ListTemplatesParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/v1/templates?${stringifiedParams}` : `/v1/templates`
+}
+
+/**
+ * Returns a list of message templates matching the filter.
+ * @summary List message templates
+ */
+export const listTemplates = async (params?: ListTemplatesParams, options?: RequestInit): Promise<listTemplatesResponse> => {
+
+  return customFetch<listTemplatesResponse>(getListTemplatesUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+export type getTemplateResponse200 = {
+  data: MessageTemplate
+  status: 200
+}
+
+export type getTemplateResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type getTemplateResponse404 = {
+  data: ErrorResponse
+  status: 404
+}
+
+export type getTemplateResponseSuccess = (getTemplateResponse200) & {
+  headers: Headers;
+};
+export type getTemplateResponseError = (getTemplateResponse401 | getTemplateResponse404) & {
+  headers: Headers;
+};
+
+export type getTemplateResponse = (getTemplateResponseSuccess | getTemplateResponseError)
+
+export const getGetTemplateUrl = (id: string,) => {
+
+
+
+
+  return `/v1/templates/${id}`
+}
+
+/**
+ * Returns a single message template from the local mirror.
+ * @summary Get a template by Meta ID
+ */
+export const getTemplate = async (id: string, options?: RequestInit): Promise<getTemplateResponse> => {
+
+  return customFetch<getTemplateResponse>(getGetTemplateUrl(id),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+export type deleteTemplateResponse204 = {
+  data: void
+  status: 204
+}
+
+export type deleteTemplateResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type deleteTemplateResponse404 = {
+  data: ErrorResponse
+  status: 404
+}
+
+export type deleteTemplateResponseSuccess = (deleteTemplateResponse204) & {
+  headers: Headers;
+};
+export type deleteTemplateResponseError = (deleteTemplateResponse401 | deleteTemplateResponse404) & {
+  headers: Headers;
+};
+
+export type deleteTemplateResponse = (deleteTemplateResponseSuccess | deleteTemplateResponseError)
+
+export const getDeleteTemplateUrl = (name: string,) => {
+
+
+
+
+  return `/v1/templates/${name}`
+}
+
+/**
+ * Deletes a message template from Meta and local mirror.
+ * @summary Delete a template by name
+ */
+export const deleteTemplate = async (name: string, options?: RequestInit): Promise<deleteTemplateResponse> => {
+
+  return customFetch<deleteTemplateResponse>(getDeleteTemplateUrl(name),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
 
 export type getV1MetaWebhookResponse200 = {
   data: string

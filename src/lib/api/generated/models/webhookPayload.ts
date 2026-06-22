@@ -10,14 +10,17 @@ It provides a contract-first API for sending messages, tracking delivery status,
 import type { WebhookPayloadMessage } from './webhookPayloadMessage';
 import type { WebhookPayloadSender } from './webhookPayloadSender';
 import type { WebhookPayloadStatusUpdate } from './webhookPayloadStatusUpdate';
+import type { WebhookPayloadTemplateUpdate } from './webhookPayloadTemplateUpdate';
 
 export interface WebhookPayload {
   bhejna_event_id: string;
+  /** Type of webhook event. Examples: message.received, message.status_updated, template.status_update, template.quality_update, template.category_update */
   event_type: string;
   channel: string;
   received_at: string;
-  business_phone_number: string;
+  business_phone_number?: string;
   sender?: WebhookPayloadSender;
   message?: WebhookPayloadMessage;
   status_update?: WebhookPayloadStatusUpdate;
+  template_update?: WebhookPayloadTemplateUpdate;
 }

@@ -13,8 +13,10 @@
 		Loader2, 
 		LogOut,
 		Key,
-		Terminal
+		Terminal,
+		RefreshCw
 	} from 'lucide-svelte';
+	import type { MessageTemplate } from '$lib/api/generated/models';
 
 	let { data, form } = $props();
 
@@ -53,6 +55,95 @@
 		code?: number;
 		message?: string;
 	} | null>(null);
+
+	// Message Templates State
+	let templates = $state<MessageTemplate[]>([]);
+	let templatesLoading = $state(false);
+	let templatesError = $state<string | null>(null);
+
+	// Playground template configuration
+	let selectedTemplateName = $state<string>('');
+	let bodyParams = $state<string[]>([]);
+
+	// Derived values for dynamic parameters
+	const selectedTemplate = $derived(
+		templates.find(t => t.name === selectedTemplateName && t.status === 'APPROVED') ?? null
+	);
+
+	const parsedBodySlots = $derived(
+		parseBodySlots(selectedTemplate?.components ?? null)
+	);
+
+	const hasNamedParameters = $derived(
+		parsedBodySlots.some(slot => {
+			const content = slot.replace(/^\{\{|\}\}$/g, '').trim();
+			return !/^\d+$/.test(content);
+		})
+	);
+
+	$effect(() => {
+		bodyParams = Array(parsedBodySlots.length).fill('');
+	});
+
+	function parseBodySlots(componentsInput: any): string[] {
+		if (!componentsInput) return [];
+		try {
+			const comps = typeof componentsInput === 'string'
+				? JSON.parse(componentsInput)
+				: componentsInput;
+			if (!Array.isArray(comps)) return [];
+			const bodyComp = comps.find(
+				(c) => c && c.type && c.type.toUpperCase() === 'BODY'
+			);
+			if (!bodyComp || typeof bodyComp.text !== 'string') return [];
+			const matches = bodyComp.text.match(/\{\{([^}]+)\}\}/g);
+			if (!matches) return [];
+			
+			const uniqueMatches = Array.from(new Set(matches)) as string[];
+
+			// Check if all matched placeholders are numeric (like {{1}}, {{2}})
+			const isAllNumeric = uniqueMatches.every(m => {
+				const content = m.replace(/^\{\{|\}\}$/g, '').trim();
+				return /^\d+$/.test(content);
+			});
+
+			if (isAllNumeric) {
+				// Sort numerically based on the number inside the braces
+				return uniqueMatches.sort((a, b) => {
+					const numA = parseInt(a.replace(/^\{\{|\}\}$/g, '').trim(), 10);
+					const numB = parseInt(b.replace(/^\{\{|\}\}$/g, '').trim(), 10);
+					return numA - numB;
+				});
+			}
+
+			return uniqueMatches;
+		} catch (e) {
+			return [];
+		}
+	}
+
+	async function fetchTemplates() {
+		templatesLoading = true;
+		templatesError = null;
+		try {
+			const res = await fetch('/api/templates');
+			if (!res.ok) {
+				const errorData = await res.json().catch(() => ({}));
+				throw new Error(errorData.message || 'Could not load templates');
+			}
+			const resData = await res.json();
+			templates = resData.data || [];
+		} catch (err: any) {
+			console.error('Error fetching templates:', err);
+			templatesError = err.message || 'Could not load templates. Check your connection.';
+		} finally {
+			templatesLoading = false;
+		}
+	}
+
+	$effect(() => {
+		fetchTemplates();
+	});
 
 	// Form Action states
 	let updatingWebhook = $state(false);
@@ -178,8 +269,14 @@
 			};
 
 			if (playgroundType === 'template') {
-				reqBody.template_code = templateCode || 'hello_world';
-				reqBody.language = templateLanguage || 'en_US';
+				reqBody.template = {
+					template_code: selectedTemplateName || templateCode || 'hello_world',
+					language: selectedTemplate?.language || templateLanguage || 'en_US',
+					components: parsedBodySlots.length > 0 ? [{
+						type: 'body',
+						parameters: bodyParams.map(p => ({ type: 'text', text: p }))
+					}] : []
+				};
 			} else {
 				reqBody.text_body = testMessageBody || 'This is a live test from the Bhejna uniform gateway!';
 			}
@@ -883,6 +980,114 @@
 					</div>
 				</div>
 
+				<!-- TEMPLATES Card -->
+				<div class="rounded-2xl border border-slate-800 bg-slate-900 p-6 space-y-6">
+					<div class="flex items-center justify-between">
+						<div class="space-y-1">
+							<h3 class="text-sm font-semibold text-slate-100 font-sans">Message Templates</h3>
+							<p class="text-xs text-slate-400 leading-relaxed font-sans">
+								Local mirror of your templates synchronized with Meta.
+							</p>
+						</div>
+						<div class="flex items-center space-x-4">
+							{#if data.tenant?.waba_id}
+								<a
+									href="https://business.facebook.com/wa/manage/message-templates/?waba_id={data.tenant.waba_id}"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors"
+								>
+									Manage in WhatsApp Manager <ExternalLink size={12} />
+								</a>
+							{:else}
+								<span class="text-xs text-slate-500 select-none cursor-not-allowed" title="Connect WhatsApp to manage templates">
+									Connect WhatsApp to manage templates
+								</span>
+							{/if}
+							<button
+								type="button"
+								onclick={fetchTemplates}
+								disabled={templatesLoading}
+								class="p-2 rounded-lg bg-slate-950 border border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-905 transition-all disabled:opacity-50 shrink-0"
+								title="Refresh templates"
+							>
+								<RefreshCw size={14} class={templatesLoading ? 'animate-spin' : ''} />
+							</button>
+						</div>
+					</div>
+
+					{#if templatesLoading && templates.length === 0}
+						<!-- Skeleton Rows -->
+						<div class="space-y-3 animate-pulse">
+							{#each Array(3) as _}
+								<div class="h-10 bg-slate-950/60 rounded-lg border border-slate-850"></div>
+							{/each}
+						</div>
+					{:else if templatesError && templates.length === 0}
+						<div class="rounded-xl border border-red-500/20 bg-red-950/10 p-4 flex flex-col items-start gap-2">
+							<span class="text-xs font-semibold text-red-400 font-mono">Could not load templates.</span>
+							<p class="text-xs text-red-300/80 font-mono leading-relaxed">{templatesError}</p>
+							<button
+								type="button"
+								onclick={fetchTemplates}
+								class="mt-1 rounded-lg border border-red-500/20 bg-red-950/20 px-3 py-1.5 text-xs font-semibold text-red-400 hover:bg-red-950/30 transition-all"
+							>
+								Retry Fetch
+							</button>
+						</div>
+					{:else if templates.length === 0}
+						<div class="rounded-xl border border-slate-800 bg-slate-950 p-6 text-center space-y-2">
+							<p class="text-xs text-slate-400">
+								No templates yet. Create your first template in WhatsApp Manager, then it will appear here once approved.
+							</p>
+						</div>
+					{:else}
+						<div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950">
+							<table class="w-full text-left border-collapse">
+								<thead>
+									<tr class="border-b border-slate-800 text-[10px] font-bold tracking-wider text-slate-500 uppercase select-none">
+										<th class="px-4 py-3 font-semibold">Name</th>
+										<th class="px-4 py-3 font-semibold">Language</th>
+										<th class="px-4 py-3 font-semibold">Category</th>
+										<th class="px-4 py-3 font-semibold">Status</th>
+										<th class="px-4 py-3 font-semibold">Quality</th>
+									</tr>
+								</thead>
+								<tbody class="divide-y divide-slate-850 font-mono text-xs text-slate-300">
+									{#each templates as template (template.id)}
+										<tr class="hover:bg-slate-900/40 transition-colors">
+											<td class="px-4 py-3 font-semibold text-slate-200">{template.name}</td>
+											<td class="px-4 py-3 text-slate-400">{template.language}</td>
+											<td class="px-4 py-3 text-slate-400">{template.category}</td>
+											<td class="px-4 py-3">
+												<span class="inline-flex rounded-full px-2 py-0.5 text-[10px] font-semibold border
+													{template.status === 'APPROVED' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25' : 
+													 template.status === 'PENDING' ? 'bg-amber-500/10 text-amber-400 border-amber-500/25' : 
+													 ['REJECTED', 'DISABLED', 'PAUSED'].includes(template.status) ? 'bg-red-500/10 text-red-400 border-red-500/25' : 
+													 'bg-slate-800 text-slate-400 border-slate-700/50'}"
+												>
+													{template.status}
+												</span>
+											</td>
+											<td class="px-4 py-3">
+												<div class="flex items-center gap-1.5">
+													<span class="h-1.5 w-1.5 rounded-full 
+														{template.quality_rating === 'GREEN' ? 'bg-emerald-500' : 
+														 template.quality_rating === 'YELLOW' ? 'bg-amber-500' : 
+														 template.quality_rating === 'RED' ? 'bg-red-500' : 
+														 'bg-slate-600'}"
+													></span>
+													<span class="text-[10px] text-slate-400">{template.quality_rating || 'UNKNOWN'}</span>
+												</div>
+											</td>
+										</tr>
+									{/each}
+								</tbody>
+							</table>
+						</div>
+					{/if}
+				</div>
+
 			</div>
 
 			<!-- Right Column: API Playground Widget (Sticky) -->
@@ -949,34 +1154,61 @@
 									></textarea>
 								</div>
 							{:else}
-								<div class="grid grid-cols-2 gap-4">
+								<div class="space-y-3">
 									<div class="space-y-1.5">
-										<label for="template_code" class="block text-[10px] font-medium tracking-wider text-slate-400 uppercase">Template Code</label>
-										<input
-											type="text"
-											id="template_code"
-											bind:value={templateCode}
-											placeholder="hello_world"
-											class="w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 font-mono text-sm text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-										/>
+										<label for="template_select" class="block text-[10px] font-medium tracking-wider text-slate-400 uppercase">Select Template</label>
+										<select
+											id="template_select"
+											bind:value={selectedTemplateName}
+											disabled={templates.filter(t => t.status === 'APPROVED').length === 0}
+											class="w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 font-sans text-sm text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-50"
+										>
+											{#if templates.filter(t => t.status === 'APPROVED').length === 0}
+												<option value="" disabled selected>No approved templates — create one in WhatsApp Manager</option>
+											{:else}
+												<option value="" disabled selected>Select an approved template...</option>
+												{#each templates.filter(t => t.status === 'APPROVED') as t}
+													<option value={t.name}>{t.name} ({t.language})</option>
+												{/each}
+											{/if}
+										</select>
 									</div>
-									<div class="space-y-1.5">
-										<label for="template_language" class="block text-[10px] font-medium tracking-wider text-slate-400 uppercase">Language Code</label>
-										<input
-											type="text"
-											id="template_language"
-											bind:value={templateLanguage}
-											placeholder="en_US"
-											class="w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 font-mono text-sm text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-										/>
-									</div>
+
+									{#if selectedTemplateName && hasNamedParameters}
+										<div class="rounded-xl border border-amber-500/20 bg-amber-950/10 p-4 space-y-2">
+											<span class="block text-xs font-semibold text-amber-400 tracking-wide uppercase">Unsupported Template Format</span>
+											<p class="text-xs text-amber-300/80 leading-relaxed font-sans">
+												Templates with named parameters (e.g. <code>{parsedBodySlots.join(', ')}</code>) are not supported in the Playground yet. Please select an ordinal template (e.g. <code>&#123;&#123;1&#125;&#125;</code>).
+											</p>
+										</div>
+									{/if}
+
+									{#if selectedTemplateName && !hasNamedParameters && parsedBodySlots.length > 0}
+										<div class="space-y-3 pt-2 border-t border-slate-800/60">
+											<span class="block text-[10px] font-medium tracking-wider text-slate-400 uppercase">Body Parameters</span>
+											<div class="grid grid-cols-1 gap-3">
+												{#each parsedBodySlots as slot, i}
+													<div class="space-y-1">
+														<label for="param_{i}" class="block text-[10px] font-mono text-slate-500">{slot}</label>
+														<input
+															type="text"
+															id="param_{i}"
+															bind:value={bodyParams[i]}
+															placeholder="Value for {slot}"
+															class="w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 text-sm text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+														/>
+													</div>
+												{/each}
+											</div>
+										</div>
+									{/if}
 								</div>
 							{/if}
 
 							<button
 								type="button"
 								onclick={handleTestMessage}
-								disabled={testingPlayground || !recipientTarget || (playgroundType === 'text' && !testMessageBody.trim()) || (playgroundType === 'template' && !templateCode.trim())}
+								disabled={testingPlayground || !recipientTarget || (playgroundType === 'text' && !testMessageBody.trim()) || (playgroundType === 'template' && (!selectedTemplateName || hasNamedParameters))}
 								class="w-full rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-[0.98] py-2.5 text-sm font-semibold text-white transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
 							>
 								{#if testingPlayground}

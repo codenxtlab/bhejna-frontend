@@ -50,9 +50,9 @@ export const POST = async (event: RequestEvent): Promise<Response> => {
 
 		if (payload.type === 'template') {
 			flatPayload.template = {
-				template_code: payload.template_code || 'hello_world',
-				language: payload.language || 'en_US',
-				components: []
+				template_code: payload.template?.template_code || payload.template_code || 'hello_world',
+				language: payload.template?.language || payload.language || 'en_US',
+				components: payload.template?.components || []
 			};
 			flatPayload.text = undefined;
 		} else if (payload.type === 'text') {

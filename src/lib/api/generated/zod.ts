@@ -11,6 +11,119 @@ import * as zod from 'zod';
 
 
 /**
+ * Submits a template request to Meta.
+ * @summary Create a message template
+ */
+export const createTemplateBodyNameRegExp = new RegExp('^[a-z0-9_]+$');
+export const createTemplateBodyAllowCategoryChangeDefault = true;
+
+export const CreateTemplateBody = zod.object({
+  "name": zod.string().regex(createTemplateBodyNameRegExp),
+  "language": zod.string(),
+  "category": zod.enum(['MARKETING', 'UTILITY', 'AUTHENTICATION']),
+  "allow_category_change": zod.boolean().default(createTemplateBodyAllowCategoryChangeDefault).describe('let Meta auto-correct category instead of rejecting on mismatch'),
+  "components": zod.array(zod.object({
+  "type": zod.enum(['HEADER', 'BODY', 'FOOTER', 'BUTTONS']),
+  "format": zod.enum(['TEXT']).optional().describe('v1 TEXT-only, media via Resumable Upload is planned'),
+  "text": zod.string().optional(),
+  "example": zod.looseObject({
+
+}).optional().describe('Meta-required sample values for variables, e.g. {\"body_text\":[[\"Jessica\",\"ORD-123\"]]}'),
+  "buttons": zod.array(zod.object({
+  "type": zod.enum(['QUICK_REPLY', 'URL', 'PHONE_NUMBER']),
+  "text": zod.string(),
+  "url": zod.string().optional().describe('Required when type is URL'),
+  "phone_number": zod.string().optional().describe('Required when type is PHONE_NUMBER')
+})).optional()
+}))
+})
+
+
+/**
+ * Returns a list of message templates matching the filter.
+ * @summary List message templates
+ */
+export const ListTemplatesQueryParams = zod.object({
+  "status": zod.enum(['PENDING', 'APPROVED', 'REJECTED', 'PAUSED', 'DISABLED', 'IN_APPEAL', 'LIMIT_EXCEEDED', 'PENDING_DELETION', 'DELETED']).optional()
+})
+
+export const ListTemplatesResponse = zod.object({
+  "data": zod.array(zod.object({
+  "id": zod.string().describe('Meta template ID, authoritative'),
+  "name": zod.string(),
+  "language": zod.string(),
+  "category": zod.enum(['MARKETING', 'UTILITY', 'AUTHENTICATION']),
+  "status": zod.enum(['PENDING', 'APPROVED', 'REJECTED', 'PAUSED', 'DISABLED', 'IN_APPEAL', 'LIMIT_EXCEEDED', 'PENDING_DELETION', 'DELETED']).describe('Lifecycle state owned by Meta. Bhejna reflects it and never authors it. New templates are PENDING until Meta review completes (minutes, up to 24h).'),
+  "quality_rating": zod.enum(['GREEN', 'YELLOW', 'RED', 'UNKNOWN']).nullish().describe('Meta-reconciled, null until usage feedback'),
+  "rejection_reason": zod.string().nullish().describe('set on REJECTED'),
+  "components": zod.array(zod.object({
+  "type": zod.enum(['HEADER', 'BODY', 'FOOTER', 'BUTTONS']),
+  "format": zod.enum(['TEXT']).optional().describe('v1 TEXT-only, media via Resumable Upload is planned'),
+  "text": zod.string().optional(),
+  "example": zod.looseObject({
+
+}).optional().describe('Meta-required sample values for variables, e.g. {\"body_text\":[[\"Jessica\",\"ORD-123\"]]}'),
+  "buttons": zod.array(zod.object({
+  "type": zod.enum(['QUICK_REPLY', 'URL', 'PHONE_NUMBER']),
+  "text": zod.string(),
+  "url": zod.string().optional().describe('Required when type is URL'),
+  "phone_number": zod.string().optional().describe('Required when type is PHONE_NUMBER')
+})).optional()
+})),
+  "created_at": zod.iso.datetime({"offset":true}),
+  "updated_at": zod.iso.datetime({"offset":true})
+})),
+  "paging": zod.object({
+  "cursor": zod.string().nullish()
+})
+})
+
+
+/**
+ * Returns a single message template from the local mirror.
+ * @summary Get a template by Meta ID
+ */
+export const GetTemplateParams = zod.object({
+  "id": zod.string()
+})
+
+export const GetTemplateResponse = zod.object({
+  "id": zod.string().describe('Meta template ID, authoritative'),
+  "name": zod.string(),
+  "language": zod.string(),
+  "category": zod.enum(['MARKETING', 'UTILITY', 'AUTHENTICATION']),
+  "status": zod.enum(['PENDING', 'APPROVED', 'REJECTED', 'PAUSED', 'DISABLED', 'IN_APPEAL', 'LIMIT_EXCEEDED', 'PENDING_DELETION', 'DELETED']).describe('Lifecycle state owned by Meta. Bhejna reflects it and never authors it. New templates are PENDING until Meta review completes (minutes, up to 24h).'),
+  "quality_rating": zod.enum(['GREEN', 'YELLOW', 'RED', 'UNKNOWN']).nullish().describe('Meta-reconciled, null until usage feedback'),
+  "rejection_reason": zod.string().nullish().describe('set on REJECTED'),
+  "components": zod.array(zod.object({
+  "type": zod.enum(['HEADER', 'BODY', 'FOOTER', 'BUTTONS']),
+  "format": zod.enum(['TEXT']).optional().describe('v1 TEXT-only, media via Resumable Upload is planned'),
+  "text": zod.string().optional(),
+  "example": zod.looseObject({
+
+}).optional().describe('Meta-required sample values for variables, e.g. {\"body_text\":[[\"Jessica\",\"ORD-123\"]]}'),
+  "buttons": zod.array(zod.object({
+  "type": zod.enum(['QUICK_REPLY', 'URL', 'PHONE_NUMBER']),
+  "text": zod.string(),
+  "url": zod.string().optional().describe('Required when type is URL'),
+  "phone_number": zod.string().optional().describe('Required when type is PHONE_NUMBER')
+})).optional()
+})),
+  "created_at": zod.iso.datetime({"offset":true}),
+  "updated_at": zod.iso.datetime({"offset":true})
+})
+
+
+/**
+ * Deletes a message template from Meta and local mirror.
+ * @summary Delete a template by name
+ */
+export const DeleteTemplateParams = zod.object({
+  "name": zod.string()
+})
+
+
+/**
  * @summary Meta Webhook Verification
  */
 export const GetV1MetaWebhookQueryParams = zod.object({
@@ -25,10 +138,10 @@ export const GetV1MetaWebhookQueryParams = zod.object({
  */
 export const PostV1MetaWebhookBody = zod.object({
   "bhejna_event_id": zod.uuid(),
-  "event_type": zod.string(),
+  "event_type": zod.string().describe('Type of webhook event. Examples: message.received, message.status_updated, template.status_update, template.quality_update, template.category_update'),
   "channel": zod.string(),
   "received_at": zod.iso.datetime({"offset":true}),
-  "business_phone_number": zod.string(),
+  "business_phone_number": zod.string().optional(),
   "sender": zod.object({
   "whatsapp_identifier": zod.string(),
   "bsuid": zod.string(),
@@ -49,6 +162,15 @@ export const PostV1MetaWebhookBody = zod.object({
   "recipient_bsuid": zod.string(),
   "conversation_id": zod.string().nullish(),
   "pricing_category": zod.string().nullish()
+}).optional(),
+  "template_update": zod.object({
+  "message_template_id": zod.string(),
+  "message_template_name": zod.string(),
+  "language": zod.string(),
+  "status": zod.enum(['PENDING', 'APPROVED', 'REJECTED', 'PAUSED', 'DISABLED', 'IN_APPEAL', 'LIMIT_EXCEEDED', 'PENDING_DELETION', 'DELETED']).describe('Lifecycle state owned by Meta. Bhejna reflects it and never authors it. New templates are PENDING until Meta review completes (minutes, up to 24h).'),
+  "category": zod.enum(['MARKETING', 'UTILITY', 'AUTHENTICATION']),
+  "quality_rating": zod.string().nullish(),
+  "rejection_reason": zod.string().nullish()
 }).optional()
 })
 
@@ -58,10 +180,10 @@ export const PostV1MetaWebhookBody = zod.object({
  */
 export const ForceGenerateWebhookTypeResponse = zod.object({
   "bhejna_event_id": zod.uuid(),
-  "event_type": zod.string(),
+  "event_type": zod.string().describe('Type of webhook event. Examples: message.received, message.status_updated, template.status_update, template.quality_update, template.category_update'),
   "channel": zod.string(),
   "received_at": zod.iso.datetime({"offset":true}),
-  "business_phone_number": zod.string(),
+  "business_phone_number": zod.string().optional(),
   "sender": zod.object({
   "whatsapp_identifier": zod.string(),
   "bsuid": zod.string(),
@@ -82,6 +204,15 @@ export const ForceGenerateWebhookTypeResponse = zod.object({
   "recipient_bsuid": zod.string(),
   "conversation_id": zod.string().nullish(),
   "pricing_category": zod.string().nullish()
+}).optional(),
+  "template_update": zod.object({
+  "message_template_id": zod.string(),
+  "message_template_name": zod.string(),
+  "language": zod.string(),
+  "status": zod.enum(['PENDING', 'APPROVED', 'REJECTED', 'PAUSED', 'DISABLED', 'IN_APPEAL', 'LIMIT_EXCEEDED', 'PENDING_DELETION', 'DELETED']).describe('Lifecycle state owned by Meta. Bhejna reflects it and never authors it. New templates are PENDING until Meta review completes (minutes, up to 24h).'),
+  "category": zod.enum(['MARKETING', 'UTILITY', 'AUTHENTICATION']),
+  "quality_rating": zod.string().nullish(),
+  "rejection_reason": zod.string().nullish()
 }).optional()
 })
 
