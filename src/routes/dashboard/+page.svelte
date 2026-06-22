@@ -141,8 +141,24 @@
 		}
 	}
 
+	let backfillAttempted = false;
 	$effect(() => {
-		fetchTemplates();
+		fetchTemplates().then(() => {
+			if (templates.length === 0 && data.tenant?.whatsapp_status === 'ACTIVE' && !backfillAttempted) {
+				backfillAttempted = true;
+				showToast('Empty template mirror detected. Syncing with Meta...', 'info');
+				fetch('?/retryWabaSubscription', {
+					method: 'POST',
+					body: new FormData()
+				}).then(() => {
+					setTimeout(async () => {
+						await fetchTemplates();
+					}, 3000);
+				}).catch((err) => {
+					console.error('Template backfill failed:', err);
+				});
+			}
+		});
 	});
 
 	// Form Action states
