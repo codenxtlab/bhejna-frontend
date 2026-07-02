@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { Eye, EyeOff } from 'lucide-svelte';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
@@ -7,6 +8,8 @@
 	let email = $state('');
 	let password = $state('');
 	let confirmPassword = $state('');
+	let showPassword = $state(false);
+	let showConfirmPassword = $state(false);
 	let error = $state('');
 	let loading = $state(false);
 
@@ -90,16 +93,30 @@
 						class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
 						>Password</label
 					>
-					<input
-						type="password"
-						id="password"
-						name="password"
-						bind:value={password}
-						required
-						autocomplete="new-password"
-						class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-sm text-slate-50 transition-all outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-						placeholder="••••••••"
-					/>
+					<div class="relative">
+						<input
+							type={showPassword ? 'text' : 'password'}
+							id="password"
+							name="password"
+							bind:value={password}
+							required
+							autocomplete="new-password"
+							class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 pr-10 text-sm text-slate-50 transition-all outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+							placeholder="••••••••"
+						/>
+						<button
+							type="button"
+							onclick={() => (showPassword = !showPassword)}
+							class="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 text-slate-400 transition-colors hover:text-slate-200 focus:outline-none"
+							aria-label={showPassword ? 'Hide password' : 'Show password'}
+						>
+							{#if showPassword}
+								<EyeOff class="h-4 w-4" />
+							{:else}
+								<Eye class="h-4 w-4" />
+							{/if}
+						</button>
+					</div>
 				</div>
 
 				<div>
@@ -108,16 +125,30 @@
 						class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
 						>Confirm Password</label
 					>
-					<input
-						type="password"
-						id="confirmPassword"
-						name="confirmPassword"
-						bind:value={confirmPassword}
-						required
-						autocomplete="new-password"
-						class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-sm text-slate-50 transition-all outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-						placeholder="••••••••"
-					/>
+					<div class="relative">
+						<input
+							type={showConfirmPassword ? 'text' : 'password'}
+							id="confirmPassword"
+							name="confirmPassword"
+							bind:value={confirmPassword}
+							required
+							autocomplete="new-password"
+							class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 pr-10 text-sm text-slate-50 transition-all outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+							placeholder="••••••••"
+						/>
+						<button
+							type="button"
+							onclick={() => (showConfirmPassword = !showConfirmPassword)}
+							class="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 text-slate-400 transition-colors hover:text-slate-200 focus:outline-none"
+							aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+						>
+							{#if showConfirmPassword}
+								<EyeOff class="h-4 w-4" />
+							{:else}
+								<Eye class="h-4 w-4" />
+							{/if}
+						</button>
+					</div>
 				</div>
 
 				{#if error}
