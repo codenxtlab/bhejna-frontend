@@ -8,19 +8,12 @@ It provides a contract-first API for sending messages, tracking delivery status,
  * OpenAPI spec version: 1.0.0
  */
 
-export type SendMessageRequestType = typeof SendMessageRequestType[keyof typeof SendMessageRequestType];
+export type InteractiveMessageObjectHeaderType = typeof InteractiveMessageObjectHeaderType[keyof typeof InteractiveMessageObjectHeaderType];
 
 
-export const SendMessageRequestType = {
+export const InteractiveMessageObjectHeaderType = {
   text: 'text',
-  template: 'template',
   image: 'image',
-  document: 'document',
-  audio: 'audio',
   video: 'video',
-  sticker: 'sticker',
-  interactive: 'interactive',
-  location: 'location',
-  contacts: 'contacts',
-  reaction: 'reaction',
+  document: 'document',
 } as const;

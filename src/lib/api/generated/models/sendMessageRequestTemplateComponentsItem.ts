@@ -8,9 +8,14 @@ It provides a contract-first API for sending messages, tracking delivery status,
  * OpenAPI spec version: 1.0.0
  */
 import type { SendMessageRequestTemplateComponentsItemParametersItem } from './sendMessageRequestTemplateComponentsItemParametersItem';
+import type { SendMessageRequestTemplateComponentsItemSubType } from './sendMessageRequestTemplateComponentsItemSubType';
 import type { SendMessageRequestTemplateComponentsItemType } from './sendMessageRequestTemplateComponentsItemType';
 
 export type SendMessageRequestTemplateComponentsItem = {
   type: SendMessageRequestTemplateComponentsItemType;
+  /** Required when type=button: which button kind the parameters apply to */
+  sub_type?: SendMessageRequestTemplateComponentsItemSubType;
+  /** Required when type=button: 0-based position of the button in the template. Meta accepts a string ("0") or an integer (0); both forms are accepted and passed through verbatim. */
+  index?: unknown;
   parameters?: SendMessageRequestTemplateComponentsItemParametersItem[];
 };

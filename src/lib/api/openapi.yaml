@@ -54,7 +54,7 @@ components:
           type: string
         type:
           type: string
-          enum: [text, template]
+          enum: [text, template, image, document, audio, video, sticker, interactive, location, contacts, reaction]
         text:
           type: object
           required:
@@ -62,6 +62,74 @@ components:
           properties:
             body:
               type: string
+        image:
+          $ref: '#/components/schemas/MediaObject'
+        document:
+          $ref: '#/components/schemas/MediaObject'
+        audio:
+          $ref: '#/components/schemas/MediaObject'
+        video:
+          $ref: '#/components/schemas/MediaObject'
+        sticker:
+          $ref: '#/components/schemas/MediaObject'
+        interactive:
+          $ref: '#/components/schemas/InteractiveMessageObject'
+        location:
+          type: object
+          description: "Per Meta's LocationMessage: latitude/longitude are strings"
+          required:
+            - latitude
+            - longitude
+          properties:
+            latitude:
+              type: string
+            longitude:
+              type: string
+            name:
+              type: string
+            address:
+              type: string
+        contacts:
+          type: array
+          description: "1-5 Meta ContactObject entries (name/phones/emails/addresses/org/urls), passed through verbatim"
+          items:
+            type: object
+            properties:
+              name:
+                type: object
+              phones:
+                type: array
+                items:
+                  type: object
+              emails:
+                type: array
+                items:
+                  type: object
+              addresses:
+                type: array
+                items:
+                  type: object
+              org:
+                type: object
+              urls:
+                type: array
+                items:
+                  type: object
+              birthday:
+                type: string
+        reaction:
+          type: object
+          description: "React to a previously received/sent message"
+          required:
+            - message_id
+            - emoji
+          properties:
+            message_id:
+              type: string
+              description: "wamid of the message being reacted to"
+            emoji:
+              type: string
+              description: "Emoji to apply; empty string removes the reaction"
         template:
           type: object
           required:
@@ -82,6 +150,12 @@ components:
                   type:
                     type: string
                     enum: [header, body, button]
+                  sub_type:
+                    type: string
+                    enum: [url, quick_reply]
+                    description: "Required when type=button: which button kind the parameters apply to"
+                  index:
+                    description: "Required when type=button: 0-based position of the button in the template. Meta accepts a string (\"0\") or an integer (0); both forms are accepted and passed through verbatim."
                   parameters:
                     type: array
                     items:
@@ -91,9 +165,12 @@ components:
                       properties:
                         type:
                           type: string
-                          enum: [text, currency, date_time, image, document, video]
+                          enum: [text, payload, currency, date_time, image, document, video]
                         text:
                           type: string
+                        payload:
+                          type: string
+                          description: "For quick_reply button parameters"
                         image:
                           type: object
                           required:
@@ -116,6 +193,135 @@ components:
                             link:
                               type: string
 
+    MediaObject:
+      type: object
+      description: "Media payload: either a previously uploaded media id (POST /v1/media) or a public HTTPS link. Exactly one of id/link is required."
+      properties:
+        id:
+          type: string
+          description: "Meta media id from POST /v1/media"
+        link:
+          type: string
+          description: "Public HTTPS URL of the media asset"
+        caption:
+          type: string
+          description: "Optional caption (image, video, document only)"
+        filename:
+          type: string
+          description: "Optional display filename (document only)"
+
+    InteractiveMessageObject:
+      type: object
+      description: "Interactive message per Meta's InteractiveObject. Scope: reply buttons and lists (catalog/product/flow variants deliberately unsupported)."
+      required:
+        - type
+        - action
+      properties:
+        type:
+          type: string
+          enum: [button, list]
+        header:
+          type: object
+          description: "Optional header: {type: text|image|video|document, text?, image?, video?, document?}"
+          properties:
+            type:
+              type: string
+              enum: [text, image, video, document]
+            text:
+              type: string
+              maxLength: 60
+            image:
+              $ref: '#/components/schemas/MediaObject'
+            video:
+              $ref: '#/components/schemas/MediaObject'
+            document:
+              $ref: '#/components/schemas/MediaObject'
+        body:
+          type: object
+          required:
+            - text
+          properties:
+            text:
+              type: string
+              maxLength: 1024
+        footer:
+          type: object
+          required:
+            - text
+          properties:
+            text:
+              type: string
+              maxLength: 60
+        action:
+          type: object
+          description: "For type=button: buttons (1-3 reply buttons). For type=list: button (menu label, <=20 chars) + sections (1-10)."
+          properties:
+            buttons:
+              type: array
+              minItems: 1
+              maxItems: 3
+              items:
+                type: object
+                required:
+                  - type
+                  - reply
+                properties:
+                  type:
+                    type: string
+                    enum: [reply]
+                  reply:
+                    type: object
+                    required:
+                      - id
+                      - title
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 256
+                      title:
+                        type: string
+                        maxLength: 20
+            button:
+              type: string
+              maxLength: 20
+            sections:
+              type: array
+              minItems: 1
+              maxItems: 10
+              items:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    maxLength: 24
+                  rows:
+                    type: array
+                    maxItems: 10
+                    items:
+                      type: object
+                      required:
+                        - id
+                        - title
+                      properties:
+                        id:
+                          type: string
+                          maxLength: 200
+                        title:
+                          type: string
+                          maxLength: 24
+                        description:
+                          type: string
+                          maxLength: 72
+
+    MediaUploadResponse:
+      type: object
+      required:
+        - media_id
+      properties:
+        media_id:
+          type: string
+          description: "Meta media id, valid for 30 days; use as MediaObject.id"
+
     SendMessageResponse:
       type: object
       required:
@@ -128,6 +334,34 @@ components:
         status:
           type: string
           example: "queued"
+
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+        tenant_id:
+          type: string
+        recipient_bsuid:
+          type: string
+        direction:
+          type: string
+          enum: [inbound, outbound]
+        body:
+          type: string
+          nullable: true
+        meta_message_id:
+          type: string
+          nullable: true
+        job_id:
+          type: string
+          nullable: true
+        display_name:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
 
     Tenant:
       type: object
@@ -191,7 +425,55 @@ components:
           properties:
             code:
               type: string
-              example: "INVALID_PHONE"
+              example: "TEMPLATE_NOT_FOUND"
+              description: |
+                Bhejna application-level error code (distinct from Meta's numeric
+                Graph API error codes, which are surfaced via META_API_ERROR
+                messages and job failure records). Full catalog with causes:
+                docs/error-codes.md. Known values:
+                UNAUTHORIZED, TENANT_PAUSED, INTERNAL_ERROR, DATABASE_ERROR,
+                META_API_ERROR, INVALID_BODY, INVALID_JSON, INVALID_FIELD_TYPE,
+                PAYLOAD_TOO_LARGE, MISSING_RECIPIENT, MISSING_MEDIA,
+                MISSING_PAYLOAD_BLOCK, QUOTA_EXCEEDED, TEMPLATE_NOT_FOUND,
+                TEMPLATE_NOT_APPROVED, TEMPLATE_PARAM_MISMATCH, TEMPLATE_CONFLICT,
+                AUTH_TEMPLATE_REQUIRES_PHONE, INVALID_NAME, INVALID_LANGUAGE,
+                INVALID_CATEGORY, INVALID_COMPONENTS, INVALID_ID, INVALID_FILE,
+                MISSING_WABA_ID, MISSING_PHONE_NUMBER_ID, SESSION_CLOSED,
+                MISSING_TENANT_ID, MISSING_ID, INVALID_TENANT, INVALID_PAYLOAD,
+                INVALID_REQUEST
+              enum:
+                - UNAUTHORIZED
+                - TENANT_PAUSED
+                - INTERNAL_ERROR
+                - DATABASE_ERROR
+                - META_API_ERROR
+                - INVALID_BODY
+                - INVALID_JSON
+                - INVALID_FIELD_TYPE
+                - PAYLOAD_TOO_LARGE
+                - MISSING_RECIPIENT
+                - MISSING_MEDIA
+                - MISSING_PAYLOAD_BLOCK
+                - QUOTA_EXCEEDED
+                - TEMPLATE_NOT_FOUND
+                - TEMPLATE_NOT_APPROVED
+                - TEMPLATE_PARAM_MISMATCH
+                - TEMPLATE_CONFLICT
+                - AUTH_TEMPLATE_REQUIRES_PHONE
+                - INVALID_NAME
+                - INVALID_LANGUAGE
+                - INVALID_CATEGORY
+                - INVALID_COMPONENTS
+                - INVALID_ID
+                - INVALID_FILE
+                - MISSING_WABA_ID
+                - MISSING_PHONE_NUMBER_ID
+                - SESSION_CLOSED
+                - MISSING_TENANT_ID
+                - MISSING_ID
+                - INVALID_TENANT
+                - INVALID_PAYLOAD
+                - INVALID_REQUEST
             message:
               type: string
               example: "Recipient phone number invalid"
@@ -324,15 +606,33 @@ components:
       properties:
         type:
           type: string
-          enum: [QUICK_REPLY, URL, PHONE_NUMBER]
+          enum: [QUICK_REPLY, URL, PHONE_NUMBER, OTP]
         text:
           type: string
+        otp_type:
+          type: string
+          enum: [COPY_CODE, ONE_TAP]
+          description: "Required when type is OTP (authentication templates)"
+        autofill_text:
+          type: string
+          description: "ONE_TAP only: label for the autofill button"
+        package_name:
+          type: string
+          description: "ONE_TAP only: Android app package name"
+        signature_hash:
+          type: string
+          description: "ONE_TAP only: Android app signing key hash"
         url:
           type: string
-          description: "Required when type is URL"
+          description: "Required when type is URL. May end in a {{1}} placeholder for a dynamic suffix supplied at send time via a button component parameter."
         phone_number:
           type: string
           description: "Required when type is PHONE_NUMBER"
+        example:
+          type: array
+          items:
+            type: string
+          description: "Meta-required sample value(s) for the dynamic URL suffix when url contains {{1}}"
 
     TemplateComponent:
       type: object
@@ -348,6 +648,12 @@ components:
           description: "v1 TEXT-only, media via Resumable Upload is planned"
         text:
           type: string
+        add_security_recommendation:
+          type: boolean
+          description: "AUTHENTICATION templates, BODY component: appends Meta's security disclaimer"
+        code_expiration_minutes:
+          type: integer
+          description: "AUTHENTICATION templates, FOOTER component: code validity note (1-90)"
         example:
           type: object
           description: "Meta-required sample values for variables, e.g. {\"body_text\":[[\"Jessica\",\"ORD-123\"]]}"
@@ -669,6 +975,10 @@ paths:
             - `TEMPLATE_NOT_FOUND`: no template with this name/language exists in the mirror for this account — create it via `POST /v1/templates` and wait for approval.
             - `TEMPLATE_NOT_APPROVED`: template exists but is not in APPROVED status (e.g. PENDING, REJECTED, PAUSED).
             - `TEMPLATE_PARAM_MISMATCH`: body parameter count in the request does not match the template's stored body component.
+            - `AUTH_TEMPLATE_REQUIRES_PHONE`: authentication templates are phone-only per Meta; the BSUID recipient has no known phone number.
+
+            For media sends (`type=image|document|audio|video|sticker`):
+            - `MISSING_MEDIA`: the request lacks the media object matching `type`, or it has neither `id` nor `link`.
           content:
             application/json:
               schema:
@@ -677,6 +987,50 @@ paths:
           description: Unauthorized
         '429':
           description: Quota exceeded
+
+  /v1/media:
+    post:
+      operationId: uploadMedia
+      tags:
+        - Messages
+      summary: Upload media for later sending
+      description: |
+        Uploads a media file to Meta (proxied through Bhejna) and returns the media id,
+        which stays valid on Meta's side for 30 days. Use it as `MediaObject.id` in
+        `POST /v1/messages`. Size limits are Meta's: image/sticker 5MB (webp 500KB), audio/video 16MB, document 100MB.
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Media uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaUploadResponse'
+        '400':
+          description: Invalid or oversized file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /v1/internal/tenant:
     post:
@@ -722,4 +1076,108 @@ paths:
       responses:
         '204':
           description: Tenant paused successfully
+
+  /v1/internal/conversations:
+    get:
+      operationId: listConversations
+      tags:
+        - Internal
+      summary: List active conversations
+      description: Returns the most recent message per active conversation for a tenant.
+      security:
+        - InternalAuth: []
+      parameters:
+        - name: tenant_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of active conversations with last message preview
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+
+  /v1/internal/conversations/{recipient_bsuid}:
+    get:
+      operationId: getConversationThread
+      tags:
+        - Internal
+      summary: Get conversation thread
+      description: Returns full message history and session-open state for one recipient.
+      security:
+        - InternalAuth: []
+      parameters:
+        - name: recipient_bsuid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: tenant_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Full message thread
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Message'
+                  session_active:
+                    type: boolean
+                  display_name:
+                    type: string
+                    nullable: true
+
+  /v1/internal/conversations/{recipient_bsuid}/reply:
+    post:
+      operationId: replyToConversation
+      tags:
+        - Internal
+      summary: Reply within an open conversation
+      description: Enqueues a free-text reply if the 24h session window is open.
+      security:
+        - InternalAuth: []
+      parameters:
+        - name: recipient_bsuid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: tenant_id
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [body]
+              properties:
+                body:
+                  type: string
+      responses:
+        '202':
+          description: Reply enqueued
+        '409':
+          description: Session window closed, template required instead
 

@@ -7,13 +7,24 @@ It provides a contract-first API for sending messages, tracking delivery status,
 
  * OpenAPI spec version: 1.0.0
  */
+import type { TemplateButtonOtpType } from './templateButtonOtpType';
 import type { TemplateButtonType } from './templateButtonType';
 
 export interface TemplateButton {
   type: TemplateButtonType;
   text: string;
-  /** Required when type is URL */
+  /** Required when type is OTP (authentication templates) */
+  otp_type?: TemplateButtonOtpType;
+  /** ONE_TAP only: label for the autofill button */
+  autofill_text?: string;
+  /** ONE_TAP only: Android app package name */
+  package_name?: string;
+  /** ONE_TAP only: Android app signing key hash */
+  signature_hash?: string;
+  /** Required when type is URL. May end in a {{1}} placeholder for a dynamic suffix supplied at send time via a button component parameter. */
   url?: string;
   /** Required when type is PHONE_NUMBER */
   phone_number?: string;
+  /** Meta-required sample value(s) for the dynamic URL suffix when url contains {{1}} */
+  example?: string[];
 }

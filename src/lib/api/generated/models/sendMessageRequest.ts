@@ -7,6 +7,11 @@ It provides a contract-first API for sending messages, tracking delivery status,
 
  * OpenAPI spec version: 1.0.0
  */
+import type { InteractiveMessageObject } from './interactiveMessageObject';
+import type { MediaObject } from './mediaObject';
+import type { SendMessageRequestContactsItem } from './sendMessageRequestContactsItem';
+import type { SendMessageRequestLocation } from './sendMessageRequestLocation';
+import type { SendMessageRequestReaction } from './sendMessageRequestReaction';
 import type { SendMessageRequestTemplate } from './sendMessageRequestTemplate';
 import type { SendMessageRequestText } from './sendMessageRequestText';
 import type { SendMessageRequestType } from './sendMessageRequestType';
@@ -17,5 +22,17 @@ export interface SendMessageRequest {
   idempotency_key: string;
   type: SendMessageRequestType;
   text?: SendMessageRequestText;
+  image?: MediaObject;
+  document?: MediaObject;
+  audio?: MediaObject;
+  video?: MediaObject;
+  sticker?: MediaObject;
+  interactive?: InteractiveMessageObject;
+  /** Per Meta's LocationMessage: latitude/longitude are strings */
+  location?: SendMessageRequestLocation;
+  /** 1-5 Meta ContactObject entries (name/phones/emails/addresses/org/urls), passed through verbatim */
+  contacts?: SendMessageRequestContactsItem[];
+  /** React to a previously received/sent message */
+  reaction?: SendMessageRequestReaction;
   template?: SendMessageRequestTemplate;
 }

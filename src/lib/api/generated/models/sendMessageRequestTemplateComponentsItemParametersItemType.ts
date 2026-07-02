@@ -13,6 +13,7 @@ export type SendMessageRequestTemplateComponentsItemParametersItemType = typeof 
 
 export const SendMessageRequestTemplateComponentsItemParametersItemType = {
   text: 'text',
+  payload: 'payload',
   currency: 'currency',
   date_time: 'date_time',
   image: 'image',

@@ -7,9 +7,25 @@ It provides a contract-first API for sending messages, tracking delivery status,
 
  * OpenAPI spec version: 1.0.0
  */
+import type { ErrorResponseErrorCode } from './errorResponseErrorCode';
 
 export type ErrorResponseError = {
-  code: string;
+  /** Bhejna application-level error code (distinct from Meta's numeric
+  Graph API error codes, which are surfaced via META_API_ERROR
+  messages and job failure records). Full catalog with causes:
+  docs/error-codes.md. Known values:
+  UNAUTHORIZED, TENANT_PAUSED, INTERNAL_ERROR, DATABASE_ERROR,
+  META_API_ERROR, INVALID_BODY, INVALID_JSON, INVALID_FIELD_TYPE,
+  PAYLOAD_TOO_LARGE, MISSING_RECIPIENT, MISSING_MEDIA,
+  MISSING_PAYLOAD_BLOCK, QUOTA_EXCEEDED, TEMPLATE_NOT_FOUND,
+  TEMPLATE_NOT_APPROVED, TEMPLATE_PARAM_MISMATCH, TEMPLATE_CONFLICT,
+  AUTH_TEMPLATE_REQUIRES_PHONE, INVALID_NAME, INVALID_LANGUAGE,
+  INVALID_CATEGORY, INVALID_COMPONENTS, INVALID_ID, INVALID_FILE,
+  MISSING_WABA_ID, MISSING_PHONE_NUMBER_ID, SESSION_CLOSED,
+  MISSING_TENANT_ID, MISSING_ID, INVALID_TENANT, INVALID_PAYLOAD,
+  INVALID_REQUEST
+   */
+  code: ErrorResponseErrorCode;
   message: string;
   retryable?: boolean;
 };

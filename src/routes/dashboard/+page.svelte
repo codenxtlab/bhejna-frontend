@@ -38,7 +38,30 @@
 
 	// API Playground state
 	let recipientTarget = $state('');
-	let playgroundType = $state<'text' | 'template'>('text');
+	let playgroundType = $state<'text' | 'template' | 'media' | 'interactive'>('text');
+
+	// Interactive message state (reply buttons / list)
+	let interactiveKind = $state<'buttons' | 'list'>('buttons');
+	let interactiveBody = $state('');
+	let interactiveButtons = $state<{ id: string; title: string }[]>([{ id: '', title: '' }]);
+	let listButtonLabel = $state('Options');
+	let listRows = $state<{ id: string; title: string; description: string }[]>([
+		{ id: '', title: '', description: '' }
+	]);
+
+	const interactiveValid = $derived(
+		interactiveBody.trim().length > 0 &&
+			(interactiveKind === 'buttons'
+				? interactiveButtons.some(b => b.id.trim() && b.title.trim())
+				: listButtonLabel.trim().length > 0 && listRows.some(r => r.id.trim() && r.title.trim()))
+	);
+
+	// Media send state (send-by-link or send-by-media-id)
+	let mediaKind = $state<'image' | 'document' | 'audio' | 'video' | 'sticker'>('image');
+	let mediaLink = $state('');
+	let mediaId = $state('');
+	let mediaCaption = $state('');
+	let mediaFilename = $state('');
 	let testMessageBody = $state(
 		'Hi there! 👋\n\nThis is a custom test message from the Bhejna uniform gateway.\nEverything is connected and working perfectly!'
 	);
@@ -64,6 +87,7 @@
 	// Playground template configuration
 	let selectedTemplateName = $state<string>('');
 	let bodyParams = $state<string[]>([]);
+	let buttonParams = $state<string[]>([]);
 
 	// Derived values for dynamic parameters
 	const selectedTemplate = $derived(
@@ -81,9 +105,41 @@
 		})
 	);
 
+	// Dynamic URL buttons: template buttons whose url ends in a {{1}}-style
+	// placeholder need a suffix parameter at send time (Meta error 131008
+	// "Required parameter missing" when omitted).
+	const dynamicUrlButtons = $derived(
+		parseDynamicUrlButtons(selectedTemplate?.components ?? null)
+	);
+
 	$effect(() => {
 		bodyParams = Array(parsedBodySlots.length).fill('');
+		buttonParams = Array(dynamicUrlButtons.length).fill('');
 	});
+
+	function parseDynamicUrlButtons(componentsInput: any): { index: number; text: string; url: string }[] {
+		if (!componentsInput) return [];
+		try {
+			const comps = typeof componentsInput === 'string'
+				? JSON.parse(componentsInput)
+				: componentsInput;
+			if (!Array.isArray(comps)) return [];
+			const btnComp = comps.find(
+				(c) => c && c.type && String(c.type).toUpperCase() === 'BUTTONS'
+			);
+			if (!btnComp || !Array.isArray(btnComp.buttons)) return [];
+			return btnComp.buttons
+				.map((b: any, i: number) => ({
+					index: i,
+					text: b?.text ?? `Button ${i + 1}`,
+					url: b?.url ?? '',
+					kind: String(b?.type ?? '').toUpperCase()
+				}))
+				.filter((b: any) => b.kind === 'URL' && /\{\{\s*\d+\s*\}\}/.test(b.url));
+		} catch (e) {
+			return [];
+		}
+	}
 
 	function parseBodySlots(componentsInput: any): string[] {
 		if (!componentsInput) return [];
@@ -122,8 +178,8 @@
 		}
 	}
 
-	async function fetchTemplates() {
-		templatesLoading = true;
+	async function fetchTemplates(silent = false) {
+		if (!silent) templatesLoading = true;
 		templatesError = null;
 		try {
 			const res = await fetch('/api/templates');
@@ -159,6 +215,32 @@
 				});
 			}
 		});
+	});
+
+	// Auto-refresh template statuses while any template is under Meta review.
+	// Resource-conscious: only runs while a PENDING template exists (webhook
+	// reconciliation updates the mirror; this just re-reads it), pauses when
+	// the tab is hidden, and stops entirely once nothing is PENDING.
+	$effect(() => {
+		if (!templates.some(t => t.status === 'PENDING')) return;
+
+		let interval: ReturnType<typeof setInterval> | null = null;
+		const start = () => {
+			if (!interval) interval = setInterval(() => fetchTemplates(true), 10000);
+		};
+		const stop = () => {
+			if (interval) {
+				clearInterval(interval);
+				interval = null;
+			}
+		};
+		const onVisibility = () => (document.hidden ? stop() : start());
+		document.addEventListener('visibilitychange', onVisibility);
+		if (!document.hidden) start();
+		return () => {
+			stop();
+			document.removeEventListener('visibilitychange', onVisibility);
+		};
 	});
 
 	// Form Action states
@@ -285,14 +367,68 @@
 			};
 
 			if (playgroundType === 'template') {
+				const components: any[] = [];
+				if (parsedBodySlots.length > 0) {
+					components.push({
+						type: 'body',
+						parameters: bodyParams.map(p => ({ type: 'text', text: p }))
+					});
+				}
+				// One button component per dynamic URL button, keyed by its
+				// real position in the template's buttons array.
+				dynamicUrlButtons.forEach((btn, i) => {
+					components.push({
+						type: 'button',
+						sub_type: 'url',
+						index: String(btn.index),
+						parameters: [{ type: 'text', text: buttonParams[i] || '' }]
+					});
+				});
 				reqBody.template = {
 					template_code: selectedTemplateName || templateCode || 'hello_world',
 					language: selectedTemplate?.language || templateLanguage || 'en_US',
-					components: parsedBodySlots.length > 0 ? [{
-						type: 'body',
-						parameters: bodyParams.map(p => ({ type: 'text', text: p }))
-					}] : []
+					components
 				};
+			} else if (playgroundType === 'interactive') {
+				reqBody.type = 'interactive';
+				if (interactiveKind === 'buttons') {
+					reqBody.interactive = {
+						type: 'button',
+						body: { text: interactiveBody.trim() },
+						action: {
+							buttons: interactiveButtons
+								.filter(b => b.id.trim() && b.title.trim())
+								.map(b => ({ type: 'reply', reply: { id: b.id.trim(), title: b.title.trim() } }))
+						}
+					};
+				} else {
+					reqBody.interactive = {
+						type: 'list',
+						body: { text: interactiveBody.trim() },
+						action: {
+							button: listButtonLabel.trim(),
+							sections: [
+								{
+									rows: listRows
+										.filter(r => r.id.trim() && r.title.trim())
+										.map(r => ({
+											id: r.id.trim(),
+											title: r.title.trim(),
+											...(r.description.trim() ? { description: r.description.trim() } : {})
+										}))
+								}
+							]
+						}
+					};
+				}
+			} else if (playgroundType === 'media') {
+				reqBody.type = mediaKind;
+				const block: any = {};
+				if (mediaId.trim()) block.id = mediaId.trim();
+				else if (mediaLink.trim()) block.link = mediaLink.trim();
+				if (mediaCaption.trim() && ['image', 'video', 'document'].includes(mediaKind)) block.caption = mediaCaption.trim();
+				if (mediaFilename.trim() && mediaKind === 'document') block.filename = mediaFilename.trim();
+				reqBody[mediaKind] = block;
 			} else {
 				reqBody.text_body = testMessageBody || 'This is a live test from the Bhejna uniform gateway!';
 			}
@@ -307,7 +443,14 @@
 			const roundTripMs = Math.round(endTime - startTime);
 			const resData = await res.json();
 
-			if (!res.ok) throw new Error(resData.message || 'Failed to send test message');
+			if (!res.ok) {
+				// Backend ErrorResponse: { error: { code, message } } — surface the
+				// real code/message (e.g. AUTH_TEMPLATE_REQUIRES_PHONE), not a generic failure.
+				const structured = resData?.error?.code
+					? `${resData.error.code}: ${resData.error.message}`
+					: resData.message;
+				throw new Error(structured || 'Failed to send test message');
+			}
 
 			const jobId = resData.data?.job_id || resData.job_id || resData.id || 'Success';
 			const status = resData.data?.status || resData.status || 'queued';
@@ -1022,7 +1165,7 @@
 							{/if}
 							<button
 								type="button"
-								onclick={fetchTemplates}
+								onclick={() => fetchTemplates()}
 								disabled={templatesLoading}
 								class="p-2 rounded-lg bg-slate-950 border border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-905 transition-all disabled:opacity-50 shrink-0"
 								title="Refresh templates"
@@ -1045,7 +1188,7 @@
 							<p class="text-xs text-red-300/80 font-mono leading-relaxed">{templatesError}</p>
 							<button
 								type="button"
-								onclick={fetchTemplates}
+								onclick={() => fetchTemplates()}
 								class="mt-1 rounded-lg border border-red-500/20 bg-red-950/20 px-3 py-1.5 text-xs font-semibold text-red-400 hover:bg-red-950/30 transition-all"
 							>
 								Retry Fetch
@@ -1131,17 +1274,16 @@
 						<div class="space-y-3">
 							<div class="flex p-1 rounded-xl bg-slate-950 border border-slate-800 relative select-none">
 								<!-- Sliding Background Pill -->
-								<div 
-									class="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-lg bg-slate-900 border border-slate-800 transition-all duration-200 ease-out"
-									class:translate-x-full={playgroundType === 'template'}
+								<div
+									class="absolute top-1 bottom-1 left-1 w-[calc(25%-3px)] rounded-lg bg-slate-900 border border-slate-800 transition-all duration-200 ease-out {playgroundType === 'template' ? 'translate-x-full' : playgroundType === 'media' ? 'translate-x-[200%]' : playgroundType === 'interactive' ? 'translate-x-[300%]' : ''}"
 								></div>
-								
+
 								<button
 									type="button"
 									onclick={() => (playgroundType = 'text')}
 									class="relative z-10 flex-1 py-1.5 text-xs font-medium transition-colors duration-200 text-center {playgroundType === 'text' ? 'text-slate-200' : 'text-slate-500 hover:text-slate-400'}"
 								>
-									Text Message
+									Text
 								</button>
 								<button
 									type="button"
@@ -1150,9 +1292,157 @@
 								>
 									Template
 								</button>
+								<button
+									type="button"
+									onclick={() => (playgroundType = 'media')}
+									class="relative z-10 flex-1 py-1.5 text-xs font-medium transition-colors duration-200 text-center {playgroundType === 'media' ? 'text-slate-200' : 'text-slate-500 hover:text-slate-400'}"
+								>
+									Media
+								</button>
+								<button
+									type="button"
+									onclick={() => (playgroundType = 'interactive')}
+									class="relative z-10 flex-1 py-1.5 text-xs font-medium transition-colors duration-200 text-center {playgroundType === 'interactive' ? 'text-slate-200' : 'text-slate-500 hover:text-slate-400'}"
+								>
+									Interactive
+								</button>
 							</div>
 
-							{#if playgroundType === 'text'}
+							{#if playgroundType === 'interactive'}
+								<div class="space-y-3">
+									<div class="space-y-1.5">
+										<label for="interactive_kind" class="block text-[10px] font-medium tracking-wider text-slate-400 uppercase">Interactive Type</label>
+										<select
+											id="interactive_kind"
+											bind:value={interactiveKind}
+											class="w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 font-sans text-sm text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+										>
+											<option value="buttons">Reply Buttons (max 3)</option>
+											<option value="list">List Message</option>
+										</select>
+									</div>
+									<div class="space-y-1.5">
+										<label for="interactive_body" class="block text-[10px] font-medium tracking-wider text-slate-400 uppercase">Body Text</label>
+										<textarea
+											id="interactive_body"
+											bind:value={interactiveBody}
+											maxlength="1024"
+											rows="3"
+											placeholder="Message body shown above the buttons/list"
+											class="w-full resize-none rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 text-sm text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+										></textarea>
+									</div>
+									{#if interactiveKind === 'buttons'}
+										<div class="space-y-2">
+											<span class="block text-[10px] font-medium tracking-wider text-slate-400 uppercase">Buttons (id + title)</span>
+											{#each interactiveButtons as btn, i}
+												<div class="flex gap-2">
+													<input type="text" bind:value={btn.id} placeholder="id (e.g. yes)" maxlength="256"
+														class="w-1/3 rounded-xl border border-slate-800 bg-slate-950 px-3 py-2 font-mono text-xs text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+													<input type="text" bind:value={btn.title} placeholder="title (max 20 chars)" maxlength="20"
+														class="flex-1 rounded-xl border border-slate-800 bg-slate-950 px-3 py-2 text-xs text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+													{#if interactiveButtons.length > 1}
+														<button type="button" onclick={() => (interactiveButtons = interactiveButtons.filter((_, j) => j !== i))}
+															class="shrink-0 rounded-lg px-2 text-slate-500 hover:text-red-400 transition-colors">✕</button>
+													{/if}
+												</div>
+											{/each}
+											{#if interactiveButtons.length < 3}
+												<button type="button" onclick={() => (interactiveButtons = [...interactiveButtons, { id: '', title: '' }])}
+													class="text-xs text-blue-400 hover:text-blue-300 transition-colors">+ Add button</button>
+											{/if}
+										</div>
+									{:else}
+										<div class="space-y-2">
+											<div class="space-y-1.5">
+												<label for="list_button_label" class="block text-[10px] font-medium tracking-wider text-slate-400 uppercase">Menu Button Label</label>
+												<input type="text" id="list_button_label" bind:value={listButtonLabel} maxlength="20"
+													class="w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 text-sm text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+											</div>
+											<span class="block text-[10px] font-medium tracking-wider text-slate-400 uppercase">Rows (id + title + optional description)</span>
+											{#each listRows as row, i}
+												<div class="flex gap-2">
+													<input type="text" bind:value={row.id} placeholder="id" maxlength="200"
+														class="w-1/4 rounded-xl border border-slate-800 bg-slate-950 px-3 py-2 font-mono text-xs text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+													<input type="text" bind:value={row.title} placeholder="title (24)" maxlength="24"
+														class="w-1/3 rounded-xl border border-slate-800 bg-slate-950 px-3 py-2 text-xs text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+													<input type="text" bind:value={row.description} placeholder="description (72)" maxlength="72"
+														class="flex-1 rounded-xl border border-slate-800 bg-slate-950 px-3 py-2 text-xs text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+													{#if listRows.length > 1}
+														<button type="button" onclick={() => (listRows = listRows.filter((_, j) => j !== i))}
+															class="shrink-0 rounded-lg px-2 text-slate-500 hover:text-red-400 transition-colors">✕</button>
+													{/if}
+												</div>
+											{/each}
+											{#if listRows.length < 10}
+												<button type="button" onclick={() => (listRows = [...listRows, { id: '', title: '', description: '' }])}
+													class="text-xs text-blue-400 hover:text-blue-300 transition-colors">+ Add row</button>
+											{/if}
+										</div>
+									{/if}
+								</div>
+							{:else if playgroundType === 'media'}
+								<div class="space-y-3">
+									<div class="space-y-1.5">
+										<label for="media_kind" class="block text-[10px] font-medium tracking-wider text-slate-400 uppercase">Media Type</label>
+										<select
+											id="media_kind"
+											bind:value={mediaKind}
+											class="w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 font-sans text-sm text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+										>
+											<option value="image">Image</option>
+											<option value="document">Document</option>
+											<option value="audio">Audio</option>
+											<option value="video">Video</option>
+											<option value="sticker">Sticker</option>
+										</select>
+									</div>
+									<div class="space-y-1.5">
+										<label for="media_link" class="block text-[10px] font-medium tracking-wider text-slate-400 uppercase">Media Link (public HTTPS URL)</label>
+										<input
+											type="url"
+											id="media_link"
+											bind:value={mediaLink}
+											placeholder="https://example.com/photo.jpg"
+											class="w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 font-mono text-sm text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+										/>
+									</div>
+									<div class="space-y-1.5">
+										<label for="media_id" class="block text-[10px] font-medium tracking-wider text-slate-400 uppercase">…or Media ID (from POST /v1/media)</label>
+										<input
+											type="text"
+											id="media_id"
+											bind:value={mediaId}
+											placeholder="Uploaded media id (takes precedence over link)"
+											class="w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 font-mono text-sm text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+										/>
+									</div>
+									{#if ['image', 'video', 'document'].includes(mediaKind)}
+										<div class="space-y-1.5">
+											<label for="media_caption" class="block text-[10px] font-medium tracking-wider text-slate-400 uppercase">Caption (optional)</label>
+											<input
+												type="text"
+												id="media_caption"
+												bind:value={mediaCaption}
+												placeholder="Shown under the media"
+												class="w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 text-sm text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+											/>
+										</div>
+									{/if}
+									{#if mediaKind === 'document'}
+										<div class="space-y-1.5">
+											<label for="media_filename" class="block text-[10px] font-medium tracking-wider text-slate-400 uppercase">Filename (optional)</label>
+											<input
+												type="text"
+												id="media_filename"
+												bind:value={mediaFilename}
+												placeholder="invoice.pdf"
+												class="w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 text-sm text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+											/>
+										</div>
+									{/if}
+								</div>
+							{:else if playgroundType === 'text'}
 								<div class="space-y-1.5">
 									<div class="flex justify-between items-center text-xs text-slate-400">
 										<label for="message_body" class="font-medium tracking-wider uppercase text-[10px]">Message Body</label>
@@ -1218,13 +1508,33 @@
 											</div>
 										</div>
 									{/if}
+
+									{#if selectedTemplateName && !hasNamedParameters && dynamicUrlButtons.length > 0}
+										<div class="space-y-3 pt-2 border-t border-slate-800/60">
+											<span class="block text-[10px] font-medium tracking-wider text-slate-400 uppercase">URL Button Parameters</span>
+											<div class="grid grid-cols-1 gap-3">
+												{#each dynamicUrlButtons as btn, i}
+													<div class="space-y-1">
+														<label for="btn_param_{i}" class="block text-[10px] font-mono text-slate-500">{btn.text} — {btn.url}</label>
+														<input
+															type="text"
+															id="btn_param_{i}"
+															bind:value={buttonParams[i]}
+															placeholder="Dynamic URL suffix (replaces the placeholder)"
+															class="w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 text-sm text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+														/>
+													</div>
+												{/each}
+											</div>
+										</div>
+									{/if}
 								</div>
 							{/if}
 
 							<button
 								type="button"
 								onclick={handleTestMessage}
-								disabled={testingPlayground || !recipientTarget || (playgroundType === 'text' && !testMessageBody.trim()) || (playgroundType === 'template' && (!selectedTemplateName || hasNamedParameters))}
+								disabled={testingPlayground || !recipientTarget || (playgroundType === 'text' && !testMessageBody.trim()) || (playgroundType === 'template' && (!selectedTemplateName || hasNamedParameters)) || (playgroundType === 'media' && !mediaLink.trim() && !mediaId.trim()) || (playgroundType === 'interactive' && !interactiveValid)}
 								class="w-full rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-[0.98] py-2.5 text-sm font-semibold text-white transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
 							>
 								{#if testingPlayground}

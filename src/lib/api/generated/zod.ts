@@ -26,14 +26,21 @@ export const CreateTemplateBody = zod.object({
   "type": zod.enum(['HEADER', 'BODY', 'FOOTER', 'BUTTONS']),
   "format": zod.enum(['TEXT']).optional().describe('v1 TEXT-only, media via Resumable Upload is planned'),
   "text": zod.string().optional(),
+  "add_security_recommendation": zod.boolean().optional().describe('AUTHENTICATION templates, BODY component: appends Meta\'s security disclaimer'),
+  "code_expiration_minutes": zod.number().optional().describe('AUTHENTICATION templates, FOOTER component: code validity note (1-90)'),
   "example": zod.looseObject({
 
 }).optional().describe('Meta-required sample values for variables, e.g. {\"body_text\":[[\"Jessica\",\"ORD-123\"]]}'),
   "buttons": zod.array(zod.object({
-  "type": zod.enum(['QUICK_REPLY', 'URL', 'PHONE_NUMBER']),
+  "type": zod.enum(['QUICK_REPLY', 'URL', 'PHONE_NUMBER', 'OTP']),
   "text": zod.string(),
-  "url": zod.string().optional().describe('Required when type is URL'),
-  "phone_number": zod.string().optional().describe('Required when type is PHONE_NUMBER')
+  "otp_type": zod.enum(['COPY_CODE', 'ONE_TAP']).optional().describe('Required when type is OTP (authentication templates)'),
+  "autofill_text": zod.string().optional().describe('ONE_TAP only: label for the autofill button'),
+  "package_name": zod.string().optional().describe('ONE_TAP only: Android app package name'),
+  "signature_hash": zod.string().optional().describe('ONE_TAP only: Android app signing key hash'),
+  "url": zod.string().optional().describe('Required when type is URL. May end in a {{1}} placeholder for a dynamic suffix supplied at send time via a button component parameter.'),
+  "phone_number": zod.string().optional().describe('Required when type is PHONE_NUMBER'),
+  "example": zod.array(zod.string()).optional().describe('Meta-required sample value(s) for the dynamic URL suffix when url contains {{1}}')
 })).optional()
 }))
 })
@@ -60,14 +67,21 @@ export const ListTemplatesResponse = zod.object({
   "type": zod.enum(['HEADER', 'BODY', 'FOOTER', 'BUTTONS']),
   "format": zod.enum(['TEXT']).optional().describe('v1 TEXT-only, media via Resumable Upload is planned'),
   "text": zod.string().optional(),
+  "add_security_recommendation": zod.boolean().optional().describe('AUTHENTICATION templates, BODY component: appends Meta\'s security disclaimer'),
+  "code_expiration_minutes": zod.number().optional().describe('AUTHENTICATION templates, FOOTER component: code validity note (1-90)'),
   "example": zod.looseObject({
 
 }).optional().describe('Meta-required sample values for variables, e.g. {\"body_text\":[[\"Jessica\",\"ORD-123\"]]}'),
   "buttons": zod.array(zod.object({
-  "type": zod.enum(['QUICK_REPLY', 'URL', 'PHONE_NUMBER']),
+  "type": zod.enum(['QUICK_REPLY', 'URL', 'PHONE_NUMBER', 'OTP']),
   "text": zod.string(),
-  "url": zod.string().optional().describe('Required when type is URL'),
-  "phone_number": zod.string().optional().describe('Required when type is PHONE_NUMBER')
+  "otp_type": zod.enum(['COPY_CODE', 'ONE_TAP']).optional().describe('Required when type is OTP (authentication templates)'),
+  "autofill_text": zod.string().optional().describe('ONE_TAP only: label for the autofill button'),
+  "package_name": zod.string().optional().describe('ONE_TAP only: Android app package name'),
+  "signature_hash": zod.string().optional().describe('ONE_TAP only: Android app signing key hash'),
+  "url": zod.string().optional().describe('Required when type is URL. May end in a {{1}} placeholder for a dynamic suffix supplied at send time via a button component parameter.'),
+  "phone_number": zod.string().optional().describe('Required when type is PHONE_NUMBER'),
+  "example": zod.array(zod.string()).optional().describe('Meta-required sample value(s) for the dynamic URL suffix when url contains {{1}}')
 })).optional()
 })),
   "created_at": zod.iso.datetime({"offset":true}),
@@ -99,14 +113,21 @@ export const GetTemplateResponse = zod.object({
   "type": zod.enum(['HEADER', 'BODY', 'FOOTER', 'BUTTONS']),
   "format": zod.enum(['TEXT']).optional().describe('v1 TEXT-only, media via Resumable Upload is planned'),
   "text": zod.string().optional(),
+  "add_security_recommendation": zod.boolean().optional().describe('AUTHENTICATION templates, BODY component: appends Meta\'s security disclaimer'),
+  "code_expiration_minutes": zod.number().optional().describe('AUTHENTICATION templates, FOOTER component: code validity note (1-90)'),
   "example": zod.looseObject({
 
 }).optional().describe('Meta-required sample values for variables, e.g. {\"body_text\":[[\"Jessica\",\"ORD-123\"]]}'),
   "buttons": zod.array(zod.object({
-  "type": zod.enum(['QUICK_REPLY', 'URL', 'PHONE_NUMBER']),
+  "type": zod.enum(['QUICK_REPLY', 'URL', 'PHONE_NUMBER', 'OTP']),
   "text": zod.string(),
-  "url": zod.string().optional().describe('Required when type is URL'),
-  "phone_number": zod.string().optional().describe('Required when type is PHONE_NUMBER')
+  "otp_type": zod.enum(['COPY_CODE', 'ONE_TAP']).optional().describe('Required when type is OTP (authentication templates)'),
+  "autofill_text": zod.string().optional().describe('ONE_TAP only: label for the autofill button'),
+  "package_name": zod.string().optional().describe('ONE_TAP only: Android app package name'),
+  "signature_hash": zod.string().optional().describe('ONE_TAP only: Android app signing key hash'),
+  "url": zod.string().optional().describe('Required when type is URL. May end in a {{1}} placeholder for a dynamic suffix supplied at send time via a button component parameter.'),
+  "phone_number": zod.string().optional().describe('Required when type is PHONE_NUMBER'),
+  "example": zod.array(zod.string()).optional().describe('Meta-required sample value(s) for the dynamic URL suffix when url contains {{1}}')
 })).optional()
 })),
   "created_at": zod.iso.datetime({"offset":true}),
@@ -225,22 +246,163 @@ export const SendMessageHeader = zod.object({
   "Idempotency-Key": zod.string().optional().describe('Unique key to prevent duplicate message processing')
 })
 
+export const sendMessageBodyInteractiveHeaderTextMax = 60;
+
+export const sendMessageBodyInteractiveBodyTextMax = 1024;
+
+export const sendMessageBodyInteractiveFooterTextMax = 60;
+
+export const sendMessageBodyInteractiveActionButtonsItemReplyIdMax = 256;
+
+export const sendMessageBodyInteractiveActionButtonsItemReplyTitleMax = 20;
+
+export const sendMessageBodyInteractiveActionButtonsMax = 3;
+
+export const sendMessageBodyInteractiveActionButtonMax = 20;
+
+export const sendMessageBodyInteractiveActionSectionsItemTitleMax = 24;
+
+export const sendMessageBodyInteractiveActionSectionsItemRowsItemIdMax = 200;
+
+export const sendMessageBodyInteractiveActionSectionsItemRowsItemTitleMax = 24;
+
+export const sendMessageBodyInteractiveActionSectionsItemRowsItemDescriptionMax = 72;
+
+export const sendMessageBodyInteractiveActionSectionsItemRowsMax = 10;
+
+export const sendMessageBodyInteractiveActionSectionsMax = 10;
+
+
+
 export const SendMessageBody = zod.object({
   "to": zod.string(),
   "from_business_phone": zod.string(),
   "idempotency_key": zod.string(),
-  "type": zod.enum(['text', 'template']),
+  "type": zod.enum(['text', 'template', 'image', 'document', 'audio', 'video', 'sticker', 'interactive', 'location', 'contacts', 'reaction']),
   "text": zod.object({
   "body": zod.string()
 }).optional(),
+  "image": zod.object({
+  "id": zod.string().optional().describe('Meta media id from POST \/v1\/media'),
+  "link": zod.string().optional().describe('Public HTTPS URL of the media asset'),
+  "caption": zod.string().optional().describe('Optional caption (image, video, document only)'),
+  "filename": zod.string().optional().describe('Optional display filename (document only)')
+}).optional().describe('Media payload: either a previously uploaded media id (POST \/v1\/media) or a public HTTPS link. Exactly one of id\/link is required.'),
+  "document": zod.object({
+  "id": zod.string().optional().describe('Meta media id from POST \/v1\/media'),
+  "link": zod.string().optional().describe('Public HTTPS URL of the media asset'),
+  "caption": zod.string().optional().describe('Optional caption (image, video, document only)'),
+  "filename": zod.string().optional().describe('Optional display filename (document only)')
+}).optional().describe('Media payload: either a previously uploaded media id (POST \/v1\/media) or a public HTTPS link. Exactly one of id\/link is required.'),
+  "audio": zod.object({
+  "id": zod.string().optional().describe('Meta media id from POST \/v1\/media'),
+  "link": zod.string().optional().describe('Public HTTPS URL of the media asset'),
+  "caption": zod.string().optional().describe('Optional caption (image, video, document only)'),
+  "filename": zod.string().optional().describe('Optional display filename (document only)')
+}).optional().describe('Media payload: either a previously uploaded media id (POST \/v1\/media) or a public HTTPS link. Exactly one of id\/link is required.'),
+  "video": zod.object({
+  "id": zod.string().optional().describe('Meta media id from POST \/v1\/media'),
+  "link": zod.string().optional().describe('Public HTTPS URL of the media asset'),
+  "caption": zod.string().optional().describe('Optional caption (image, video, document only)'),
+  "filename": zod.string().optional().describe('Optional display filename (document only)')
+}).optional().describe('Media payload: either a previously uploaded media id (POST \/v1\/media) or a public HTTPS link. Exactly one of id\/link is required.'),
+  "sticker": zod.object({
+  "id": zod.string().optional().describe('Meta media id from POST \/v1\/media'),
+  "link": zod.string().optional().describe('Public HTTPS URL of the media asset'),
+  "caption": zod.string().optional().describe('Optional caption (image, video, document only)'),
+  "filename": zod.string().optional().describe('Optional display filename (document only)')
+}).optional().describe('Media payload: either a previously uploaded media id (POST \/v1\/media) or a public HTTPS link. Exactly one of id\/link is required.'),
+  "interactive": zod.object({
+  "type": zod.enum(['button', 'list']),
+  "header": zod.object({
+  "type": zod.enum(['text', 'image', 'video', 'document']).optional(),
+  "text": zod.string().max(sendMessageBodyInteractiveHeaderTextMax).optional(),
+  "image": zod.object({
+  "id": zod.string().optional().describe('Meta media id from POST \/v1\/media'),
+  "link": zod.string().optional().describe('Public HTTPS URL of the media asset'),
+  "caption": zod.string().optional().describe('Optional caption (image, video, document only)'),
+  "filename": zod.string().optional().describe('Optional display filename (document only)')
+}).optional().describe('Media payload: either a previously uploaded media id (POST \/v1\/media) or a public HTTPS link. Exactly one of id\/link is required.'),
+  "video": zod.object({
+  "id": zod.string().optional().describe('Meta media id from POST \/v1\/media'),
+  "link": zod.string().optional().describe('Public HTTPS URL of the media asset'),
+  "caption": zod.string().optional().describe('Optional caption (image, video, document only)'),
+  "filename": zod.string().optional().describe('Optional display filename (document only)')
+}).optional().describe('Media payload: either a previously uploaded media id (POST \/v1\/media) or a public HTTPS link. Exactly one of id\/link is required.'),
+  "document": zod.object({
+  "id": zod.string().optional().describe('Meta media id from POST \/v1\/media'),
+  "link": zod.string().optional().describe('Public HTTPS URL of the media asset'),
+  "caption": zod.string().optional().describe('Optional caption (image, video, document only)'),
+  "filename": zod.string().optional().describe('Optional display filename (document only)')
+}).optional().describe('Media payload: either a previously uploaded media id (POST \/v1\/media) or a public HTTPS link. Exactly one of id\/link is required.')
+}).optional().describe('Optional header: {type: text|image|video|document, text?, image?, video?, document?}'),
+  "body": zod.object({
+  "text": zod.string().max(sendMessageBodyInteractiveBodyTextMax)
+}).optional(),
+  "footer": zod.object({
+  "text": zod.string().max(sendMessageBodyInteractiveFooterTextMax)
+}).optional(),
+  "action": zod.object({
+  "buttons": zod.array(zod.object({
+  "type": zod.enum(['reply']),
+  "reply": zod.object({
+  "id": zod.string().max(sendMessageBodyInteractiveActionButtonsItemReplyIdMax),
+  "title": zod.string().max(sendMessageBodyInteractiveActionButtonsItemReplyTitleMax)
+})
+})).min(1).max(sendMessageBodyInteractiveActionButtonsMax).optional(),
+  "button": zod.string().max(sendMessageBodyInteractiveActionButtonMax).optional(),
+  "sections": zod.array(zod.object({
+  "title": zod.string().max(sendMessageBodyInteractiveActionSectionsItemTitleMax).optional(),
+  "rows": zod.array(zod.object({
+  "id": zod.string().max(sendMessageBodyInteractiveActionSectionsItemRowsItemIdMax),
+  "title": zod.string().max(sendMessageBodyInteractiveActionSectionsItemRowsItemTitleMax),
+  "description": zod.string().max(sendMessageBodyInteractiveActionSectionsItemRowsItemDescriptionMax).optional()
+})).max(sendMessageBodyInteractiveActionSectionsItemRowsMax).optional()
+})).min(1).max(sendMessageBodyInteractiveActionSectionsMax).optional()
+}).describe('For type=button: buttons (1-3 reply buttons). For type=list: button (menu label, <=20 chars) + sections (1-10).')
+}).optional().describe('Interactive message per Meta\'s InteractiveObject. Scope: reply buttons and lists (catalog\/product\/flow variants deliberately unsupported).'),
+  "location": zod.object({
+  "latitude": zod.string(),
+  "longitude": zod.string(),
+  "name": zod.string().optional(),
+  "address": zod.string().optional()
+}).optional().describe('Per Meta\'s LocationMessage: latitude\/longitude are strings'),
+  "contacts": zod.array(zod.object({
+  "name": zod.looseObject({
+
+}).optional(),
+  "phones": zod.array(zod.looseObject({
+
+})).optional(),
+  "emails": zod.array(zod.looseObject({
+
+})).optional(),
+  "addresses": zod.array(zod.looseObject({
+
+})).optional(),
+  "org": zod.looseObject({
+
+}).optional(),
+  "urls": zod.array(zod.looseObject({
+
+})).optional(),
+  "birthday": zod.string().optional()
+})).optional().describe('1-5 Meta ContactObject entries (name\/phones\/emails\/addresses\/org\/urls), passed through verbatim'),
+  "reaction": zod.object({
+  "message_id": zod.string().describe('wamid of the message being reacted to'),
+  "emoji": zod.string().describe('Emoji to apply; empty string removes the reaction')
+}).optional().describe('React to a previously received\/sent message'),
   "template": zod.object({
   "template_code": zod.string(),
   "language": zod.string(),
   "components": zod.array(zod.object({
   "type": zod.enum(['header', 'body', 'button']),
+  "sub_type": zod.enum(['url', 'quick_reply']).optional().describe('Required when type=button: which button kind the parameters apply to'),
+  "index": zod.unknown().optional().describe('Required when type=button: 0-based position of the button in the template. Meta accepts a string (\"0\") or an integer (0); both forms are accepted and passed through verbatim.'),
   "parameters": zod.array(zod.object({
-  "type": zod.enum(['text', 'currency', 'date_time', 'image', 'document', 'video']),
+  "type": zod.enum(['text', 'payload', 'currency', 'date_time', 'image', 'document', 'video']),
   "text": zod.string().optional(),
+  "payload": zod.string().optional().describe('For quick_reply button parameters'),
   "image": zod.object({
   "link": zod.string()
 }).optional(),
@@ -253,6 +415,18 @@ export const SendMessageBody = zod.object({
 })).optional()
 })).optional()
 }).optional()
+})
+
+
+/**
+ * Uploads a media file to Meta (proxied through Bhejna) and returns the media id,
+which stays valid on Meta's side for 30 days. Use it as `MediaObject.id` in
+`POST /v1/messages`. Size limits are Meta's: image/sticker 5MB (webp 500KB), audio/video 16MB, document 100MB.
+
+ * @summary Upload media for later sending
+ */
+export const UploadMediaBody = zod.object({
+  "file": zod.instanceof(File)
 })
 
 
@@ -298,6 +472,75 @@ export const SyncTenantBody = zod.union([zod.object({
  */
 export const PauseTenantParams = zod.object({
   "id": zod.string()
+})
+
+
+/**
+ * Returns the most recent message per active conversation for a tenant.
+ * @summary List active conversations
+ */
+export const ListConversationsQueryParams = zod.object({
+  "tenant_id": zod.string(),
+  "limit": zod.number().optional()
+})
+
+export const ListConversationsResponseItem = zod.object({
+  "id": zod.string().optional(),
+  "tenant_id": zod.string().optional(),
+  "recipient_bsuid": zod.string().optional(),
+  "direction": zod.enum(['inbound', 'outbound']).optional(),
+  "body": zod.string().nullish(),
+  "meta_message_id": zod.string().nullish(),
+  "job_id": zod.string().nullish(),
+  "display_name": zod.string().nullish(),
+  "created_at": zod.iso.datetime({"offset":true}).optional()
+})
+export const ListConversationsResponse = zod.array(ListConversationsResponseItem)
+
+
+/**
+ * Returns full message history and session-open state for one recipient.
+ * @summary Get conversation thread
+ */
+export const GetConversationThreadParams = zod.object({
+  "recipient_bsuid": zod.string()
+})
+
+export const GetConversationThreadQueryParams = zod.object({
+  "tenant_id": zod.string()
+})
+
+export const GetConversationThreadResponse = zod.object({
+  "messages": zod.array(zod.object({
+  "id": zod.string().optional(),
+  "tenant_id": zod.string().optional(),
+  "recipient_bsuid": zod.string().optional(),
+  "direction": zod.enum(['inbound', 'outbound']).optional(),
+  "body": zod.string().nullish(),
+  "meta_message_id": zod.string().nullish(),
+  "job_id": zod.string().nullish(),
+  "display_name": zod.string().nullish(),
+  "created_at": zod.iso.datetime({"offset":true}).optional()
+})).optional(),
+  "session_active": zod.boolean().optional(),
+  "display_name": zod.string().nullish()
+})
+
+
+/**
+ * Enqueues a free-text reply if the 24h session window is open.
+ * @summary Reply within an open conversation
+ */
+export const ReplyToConversationParams = zod.object({
+  "recipient_bsuid": zod.string()
+})
+
+export const ReplyToConversationQueryParams = zod.object({
+  "tenant_id": zod.string()
+})
+
+export const ReplyToConversationBody = zod.object({
+  "body": zod.string()
 })
 
 

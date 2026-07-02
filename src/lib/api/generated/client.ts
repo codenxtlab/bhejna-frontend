@@ -10,13 +10,21 @@ It provides a contract-first API for sending messages, tracking delivery status,
 import type {
   CreateTemplateRequest,
   ErrorResponse,
+  GetConversationThread200,
+  GetConversationThreadParams,
   GetV1MetaWebhookParams,
+  ListConversationsParams,
   ListTemplatesParams,
+  MediaUploadResponse,
+  Message,
   MessageTemplate,
+  ReplyToConversationBody,
+  ReplyToConversationParams,
   SendMessageRequest,
   SendMessageResponse,
   SyncTenantBody,
   TemplateListResponse,
+  UploadMediaBody,
   WebhookPayload
 } from './models';
 
@@ -404,6 +412,61 @@ export const sendMessage = async (sendMessageRequest: SendMessageRequest, option
 
 
 
+export type uploadMediaResponse201 = {
+  data: MediaUploadResponse
+  status: 201
+}
+
+export type uploadMediaResponse400 = {
+  data: ErrorResponse
+  status: 400
+}
+
+export type uploadMediaResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type uploadMediaResponseSuccess = (uploadMediaResponse201) & {
+  headers: Headers;
+};
+export type uploadMediaResponseError = (uploadMediaResponse400 | uploadMediaResponse401) & {
+  headers: Headers;
+};
+
+export type uploadMediaResponse = (uploadMediaResponseSuccess | uploadMediaResponseError)
+
+export const getUploadMediaUrl = () => {
+
+
+
+
+  return `/v1/media`
+}
+
+/**
+ * Uploads a media file to Meta (proxied through Bhejna) and returns the media id,
+which stays valid on Meta's side for 30 days. Use it as `MediaObject.id` in
+`POST /v1/messages`. Size limits are Meta's: image/sticker 5MB (webp 500KB), audio/video 16MB, document 100MB.
+
+ * @summary Upload media for later sending
+ */
+export const uploadMedia = async (uploadMediaBody: UploadMediaBody, options?: RequestInit): Promise<uploadMediaResponse> => {
+    const formData = new FormData();
+formData.append(`file`, uploadMediaBody.file);
+
+  return customFetch<uploadMediaResponse>(getUploadMediaUrl(),
+  {
+    ...options,
+    method: 'POST'
+    ,
+    body:
+      formData,
+  }
+);}
+
+
+
 export type syncTenantResponse200 = {
   data: void
   status: 200
@@ -474,6 +537,151 @@ export const pauseTenant = async (id: string, options?: RequestInit): Promise<pa
     method: 'PUT'
 
 
+  }
+);}
+
+
+
+export type listConversationsResponse200 = {
+  data: Message[]
+  status: 200
+}
+
+export type listConversationsResponseSuccess = (listConversationsResponse200) & {
+  headers: Headers;
+};
+;
+
+export type listConversationsResponse = (listConversationsResponseSuccess)
+
+export const getListConversationsUrl = (params: ListConversationsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/v1/internal/conversations?${stringifiedParams}` : `/v1/internal/conversations`
+}
+
+/**
+ * Returns the most recent message per active conversation for a tenant.
+ * @summary List active conversations
+ */
+export const listConversations = async (params: ListConversationsParams, options?: RequestInit): Promise<listConversationsResponse> => {
+
+  return customFetch<listConversationsResponse>(getListConversationsUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+export type getConversationThreadResponse200 = {
+  data: GetConversationThread200
+  status: 200
+}
+
+export type getConversationThreadResponseSuccess = (getConversationThreadResponse200) & {
+  headers: Headers;
+};
+;
+
+export type getConversationThreadResponse = (getConversationThreadResponseSuccess)
+
+export const getGetConversationThreadUrl = (recipientBsuid: string,
+    params: GetConversationThreadParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/v1/internal/conversations/${recipientBsuid}?${stringifiedParams}` : `/v1/internal/conversations/${recipientBsuid}`
+}
+
+/**
+ * Returns full message history and session-open state for one recipient.
+ * @summary Get conversation thread
+ */
+export const getConversationThread = async (recipientBsuid: string,
+    params: GetConversationThreadParams, options?: RequestInit): Promise<getConversationThreadResponse> => {
+
+  return customFetch<getConversationThreadResponse>(getGetConversationThreadUrl(recipientBsuid,params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+export type replyToConversationResponse202 = {
+  data: void
+  status: 202
+}
+
+export type replyToConversationResponse409 = {
+  data: void
+  status: 409
+}
+
+export type replyToConversationResponseSuccess = (replyToConversationResponse202) & {
+  headers: Headers;
+};
+export type replyToConversationResponseError = (replyToConversationResponse409) & {
+  headers: Headers;
+};
+
+export type replyToConversationResponse = (replyToConversationResponseSuccess | replyToConversationResponseError)
+
+export const getReplyToConversationUrl = (recipientBsuid: string,
+    params: ReplyToConversationParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/v1/internal/conversations/${recipientBsuid}/reply?${stringifiedParams}` : `/v1/internal/conversations/${recipientBsuid}/reply`
+}
+
+/**
+ * Enqueues a free-text reply if the 24h session window is open.
+ * @summary Reply within an open conversation
+ */
+export const replyToConversation = async (recipientBsuid: string,
+    replyToConversationBody: ReplyToConversationBody,
+    params: ReplyToConversationParams, options?: RequestInit): Promise<replyToConversationResponse> => {
+
+  return customFetch<replyToConversationResponse>(getReplyToConversationUrl(recipientBsuid,params),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      replyToConversationBody,)
   }
 );}
 

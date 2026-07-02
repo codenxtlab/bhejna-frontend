@@ -8,12 +8,10 @@ It provides a contract-first API for sending messages, tracking delivery status,
  * OpenAPI spec version: 1.0.0
  */
 
-export type TemplateButtonType = typeof TemplateButtonType[keyof typeof TemplateButtonType];
+export type MessageDirection = typeof MessageDirection[keyof typeof MessageDirection];
 
 
-export const TemplateButtonType = {
-  QUICK_REPLY: 'QUICK_REPLY',
-  URL: 'URL',
-  PHONE_NUMBER: 'PHONE_NUMBER',
-  OTP: 'OTP',
+export const MessageDirection = {
+  inbound: 'inbound',
+  outbound: 'outbound',
 } as const;

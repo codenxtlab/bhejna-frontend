@@ -15,6 +15,8 @@ import type { SendMessageRequestTemplateComponentsItemParametersItemVideo } from
 export type SendMessageRequestTemplateComponentsItemParametersItem = {
   type: SendMessageRequestTemplateComponentsItemParametersItemType;
   text?: string;
+  /** For quick_reply button parameters */
+  payload?: string;
   image?: SendMessageRequestTemplateComponentsItemParametersItemImage;
   document?: SendMessageRequestTemplateComponentsItemParametersItemDocument;
   video?: SendMessageRequestTemplateComponentsItemParametersItemVideo;

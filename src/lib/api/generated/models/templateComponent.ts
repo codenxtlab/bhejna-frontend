@@ -17,6 +17,10 @@ export interface TemplateComponent {
   /** v1 TEXT-only, media via Resumable Upload is planned */
   format?: TemplateComponentFormat;
   text?: string;
+  /** AUTHENTICATION templates, BODY component: appends Meta's security disclaimer */
+  add_security_recommendation?: boolean;
+  /** AUTHENTICATION templates, FOOTER component: code validity note (1-90) */
+  code_expiration_minutes?: number;
   /** Meta-required sample values for variables, e.g. {"body_text":[["Jessica","ORD-123"]]} */
   example?: TemplateComponentExample;
   buttons?: TemplateButton[];

@@ -7,13 +7,10 @@ It provides a contract-first API for sending messages, tracking delivery status,
 
  * OpenAPI spec version: 1.0.0
  */
+import type { Message } from './message';
 
-export type TemplateButtonType = typeof TemplateButtonType[keyof typeof TemplateButtonType];
-
-
-export const TemplateButtonType = {
-  QUICK_REPLY: 'QUICK_REPLY',
-  URL: 'URL',
-  PHONE_NUMBER: 'PHONE_NUMBER',
-  OTP: 'OTP',
-} as const;
+export type GetConversationThread200 = {
+  messages?: Message[];
+  session_active?: boolean;
+  display_name?: string | null;
+};
