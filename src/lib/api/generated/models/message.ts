@@ -18,5 +18,6 @@ export interface Message {
   meta_message_id?: string | null;
   job_id?: string | null;
   display_name?: string | null;
+  phone_number?: string | null;
   created_at?: string;
 }

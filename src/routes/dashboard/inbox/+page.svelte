@@ -11,6 +11,7 @@
 	let selectedBsuid = $state<string | null>(null);
 	let threadMessages = $state<Message[]>([]);
 	let threadDisplayName = $state<string | null>(null);
+	let threadPhoneNumber = $state<string | null>(null);
 	let sessionActive = $state(false);
 	let threadLoading = $state(false);
 	let replyBody = $state('');
@@ -35,6 +36,7 @@
 			threadMessages = data.messages || [];
 			sessionActive = !!data.session_active;
 			threadDisplayName = data.display_name ?? null;
+			threadPhoneNumber = data.phone_number ?? null;
 		} catch (err) {
 			console.error('Failed to fetch thread:', err);
 		} finally {
@@ -56,6 +58,7 @@
 		selectedBsuid = bsuid;
 		replyBody = '';
 		threadDisplayName = null;
+		threadPhoneNumber = null;
 		lastSelectedFingerprint = fingerprintFor(bsuid);
 		fetchThread(bsuid);
 	}
@@ -143,6 +146,9 @@
 							{#if conv.display_name}
 								<span class="font-mono text-[10px] text-slate-500 truncate">{conv.recipient_bsuid}</span>
 							{/if}
+							{#if conv.phone_number && conv.phone_number !== conv.display_name && conv.phone_number !== conv.recipient_bsuid}
+								<span class="font-mono text-[10px] text-slate-500 truncate">{conv.phone_number}</span>
+							{/if}
 							<p class="mt-1 truncate text-xs text-slate-400">
 								{conv.direction === 'outbound' ? 'You: ' : ''}{conv.body || ''}
 							</p>
@@ -165,8 +171,10 @@
 				<div class="border-b border-slate-800 px-4 py-3 flex items-center justify-between">
 					<div class="flex flex-col">
 						<span class="text-xs font-semibold text-slate-200">{threadDisplayName || selectedBsuid}</span>
-						{#if threadDisplayName}
-							<span class="font-mono text-[10px] text-slate-500">{selectedBsuid}</span>
+						{#if threadDisplayName || threadPhoneNumber}
+							<span class="font-mono text-[10px] text-slate-500">
+								{threadDisplayName ? selectedBsuid : ''}{threadDisplayName && threadPhoneNumber ? ' · ' : ''}{threadPhoneNumber ?? ''}
+							</span>
 						{/if}
 					</div>
 					{#if sessionActive}
