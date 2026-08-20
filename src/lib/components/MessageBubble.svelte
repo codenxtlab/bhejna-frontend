@@ -17,7 +17,7 @@
 
 	function formatTime(iso?: string) {
 		if (!iso) return '';
-		return new Date(iso).toLocaleString();
+		return new Date(iso).toLocaleTimeString(undefined, { timeStyle: 'short' });
 	}
 
 	// Stickers and reactions read better without a chat bubble around them.
@@ -30,7 +30,7 @@
 			Reacted <span class="text-base not-italic">{media.emoji}</span>
 		</span>
 	{:else if bare && media?.type === 'sticker'}
-		<div class="max-w-[70%]">
+		<div class="max-w-[85%] sm:max-w-[70%]">
 			<img
 				{src}
 				alt={media.caption || 'Sticker'}
@@ -42,9 +42,9 @@
 		</div>
 	{:else}
 		<div
-			class="max-w-[70%] rounded-xl px-3.5 py-2 text-xs {outbound
-				? 'bg-blue-600 text-white'
-				: 'bg-slate-800 text-slate-200'}"
+			class="max-w-[85%] rounded-2xl px-3.5 py-2 text-sm sm:max-w-[70%] md:text-xs {outbound
+				? 'rounded-br-md bg-blue-600 text-white'
+				: 'rounded-bl-md bg-slate-800 text-slate-200'}"
 		>
 			{#if media && !mediaFailed}
 				{#if media.type === 'image'}
@@ -54,7 +54,7 @@
 							{src}
 							alt={media.caption || 'Photo'}
 							loading="lazy"
-							class="max-h-64 rounded-lg"
+							class="max-h-72 w-auto rounded-lg"
 							onerror={() => (mediaFailed = true)}
 						/>
 					</a>
@@ -65,7 +65,7 @@
 						controls
 						preload="metadata"
 						aria-label={media.caption || 'Video'}
-						class="max-h-64 rounded-lg"
+						class="max-h-72 w-auto rounded-lg"
 						onerror={() => (mediaFailed = true)}
 					></video>
 				{:else if media.type === 'audio'}

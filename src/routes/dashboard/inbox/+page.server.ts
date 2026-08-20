@@ -70,7 +70,7 @@ export const actions: Actions = {
 
 		if (response.status === 409) {
 			return fail(409, {
-				message: 'Session expired — send a template to reopen this conversation.',
+				message: 'Session expired. Send a template to reopen this conversation.',
 				sessionClosed: true
 			});
 		}
