@@ -10,7 +10,9 @@
 		BellOff,
 		BellRing,
 		Download,
-		ArrowLeft
+		ArrowLeft,
+		Share,
+		SquarePlus
 	} from 'lucide-svelte';
 	import type { Message } from '$lib/api/generated/models';
 	import MessageBubble from '$lib/components/MessageBubble.svelte';
@@ -192,6 +194,10 @@
 		return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
 	}
 
+	// iOS Safari has no install API, only the share sheet. All we can do is
+	// point at it.
+	let iosSheet = $state<HTMLDialogElement | null>(null);
+
 	function initials(name: string) {
 		const parts = name.trim().split(/\s+/).filter(Boolean);
 		if (parts.length > 1) return (parts[0][0] + parts[1][0]).toUpperCase();
@@ -226,10 +232,10 @@
 			>
 				<h2 class="text-base font-semibold text-slate-100 md:text-sm">Conversations</h2>
 				<div class="flex items-center gap-1">
-					{#if install.available}
+					{#if install.available || install.manual}
 						<button
 							type="button"
-							onclick={promptInstall}
+							onclick={() => (install.manual ? iosSheet?.showModal() : promptInstall())}
 							title="Install Bhejna as an app on this device"
 							class="flex h-9 shrink-0 items-center gap-1.5 rounded-lg bg-blue-600/15 px-2.5 text-xs font-medium text-blue-400 transition-colors hover:bg-blue-600/25 active:scale-[0.97]"
 						>
@@ -444,4 +450,32 @@
 			{/if}
 		</section>
 	</main>
+
+	<!-- Native <dialog>: modal behaviour, focus trap and Esc-to-close for free. -->
+	<dialog
+		bind:this={iosSheet}
+		class="m-auto w-[min(22rem,calc(100vw-2rem))] rounded-2xl border border-slate-800 bg-slate-900 p-5 text-slate-100 backdrop:bg-black/60"
+	>
+		<h3 class="text-sm font-semibold">Add Bhejna to your Home Screen</h3>
+		<ol class="mt-3 space-y-2.5 text-xs text-slate-400">
+			<li class="flex items-center gap-2">
+				<Share size={16} class="shrink-0 text-slate-300" />
+				Tap Share in the Safari toolbar.
+			</li>
+			<li class="flex items-center gap-2">
+				<SquarePlus size={16} class="shrink-0 text-slate-300" />
+				Choose "Add to Home Screen", then Add.
+			</li>
+		</ol>
+		<p class="mt-3 text-[11px] text-slate-500">
+			Notifications only work once the app runs from the Home Screen.
+		</p>
+		<button
+			type="button"
+			onclick={() => iosSheet?.close()}
+			class="mt-4 h-10 w-full rounded-xl bg-slate-800 text-xs font-medium text-slate-200 transition-colors hover:bg-slate-700 active:scale-[0.98]"
+		>
+			Got it
+		</button>
+	</dialog>
 </div>

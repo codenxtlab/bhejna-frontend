@@ -14,10 +14,15 @@ function urlBase64ToUint8Array(base64: string): Uint8Array {
 	return output;
 }
 
-// Registers the push service worker. Manual because auto-registration is off:
-// this worker is only for the inbox, not for visitors to the public pages.
+// Registers the service worker. Manual because auto-registration is off: this
+// worker is only for the inbox, not for visitors to the public pages.
+//
+// Gated on serviceWorker alone, NOT on pushSupported(): a registered worker is
+// also what makes the browser treat the app as installable. Requiring
+// PushManager here meant iOS Safari, which only exposes it once the app is
+// already installed, could never register and so could never be installed.
 async function ensureServiceWorker(): Promise<ServiceWorkerRegistration | undefined> {
-	if (!pushSupported()) return undefined;
+	if (typeof navigator === 'undefined' || !('serviceWorker' in navigator)) return undefined;
 	const existing = await navigator.serviceWorker.getRegistration();
 	if (existing) return existing;
 	return navigator.serviceWorker.register(`${base}/service-worker.js`, {
@@ -34,11 +39,11 @@ export function pushSupported(): boolean {
 	);
 }
 
-// Called once when the inbox mounts: registers the push worker for this
-// operator and reports whether they've already opted in. This is the only
-// place the worker is ever installed — public pages never touch it.
+// Called once when the inbox mounts: registers the worker for this operator and
+// reports whether they've already opted in. This is the only place the worker is
+// ever installed, public pages never touch it. Registration runs even where push
+// is unsupported, because the worker also gates PWA installability.
 export async function initPush(): Promise<PushState> {
-	if (!pushSupported()) return 'unsupported';
 	await ensureServiceWorker().catch((err) =>
 		console.error('Service worker registration failed:', err)
 	);
@@ -74,15 +79,31 @@ export async function enablePush(): Promise<PushState> {
 
 	await ensureServiceWorker();
 	const reg = await navigator.serviceWorker.ready;
-	// Reuse an existing subscription if the browser already has one; calling
-	// subscribe() again with the same key returns it anyway, but re-POSTing
-	// keeps the server row alive after a DB reset.
-	const sub =
-		(await reg.pushManager.getSubscription()) ??
-		(await reg.pushManager.subscribe({
-			userVisibleOnly: true,
-			applicationServerKey: urlBase64ToUint8Array(vapidKey) as BufferSource
-		}));
+	const appServerKey = urlBase64ToUint8Array(vapidKey);
+
+	// Reuse an existing subscription if the browser already has one; re-POSTing
+	// it keeps the server row alive after a DB reset.
+	//
+	// Unless the VAPID key rotated: a subscription is permanently bound to the
+	// key it was created with, and the browser keeps handing back the stale one
+	// forever while the gateway rejects every send against it. Compare and
+	// re-subscribe rather than leaving a device silently dead.
+	let sub = await reg.pushManager.getSubscription();
+	const boundKey = sub?.options.applicationServerKey;
+	if (
+		sub &&
+		(!boundKey ||
+			boundKey.byteLength !== appServerKey.length ||
+			!new Uint8Array(boundKey).every((byte, i) => byte === appServerKey[i]))
+	) {
+		await sub.unsubscribe();
+		sub = null;
+	}
+
+	sub ??= await reg.pushManager.subscribe({
+		userVisibleOnly: true,
+		applicationServerKey: appServerKey as BufferSource
+	});
 
 	const res = await fetch('/api/push/subscribe', {
 		method: 'POST',

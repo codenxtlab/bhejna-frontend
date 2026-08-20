@@ -12,7 +12,9 @@ export const install = $state({
 	/** The browser has offered an install prompt we can trigger. */
 	available: false,
 	/** Already running as an installed app. */
-	installed: false
+	installed: false,
+	/** iOS Safari installs only through its own share sheet: show instructions. */
+	manual: false
 });
 
 if (browser) {
@@ -37,6 +39,17 @@ if (browser) {
 		window.matchMedia('(display-mode: standalone)').matches ||
 		// iOS Safari reports standalone here instead.
 		(navigator as Navigator & { standalone?: boolean }).standalone === true;
+
+	// beforeinstallprompt is Chromium-only. iOS Safari never fires it, so without
+	// this branch the install button is invisible on exactly the device most
+	// likely to want the app on its home screen.
+	const ua = navigator.userAgent;
+	const isIos =
+		/iphone|ipad|ipod/i.test(ua) ||
+		// iPadOS 13+ claims to be desktop Safari; touch points give it away.
+		(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+	const isSafari = /safari/i.test(ua) && !/chrome|crios|fxios|edgios|android/i.test(ua);
+	install.manual = isIos && isSafari && !install.installed;
 }
 
 /**
