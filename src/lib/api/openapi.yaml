@@ -359,9 +359,61 @@ components:
         display_name:
           type: string
           nullable: true
+        phone_number:
+          type: string
+          nullable: true
+        media:
+          $ref: '#/components/schemas/MessageMedia'
         created_at:
           type: string
           format: date-time
+
+    MessageMedia:
+      type: object
+      description: >-
+        Descriptor for a non-text inbound message. Null for plain text and
+        interactive replies. `type` selects which of the remaining fields are
+        populated; media files are fetched via the id, never inlined.
+      properties:
+        type:
+          type: string
+          enum: [image, sticker, video, audio, document, location, contacts, reaction, unsupported]
+        id:
+          type: string
+          description: Meta media id, for image/sticker/video/audio/document.
+        mime_type:
+          type: string
+        caption:
+          type: string
+        filename:
+          type: string
+        animated:
+          type: boolean
+          description: Sticker only.
+        voice:
+          type: boolean
+          description: Audio only; true for a push-to-talk voice note.
+        latitude:
+          type: number
+        longitude:
+          type: number
+        name:
+          type: string
+        address:
+          type: string
+        emoji:
+          type: string
+          description: Reaction only.
+        target:
+          type: string
+          description: Reaction only; the wamid the reaction applies to.
+        contacts:
+          type: array
+          items:
+            type: string
+        error:
+          type: string
+          description: Why Meta could not deliver a renderable message.
 
     Tenant:
       type: object
@@ -1142,6 +1194,9 @@ paths:
                   session_active:
                     type: boolean
                   display_name:
+                    type: string
+                    nullable: true
+                  phone_number:
                     type: string
                     nullable: true
 

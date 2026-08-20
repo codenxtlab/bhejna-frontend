@@ -13,4 +13,5 @@ export type GetConversationThread200 = {
   messages?: Message[];
   session_active?: boolean;
   display_name?: string | null;
+  phone_number?: string | null;
 };

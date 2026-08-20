@@ -8,6 +8,7 @@ It provides a contract-first API for sending messages, tracking delivery status,
  * OpenAPI spec version: 1.0.0
  */
 import type { MessageDirection } from './messageDirection';
+import type { MessageMedia } from './messageMedia';
 
 export interface Message {
   id?: string;
@@ -19,5 +20,6 @@ export interface Message {
   job_id?: string | null;
   display_name?: string | null;
   phone_number?: string | null;
+  media?: MessageMedia;
   created_at?: string;
 }

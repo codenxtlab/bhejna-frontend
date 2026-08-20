@@ -4,6 +4,7 @@ import { redirect } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import { env } from '$env/dynamic/public';
 import { paraglideMiddleware } from '$lib/paraglide/server';
+import { loginUrlFor } from '$lib/server/redirects';
 import { getTextDirection } from '$lib/paraglide/runtime';
 
 const handleSupabase: Handle = async ({ event, resolve }) => {
@@ -64,8 +65,11 @@ const handleSupabase: Handle = async ({ event, resolve }) => {
 	event.locals.user = user;
 
 	// 4. Run authguard logic: if pathname starts with /dashboard and safeGetSession returns no session, redirect to /login
+	// Carry the intended destination through the login round trip. Without this
+	// a PWA launch (or a tapped notification) lands on /dashboard instead of the
+	// inbox the user was actually going to.
 	if (event.url.pathname.startsWith('/dashboard') && !session) {
-		throw redirect(303, '/login');
+		throw redirect(303, loginUrlFor(event.url.pathname + event.url.search));
 	}
 
 	return resolve(event, {

@@ -3,11 +3,12 @@ import type { Actions, PageServerLoad } from './$types';
 import { env } from '$env/dynamic/private';
 import { listConversations, replyToConversation } from '$lib/api/generated/client';
 import { requireAdmin } from '$lib/server/adminGuard';
+import { loginUrlFor } from '$lib/server/redirects';
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals, url }) => {
 	const { session, user } = await locals.safeGetSession();
 	if (!session || !user) {
-		throw redirect(303, '/login');
+		throw redirect(303, loginUrlFor(url.pathname + url.search));
 	}
 	requireAdmin(user.email);
 

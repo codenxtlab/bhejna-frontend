@@ -493,6 +493,24 @@ export const ListConversationsResponseItem = zod.object({
   "meta_message_id": zod.string().nullish(),
   "job_id": zod.string().nullish(),
   "display_name": zod.string().nullish(),
+  "phone_number": zod.string().nullish(),
+  "media": zod.object({
+  "type": zod.enum(['image', 'sticker', 'video', 'audio', 'document', 'location', 'contacts', 'reaction', 'unsupported']).optional(),
+  "id": zod.string().optional().describe('Meta media id, for image\/sticker\/video\/audio\/document.'),
+  "mime_type": zod.string().optional(),
+  "caption": zod.string().optional(),
+  "filename": zod.string().optional(),
+  "animated": zod.boolean().optional().describe('Sticker only.'),
+  "voice": zod.boolean().optional().describe('Audio only; true for a push-to-talk voice note.'),
+  "latitude": zod.number().optional(),
+  "longitude": zod.number().optional(),
+  "name": zod.string().optional(),
+  "address": zod.string().optional(),
+  "emoji": zod.string().optional().describe('Reaction only.'),
+  "target": zod.string().optional().describe('Reaction only; the wamid the reaction applies to.'),
+  "contacts": zod.array(zod.string()).optional(),
+  "error": zod.string().optional().describe('Why Meta could not deliver a renderable message.')
+}).optional().describe('Descriptor for a non-text inbound message. Null for plain text and interactive replies. `type` selects which of the remaining fields are populated; media files are fetched via the id, never inlined.'),
   "created_at": zod.iso.datetime({"offset":true}).optional()
 })
 export const ListConversationsResponse = zod.array(ListConversationsResponseItem)
@@ -520,10 +538,29 @@ export const GetConversationThreadResponse = zod.object({
   "meta_message_id": zod.string().nullish(),
   "job_id": zod.string().nullish(),
   "display_name": zod.string().nullish(),
+  "phone_number": zod.string().nullish(),
+  "media": zod.object({
+  "type": zod.enum(['image', 'sticker', 'video', 'audio', 'document', 'location', 'contacts', 'reaction', 'unsupported']).optional(),
+  "id": zod.string().optional().describe('Meta media id, for image\/sticker\/video\/audio\/document.'),
+  "mime_type": zod.string().optional(),
+  "caption": zod.string().optional(),
+  "filename": zod.string().optional(),
+  "animated": zod.boolean().optional().describe('Sticker only.'),
+  "voice": zod.boolean().optional().describe('Audio only; true for a push-to-talk voice note.'),
+  "latitude": zod.number().optional(),
+  "longitude": zod.number().optional(),
+  "name": zod.string().optional(),
+  "address": zod.string().optional(),
+  "emoji": zod.string().optional().describe('Reaction only.'),
+  "target": zod.string().optional().describe('Reaction only; the wamid the reaction applies to.'),
+  "contacts": zod.array(zod.string()).optional(),
+  "error": zod.string().optional().describe('Why Meta could not deliver a renderable message.')
+}).optional().describe('Descriptor for a non-text inbound message. Null for plain text and interactive replies. `type` selects which of the remaining fields are populated; media files are fetched via the id, never inlined.'),
   "created_at": zod.iso.datetime({"offset":true}).optional()
 })).optional(),
   "session_active": zod.boolean().optional(),
-  "display_name": zod.string().nullish()
+  "display_name": zod.string().nullish(),
+  "phone_number": zod.string().nullish()
 })
 
 

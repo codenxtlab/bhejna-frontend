@@ -12,6 +12,16 @@
 	let error = $state('');
 	let loading = $state(false);
 
+	// `action="?/login"` would replace the whole query string, dropping the
+	// ?next= that tells us to come back to the inbox after signing in. Carry it
+	// on the action URL instead — SvelteKit reads the action from the key
+	// starting with "/", so extra params ride along fine.
+	const loginAction = $derived(
+		page.url.searchParams.has('next')
+			? `?/login&next=${encodeURIComponent(page.url.searchParams.get('next')!)}`
+			: '?/login'
+	);
+
 	$effect(() => {
 		const urlError = page.url.searchParams.get('error');
 		if (urlError === 'auth_failed') {
@@ -38,7 +48,7 @@
 
 		<form
 			method="POST"
-			action="?/login"
+			action={loginAction}
 			use:enhance={() => {
 				loading = true;
 				error = '';

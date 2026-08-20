@@ -2,8 +2,11 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 	import { enhance } from '$app/forms';
-	import { Send, Loader2, MessageSquare } from 'lucide-svelte';
+	import { Send, Loader2, MessageSquare, Bell, BellOff, BellRing, Download } from 'lucide-svelte';
 	import type { Message } from '$lib/api/generated/models';
+	import MessageBubble from '$lib/components/MessageBubble.svelte';
+	import { initPush, enablePush, disablePush, type PushState } from '$lib/push';
+	import { install, promptInstall } from '$lib/install.svelte';
 
 	let { data, form } = $props();
 
@@ -102,11 +105,27 @@
 	onMount(() => {
 		document.addEventListener('visibilitychange', handleVisibilityChange);
 		if (!document.hidden) startPolling();
+		initPush().then((s) => (pushState = s));
 	});
 	onDestroy(() => {
 		stopPolling();
 		if (browser) document.removeEventListener('visibilitychange', handleVisibilityChange);
 	});
+
+	// Push covers the case polling can't: the tab is closed, or the operator is
+	// away from this machine entirely.
+	let pushState = $state<PushState>('unsupported');
+	let pushBusy = $state(false);
+
+	async function togglePush() {
+		if (pushBusy || pushState === 'blocked' || pushState === 'unsupported') return;
+		pushBusy = true;
+		try {
+			pushState = pushState === 'on' ? await disablePush() : await enablePush();
+		} finally {
+			pushBusy = false;
+		}
+	}
 
 	function formatTime(iso?: string) {
 		if (!iso) return '';
@@ -116,16 +135,66 @@
 
 <svelte:head>
 	<title>Inbox | Bhejna</title>
+	<!-- PWA install is offered here only. Linking the manifest from app.html
+	     would advertise "Install Bhejna" to every visitor on the landing page,
+	     docs and login — this is a single-operator tool. -->
+	<link rel="manifest" href="/manifest.webmanifest" />
+	<link rel="apple-touch-icon" href="/icon-192.png" />
+	<meta name="theme-color" content="#020617" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-title" content="Bhejna" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </svelte:head>
 
 <div class="min-h-screen bg-slate-950 font-sans text-slate-100">
 	<main class="mx-auto flex h-[calc(100vh-2rem)] w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
 		<!-- Left Pane: Conversation List -->
-		<div class="flex w-80 shrink-0 flex-col rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
-			<div class="border-b border-slate-800 px-4 py-3">
+		<div
+			class="flex w-80 shrink-0 flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900"
+		>
+			<div class="flex items-center justify-between gap-2 border-b border-slate-800 px-4 py-3">
 				<h2 class="text-sm font-semibold text-slate-100">Conversations</h2>
+				<div class="flex items-center gap-1">
+					{#if install.available}
+						<button
+							type="button"
+							onclick={promptInstall}
+							title="Install Bhejna as an app on this device"
+							class="flex shrink-0 items-center gap-1 rounded-lg bg-blue-600/15 px-2 py-1 text-[10px] font-medium text-blue-400 transition-colors hover:bg-blue-600/25"
+						>
+							<Download size={12} />
+							Install
+						</button>
+					{/if}
+					{#if pushState !== 'unsupported'}
+						<button
+							type="button"
+							onclick={togglePush}
+							disabled={pushBusy || pushState === 'blocked'}
+							title={pushState === 'blocked'
+								? 'Notifications are blocked in your browser settings'
+								: pushState === 'on'
+									? 'Notifications on — click to turn off'
+									: 'Get notified of new messages, even with this tab closed'}
+							class="rounded-lg p-1.5 transition-colors disabled:cursor-not-allowed disabled:opacity-50 {pushState ===
+							'on'
+								? 'text-blue-400 hover:bg-slate-800'
+								: 'text-slate-500 hover:bg-slate-800 hover:text-slate-300'}"
+						>
+							{#if pushBusy}
+								<Loader2 size={16} class="animate-spin" />
+							{:else if pushState === 'on'}
+								<BellRing size={16} />
+							{:else if pushState === 'blocked'}
+								<BellOff size={16} />
+							{:else}
+								<Bell size={16} />
+							{/if}
+						</button>
+					{/if}
+				</div>
 			</div>
-			<div class="flex-1 overflow-y-auto divide-y divide-slate-850">
+			<div class="divide-slate-850 flex-1 divide-y overflow-y-auto">
 				{#if conversations.length === 0}
 					<div class="p-6 text-center text-xs text-slate-500">
 						No conversations yet. Inbound messages will appear here.
@@ -135,19 +204,27 @@
 						<button
 							type="button"
 							onclick={() => selectConversation(conv.recipient_bsuid!)}
-							class="w-full px-4 py-3 text-left transition-colors hover:bg-slate-800/60 {selectedBsuid === conv.recipient_bsuid ? 'bg-slate-800/80' : ''}"
+							class="w-full px-4 py-3 text-left transition-colors hover:bg-slate-800/60 {selectedBsuid ===
+							conv.recipient_bsuid
+								? 'bg-slate-800/80'
+								: ''}"
 						>
 							<div class="flex items-center justify-between gap-2">
-								<span class="text-xs font-semibold text-slate-200 truncate">
+								<span class="truncate text-xs font-semibold text-slate-200">
 									{conv.display_name || conv.recipient_bsuid}
 								</span>
-								<span class="shrink-0 text-[9px] text-slate-500">{formatTime(conv.created_at)}</span>
+								<span class="shrink-0 text-[9px] text-slate-500">{formatTime(conv.created_at)}</span
+								>
 							</div>
 							{#if conv.display_name}
-								<span class="font-mono text-[10px] text-slate-500 truncate">{conv.recipient_bsuid}</span>
+								<span class="truncate font-mono text-[10px] text-slate-500"
+									>{conv.recipient_bsuid}</span
+								>
 							{/if}
 							{#if conv.phone_number && conv.phone_number !== conv.display_name && conv.phone_number !== conv.recipient_bsuid}
-								<span class="font-mono text-[10px] text-slate-500 truncate">{conv.phone_number}</span>
+								<span class="truncate font-mono text-[10px] text-slate-500"
+									>{conv.phone_number}</span
+								>
 							{/if}
 							<p class="mt-1 truncate text-xs text-slate-400">
 								{conv.direction === 'outbound' ? 'You: ' : ''}{conv.body || ''}
@@ -159,7 +236,9 @@
 		</div>
 
 		<!-- Right Pane: Selected Thread -->
-		<div class="flex flex-1 flex-col rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+		<div
+			class="flex flex-1 flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900"
+		>
 			{#if !selectedBsuid}
 				<div class="flex flex-1 items-center justify-center text-slate-600">
 					<div class="text-center">
@@ -168,35 +247,40 @@
 					</div>
 				</div>
 			{:else}
-				<div class="border-b border-slate-800 px-4 py-3 flex items-center justify-between">
+				<div class="flex items-center justify-between border-b border-slate-800 px-4 py-3">
 					<div class="flex flex-col">
-						<span class="text-xs font-semibold text-slate-200">{threadDisplayName || selectedBsuid}</span>
+						<span class="text-xs font-semibold text-slate-200"
+							>{threadDisplayName || selectedBsuid}</span
+						>
 						{#if threadDisplayName || threadPhoneNumber}
 							<span class="font-mono text-[10px] text-slate-500">
-								{threadDisplayName ? selectedBsuid : ''}{threadDisplayName && threadPhoneNumber ? ' · ' : ''}{threadPhoneNumber ?? ''}
+								{threadDisplayName ? selectedBsuid : ''}{threadDisplayName && threadPhoneNumber
+									? ' · '
+									: ''}{threadPhoneNumber ?? ''}
 							</span>
 						{/if}
 					</div>
 					{#if sessionActive}
-						<span class="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-medium text-emerald-400 border border-emerald-500/20">Session Open</span>
+						<span
+							class="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-medium text-emerald-400"
+							>Session Open</span
+						>
 					{:else}
-						<span class="rounded-full bg-slate-800 px-2.5 py-0.5 text-[10px] font-medium text-slate-400 border border-slate-700">Session Closed</span>
+						<span
+							class="rounded-full border border-slate-700 bg-slate-800 px-2.5 py-0.5 text-[10px] font-medium text-slate-400"
+							>Session Closed</span
+						>
 					{/if}
 				</div>
 
-				<div class="flex-1 overflow-y-auto p-4 space-y-3">
+				<div class="flex-1 space-y-3 overflow-y-auto p-4">
 					{#if threadLoading && threadMessages.length === 0}
 						<div class="flex justify-center py-8">
 							<Loader2 size={20} class="animate-spin text-slate-600" />
 						</div>
 					{:else}
 						{#each threadMessages as msg (msg.id)}
-							<div class="flex {msg.direction === 'outbound' ? 'justify-end' : 'justify-start'}">
-								<div class="max-w-[70%] rounded-xl px-3.5 py-2 text-xs {msg.direction === 'outbound' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-200'}">
-									<p class="whitespace-pre-wrap">{msg.body}</p>
-									<span class="mt-1 block text-[9px] opacity-60">{formatTime(msg.created_at)}</span>
-								</div>
-							</div>
+							<MessageBubble {msg} />
 						{/each}
 					{/if}
 				</div>
@@ -232,13 +316,15 @@
 							name="body"
 							bind:value={replyBody}
 							disabled={!sessionActive || sending}
-							placeholder={sessionActive ? 'Type a reply...' : 'Session expired — send a template to reopen'}
-							class="flex-1 rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 text-sm text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all disabled:opacity-50"
+							placeholder={sessionActive
+								? 'Type a reply...'
+								: 'Session expired — send a template to reopen'}
+							class="flex-1 rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 text-sm text-slate-200 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-hidden disabled:opacity-50"
 						/>
 						<button
 							type="submit"
 							disabled={!sessionActive || sending || !replyBody.trim()}
-							class="shrink-0 rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-[0.98] p-2.5 text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+							class="shrink-0 rounded-xl bg-blue-600 p-2.5 text-white transition-all hover:bg-blue-500 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
 						>
 							{#if sending}
 								<Loader2 size={16} class="animate-spin" />
@@ -248,7 +334,11 @@
 						</button>
 					</form>
 					{#if form?.message}
-						<p class="mt-2 text-xs {(form as any).sessionClosed ? 'text-amber-400' : 'text-red-400'}">{form.message}</p>
+						<p
+							class="mt-2 text-xs {(form as any).sessionClosed ? 'text-amber-400' : 'text-red-400'}"
+						>
+							{form.message}
+						</p>
 					{/if}
 				</div>
 			{/if}

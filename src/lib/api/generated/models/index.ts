@@ -33,6 +33,8 @@ export * from './mediaObject';
 export * from './mediaUploadResponse';
 export * from './message';
 export * from './messageDirection';
+export * from './messageMedia';
+export * from './messageMediaType';
 export * from './messageTemplate';
 export * from './messageTemplateQualityRating';
 export * from './messageType';
